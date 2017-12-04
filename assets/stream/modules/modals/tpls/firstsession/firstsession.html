@@ -1,0 +1,87 @@
+<div ng-controller="firstsessionModalController as vm" class="firstsessionModal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()"><i class="fa fa-close"></i></button>
+        <h3 ng-show="vm.section == 1" class="ta-center">Поздравляем с первым розыгрышем!<br/>Получай максимум пользы от сотрудничества со StreamPub!</h3>
+        <h3 ng-show="vm.section == 2" class="ta-center">Как продвинуть розыгрыш в Twitch?</h3>
+        <h3 ng-show="vm.section == 3" class="ta-center">Как продвинуть розыгрыш в ВКонтакте?</h3>
+        <h3 ng-show="vm.section == 4" class="ta-center">Бесплатные баннеры для твоих розыгрышей!</h3>
+        <h3 ng-show="vm.section == 5" class="ta-center">Много участников? Никаких проблем!</h3>
+        <h3 ng-show="vm.section == 6" class="ta-center">Мы хотим узнать о тебе больше!</h3>
+    </div>
+    <div class="modal-body">
+        <section id="slide-1" ng-show="vm.section == 1">
+            <img src="/src/img/base/firstsession/first-session.png"/>
+        </section>
+        <section id="slide-2" ng-show="vm.section == 2">
+            <h4 class="ta-left">1) Поставь «РОЗЫГРЫШ» или «ПОДАРКИ» в название трансляции.</h4>
+            <img class="img-thumbnail" src="/src/img/base/firstsession/section2-1.jpg"/>
+            <h4 class="ta-left">2) Сделай команду чат-бота – !Розыгрыш. Инструкция <a href="/faq/howto" target="_blank">здесь</a></h4>
+            <img class="img-thumbnail" src="/src/img/base/firstsession/section2-2.jpg"/>
+            <h4 class="ta-left">3) Рассказывай о нем почаще в своих эфирах :-)</h4>
+        </section>
+        <section id="slide-3" ng-show="vm.section == 3" class="ta-center">
+            <h4 class="ta-left">Сделай пост в своей группе</h4>
+            <ol class="ta-left">
+                <li>В нем может быть: название спонсора и приза, а также ссылка на розыгрыш.</li>
+                <li>Также можно рассказать про условия и способ участия.</li>
+                <li>Рекомендуем закрепить пост в шапке группы.</li>
+            </ol>
+            <img class="img-thumbnail div-margin-auto" src="/src/img/base/firstsession/section3-1.jpg"/>
+        </section>
+        <section id="slide-4" ng-show="vm.section == 4">
+            <h4 class="ta-left">Вставь его этот баннер в программу для стрима путем вставки Media - Browser Source</h4>
+            <div id="obs-overlay-info" class="no-animate" ng-class="{'obs-overlay-info-step1' : vm.countStep() <= 10,
+                                        'obs-overlay-info-step2' : vm.countStep() > 10 && vm.countStep() <= 20,
+                                        'obs-overlay-info-step3' : vm.countStep() > 20 && vm.countStep() <= 30,
+                                        'obs-overlay-info-step4' : vm.countStep() > 30 && vm.countStep() <= 40,
+                                        'obs-overlay-info-step5' : vm.countStep() > 40 && vm.countStep() <= 50,
+                                        'obs-overlay-info-step6' : vm.countStep() > 50 && vm.countStep() <= 60,
+                                        'obs-overlay-info-step7' : vm.countStep() > 60 && vm.countStep() <= 70,
+                                        'obs-overlay-info-step8' : vm.countStep() > 70 && vm.countStep() <= 80,
+                                        'obs-overlay-info-step9' : vm.countStep() > 80 && vm.countStep() <= 90,
+                                        'obs-overlay-info-step10' : vm.countStep() > 90}">
+                <img src="/src/img/widgets/obs/pattern.png"/>
+                <p class="count">{{vm.gaData.stats.activeMembers}} <span>/ {{vm.gaData.stats.minMembers}}</span></p>
+                <p class="text">Участвуй в<br/> розыгрыше</p>
+                <h1>{{vm.userInfo}}</h1>
+                <div class="blick-area"></div>
+            </div>
+            <h4 class="ta-left">Укажи точные размеры окна. Ширина 640px, высота 200px</h4>
+            <h3 class="ta-center">URL: <kbd>{{vm.userURL}}</kbd></h3>
+        </section>
+        <section id="slide-5" ng-show="vm.section == 5">
+            <h4 class="ta-left">1. Победителя определяет программа. Ей неважно сколько людей участвует.</h4>
+            <h4 class="ta-left">2. Связь с победителем и доставку приза мы берем на себя.</h4>
+            <h4 class="ta-left">3. Всем проигравшим – бонус (к примеру, скидка от спонсора). Обиженных не будет.</h4>
+            <h4 class="ta-left">4. Всех победителей мы просим оставлять отзывы о получении призов.</h4>
+        </section>
+        <section id="slide-6" ng-show="vm.section == 6">
+            <h4 class="ta-left">1. Как ты узнал о нас?</h4>
+            <input type="text" class="form-control" ng-model="vm.iKnowFrom" placeholder="Пару слов о том, откуда ты узнал о StreamPub"/>
+            <h4 class="ta-left">2. Какая у тебя ссылка на твою группу в Вконтакте? (мы будем предлагать твоим зрителям подписаться на неё)</h4>
+            <input type="text" class="form-control" ng-model="vm.vkLink" placeholder="https://vk.com/streampubnet"/>
+            <h4 class="ta-left">3. Дай нам ссылку на свой YouTube канал (мы будем предлагать твоим зрителям подписаться на него)</h4>
+            <input type="text" class="form-control" ng-model="vm.youtubeLink" placeholder="https://www.youtube.com/channel/UCVi2ZKqWJEW6xxSxF44GZbw"/>
+            <div class="ta-center button-end-area">
+                <button class="btn btn-lg btn-info" ng-click="vm.postAndGoToRaffle();$dismiss()">Отправить ответы и перейти к розыгрышу!</button>
+            </div>
+        </section>
+    </div>
+    <div class="modal-footer">
+        <div ng-hide="vm.section == 1 || vm.section == 6">
+            <button class="pull-right btn btn-success" ng-click="vm.section = vm.section + 1" ng-hide="vm.section == 6">Впeред  <i class="fa fa-arrow-right"></i></button>
+            <button class="pull-left btn btn-danger" ng-click="vm.section = vm.section - 1" ng-hide="vm.section == 1"><i class="fa fa-arrow-left"></i> Назад</button>
+        </div>
+        <div class="ta-center" ng-show="vm.section == 1">
+            <button class="btn btn-danger" ng-click="vm.section = vm.section + 1" ng-hide="vm.section == 6">Как это сделать?</button>
+        </div>
+        <div class="ta-center" ng-show="vm.section == 6">
+            <button class="pull-left btn btn-danger" ng-click="vm.section = vm.section - 1" ng-hide="vm.section == 1"><i class="fa fa-arrow-left"></i> Назад</button>
+            <div class="pull-right checkbox-area">
+                <input type="checkbox" ng-model="vm.checkboxHide">
+                <label>Больше не показывать</label>
+            </div>
+        </div>
+
+    </div>
+</div>

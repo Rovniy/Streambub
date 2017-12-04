@@ -1,0 +1,137 @@
+<div class="container-fluid" id="adminAdsCompanyList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Розыгрыши призов</h1>
+            <p>Список всех розыгрышей, созданых на сайте StreamPub</p>
+        </div>
+        <div>
+            <ul class="list-inline">
+                <li>
+                    <input type="checkbox" ng-model="vm.finished"  ng-change="vm.getRafflesList()"/>
+                    <label>FINISHED</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.rejected"  ng-change="vm.getRafflesList()"/>
+                    <label>REJECTED</label>
+                </li>
+                <li>
+                    <form class="form-inline">
+                        <input type="text" class="form-control" placeholder="Поиск по имени" ng-model="vm.searchName"/>
+                        <button type="submit" class="btn btn-success" ng-click="vm.getRafflesList()">Поиск</button>
+                    </form>
+
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                <tr>
+                    <td>
+                        #
+                    </td>
+                    <td ng-click="vm.order = 'organizer.name'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.order == 'organizer.name'}">
+                        Стример
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                    </td>
+                    <td>
+                        Спонсор
+                    </td>
+                    <td>
+                        Приз
+                    </td>
+                    <td class="ta-center" ng-click="vm.order = 'createTime'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.order == 'createTime'}">
+                        Запуск
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.order = 'finishDate'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.order == 'finishDate'}">
+                        Окончание
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                    </td>
+                    <td class="ta-center">
+                        Победитель
+                    </td>
+                    <td class="ta-center">
+                        Ссылка
+                    </td>
+                    <td class="ta-center" ng-click="vm.order = 'stats.activeMembers'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.order == 'stats.activeMembers'}">
+                        Участников
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                    </td>
+                    <td class="ta-center">
+                        Выгрузка
+                    </td>
+                    <td class="ta-center">
+                        Список ЦД
+                    </td>
+                    <td class="ta-center">
+                        Изменение
+                    </td>
+                    <td class="ta-center">
+                        Отмена
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="(key, row) in vm.rafflesList | orderBy: vm.order : vm.sortReverce  track by $index" ng-class="{'color-grey' : row.reject || row.finished}"  ng-if="vm.sortByCategory(row)">
+                    <td ng-bind="key+1"></td>
+                    <td><b>{{row.organizer.name}}</b></td>
+                    <td ng-bind="row.gifts[0].gift.campaign.sponsor.name"></td>
+                    <td>
+                        <img class="list-img"
+                             ng-repeat="image in row.gifts"
+                             src="{{image.gift.images[0].imageLink}}"
+                             uib-tooltip="{{image.gift.name}}"
+                             tooltip-placement="top"
+                             style="width:50px; height:50px;"/>
+                    </td>
+                    <td class="ta-center">{{row.createTime | date:'dd MMM yyyy'}}</td>
+                    <td class="ta-center">
+                        <span ng-if="row.finishDate">{{row.finishDate | date:'dd MMM yyyy'}}</span>
+                        <span ng-if="!row.finishDate">---</span>
+                    </td>
+                    <td class="ta-center">
+                        <div ng-if="row.winnerInfo.length > 0 && row.winnerInfo.length != 1" class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">Список победителей</a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                <li ng-repeat="user in row.winnerInfo" class="ta-center">{{user.name}}</li>
+                            </ul>
+                        </div>
+                        <span ng-if="row.winnerInfo.length == 1">{{row.winnerInfo[0].name}}</span>
+                        <span ng-if="row.winnerInfo.length == 0">---</span>
+                    </td>
+                    <td class="ta-center">
+                        <a ng-if="!row.reject" href="{{window.location.host}}/{{row.shortLink}}" target="_blank">{{row.shortLink}}</a>
+                        <span ng-if="row.reject">---</span>
+                    </td>
+                    <td class="ta-center">{{row.stats.activeMembers}} / {{row.stats.minMembers}} <br/>(<b>{{100 / row.stats.minMembers * row.stats.activeMembers | number: 1}}%</b>)</td>
+                    <td class="ta-center">
+                        <a class="btn btn-sm btn-info" ng-href="/api/adm/raffle/{{row.id}}/emails-members" target="_blank">Выгрузить</a>
+                    </td>
+                    <td class="ta-center">
+                        <a class="btn btn-sm btn-warning" ng-href="/api/adm/raffle/{{row.id}}/statistic" target="_blank">Выгрузить</a>
+                    </td>
+                    <td class="ta-center">
+                        <button class="btn btn-sm btn-success" ng-click="vm.updateRaffle(row)">Изменить</button>
+                    </td>
+                    <td class="ta-center" ng-if="!row.waiter">
+                        <i ng-hide="row.question" class="fa fa-ban color-red" ng-click="row.question = !row.question"></i>
+                        <span ng-show="row.question" class="question-area"><span ng-click="vm.cancelRaffleByAdmin(row); row.waiter = !row.waiter">Да</span> / <span ng-click="row.question = !row.question">Нет</span></span>
+                    </td>
+                    <td class="ta-center" ng-if="row.waiter">
+                        <i class="fa fa-spin fa-refresh color-red"></i>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="ta-center">
+                <i class="fa fa-spin fa-circle-o-notch fa-3x" ng-show="vm.waiterGetHttp"></i>
+            </div>
+
+        </div>
+
+    </div>
+</div>

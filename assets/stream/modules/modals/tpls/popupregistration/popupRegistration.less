@@ -1,0 +1,38 @@
+.popupRegForm {
+  .modal-body {
+    padding:0 150px;
+    form {
+      input {
+        margin:20px auto;
+      }
+    }
+    .btns-area {
+      button {
+        display: inline-block;
+      }
+    }
+    .btn-twitch {
+      margin: 0 0 20px;
+      background: @color-fiolet;
+      border-color: @color-fiolet;
+      color: @color-main;
+      &:hover {
+        background: @color-fiolet-hover;
+        border-color: @color-fiolet-hover;
+        color: @color-main;
+      }
+    }
+  }
+  .modal-footer {
+    .error-type {
+      margin:10px 0 0 0;
+      text-align: left;
+      font:1rem/1rem @f-bold;
+      color: @color-red;
+      padding:0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+}

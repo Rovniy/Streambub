@@ -1,0 +1,54 @@
+<div class="container-fluid" id="cpaMeshesMoeVideo">
+    <div class="container bg-white">
+        <div class="row script-area">
+            <script type="text/javascript">
+                var moevideo = moevideo || {};
+                moevideo.queue = moevideo.queue || [];
+                (function() {
+                    var mvads = document.createElement("script");
+                    mvads.async = true;
+                    mvads.type = "text/javascript";
+                    var useSSL = "https:" == document.location.protocol;
+                    mvads.src = (useSSL ? "https:" : "http:") + "//moevideo.biz/embed/js/mvpt.min.js";
+                    var node =document.getElementsByTagName("head")[0];
+                    node.appendChild(mvads, node);
+                })();
+            </script>
+        </div>
+        <div class="row title">
+            <h1>Просмотр видео</h1>
+            <h5>За просмотр каждого видео на этой странице тебе будет начисляться LUCK</h5>
+        </div>
+        <div class="row luck-area" ng-show="vm.iHaveLuckNow">
+            <h2 class="ta-center">Ты заработал <span>{{vm.myMoevideoLuck}}</span> LUCK за просмотр этих видео</h2>
+        </div>
+        <div class="row ta-center player-area">
+            <div id="playerArea"></div>
+
+            <script type='text/javascript'>
+                moevideo.queue.push(function() {
+                    moevideo.ContentRoll({
+                        mode:"manual",
+                        el:"playerArea",
+                        count:1,
+                        chars:1,
+                        width:400,
+                        align:"center",
+                        ignorePlayers:true,
+                        callback:function(event,el) {
+                            console.log('Видео окончено', event, el);
+                            checkVideoStatus(event);
+                        }
+                    });
+                });
+            </script>
+
+        </div>
+        <div class="row error-area" ng-show="vm.noVideo">
+            <h3>К сожалению, новых видео для тебя пока нет. Приходи через несколько часов, может что и появится ;-)</h3>
+        </div>
+        <div class="row error-area">
+            <button ng-click="vm.backToRaffle()">Вернуться в розыгрыш</button>
+        </div>
+    </div>
+</div>

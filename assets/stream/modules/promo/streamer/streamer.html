@@ -1,0 +1,193 @@
+<div id="streamerPromo" ng-class="{'streamerPromoAdmin' : user.userData.role == 'ADMIN'}">
+    <div class="bg-area" ng-class="{'bg-pos1':vm.currentSection == 1, 'bg-pos2':vm.currentSection == 2,'bg-pos3':vm.currentSection == 3,'bg-pos4':vm.currentSection == 4}">
+        <nav ng-if="vm.showNav">
+            <a href ng-class="{'cbp-fbcurrent' : vm.currentSection == 1 }" ng-click="vm.currentSection = 1"></a>
+            <a href ng-class="{'cbp-fbcurrent' : vm.currentSection == 2 }" ng-click="vm.currentSection = 2"></a>
+            <a href ng-class="{'cbp-fbcurrent' : vm.currentSection == 3 }" ng-click="vm.currentSection = 3"></a>
+            <a href ng-class="{'cbp-fbcurrent' : vm.currentSection == 4 }" ng-click="vm.currentSection = 4"></a>
+        </nav>
+        <section class="section section4" ng-class="{'currentSection' : vm.currentSection == 4 }">
+            <div class="container">
+                <h1>Как это работает?</h1>
+                <ul>
+                    <li>Жми на кнопку "<b>Создать розыгрыш</b>"!</li>
+                    <li>Прикрепи аккаунт Twitch.tv!</li>
+                    <li>Получи бюджет в зависимости от успехов твоего канала! Создай розыгрыш, призом которого станет <b>ИСПОЛНЕНИЕ ЛЮБОГО ЖЕЛАНИЯ ПОБЕДИТЕЛЯ</b> (за наш счет, но не превышая твой бюджет)!</li>
+                    <li>Приглашай своих зрителей к участию. Когда наберется необходимое количество человек, определи победителя на стриме и, пока мы исполняем его желание, ты получишь <b>новый бюджет</b> на следующую мечту!</li>
+                </ul>
+                <h2>За любой розыгрыш, завершенный до конца января, мы платим по <bg>10</bg> руб. за каждые <bg>20</bg> участников!</h2>
+                <a class="create-raffle" href ng-click="vm.goToGiveAwayPage(); lastWaiter = true" ng-disabled="lastWaiter">
+                    <span ng-hide="lastWaiter">Создать розыгрыш</span>
+                    <i class="fa fa-spin fa-spinner" ng-show="lastWaiter"></i>
+                </a>
+                <a class="more-info" href ng-click="carrotquest.open()">Остались вопросы?</a>
+            </div>
+        </section>
+        <section class="section section3" ng-class="{'currentSection' : vm.currentSection == 3 }">
+            <div class="container">
+                <h1 class="visible-lg">Наши партнеры</h1>
+                <div class="row partners">
+                    <a href="http://www.hyperxgaming.com/" target="_blank"><img src="/src/img/partners/logos/logo1.png"/></a>
+                    <a href="http://www.nvidia.ru/" target="_blank"><img src="/src/img/partners/logos/logo2.png"/></a>
+                    <a href="http://aoc-europe.com/" target="_blank"><img src="/src/img/partners/logos/logo3.png"/></a>
+                    <a href="http://q-cyber.com/" target="_blank"><img src="/src/img/partners/logos/logo4.png"/></a>
+                    <a href="http://www.clife.ru/" target="_blank"><img src="/src/img/partners/logos/logo5.png"/></a>
+                    <a href="http://zaka-zaka.com/" target="_blank"><img src="/src/img/partners/logos/logo6.png"/></a>
+                </div>
+                <h1 class="visible-lg">Наши стримеры</h1>
+                <div class="row streamers">
+                    <a href="/ceh9" target="_blank">
+                        <img src="/src/img/partners/streamers/ceh9navi.png"/>
+                        <div class="streamer-name">
+                            <span>cen9</span>
+                        </div>
+                    </a>
+                    <a href="/gnumme" target="_blank">
+                        <img src="/src/img/partners/streamers/gnummetv.png"/>
+                        <div class="streamer-name">
+                            <span>gnumme</span>
+                        </div>
+                    </a>
+                    <a href="/TaeRss" target="_blank">
+                        <img src="/src/img/partners/streamers/taersclub.png"/>
+                        <div class="streamer-name">
+                            <span>TaeRss</span>
+                        </div>
+                    </a>
+                    <a href="/BeastQT" target="_blank">
+                        <img src="/src/img/partners/streamers/beastqt2.png"/>
+                        <div class="streamer-name">
+                            <span>BeastQT</span>
+                        </div>
+                    </a>
+                    <a href="/ZaltirCCGportal" target="_blank">
+                        <img src="/src/img/partners/streamers/zaltirccgportal.png"/>
+                        <div class="streamer-name">
+                            <span>ZaltirCCGportal</span>
+                        </div>
+                    </a>
+                    <a href="/Gruve2013" target="_blank">
+                        <img src="/src/img/partners/streamers/hsgruve.png"/>
+                        <div class="streamer-name">
+                            <span>Gruve2013</span>
+                        </div>
+                    </a>
+                    <a href="/cooller" target="_blank">
+                        <img src="/src/img/partners/streamers/cooller.png"/>
+                        <div class="streamer-name">
+                            <span>cooller</span>
+                        </div>
+                    </a>
+                    <a href="/OpexAlex" target="_blank">
+                        <img src="/src/img/partners/streamers/opexstream.png"/>
+                        <div class="streamer-name">
+                            <span>OpexAlex</span>
+                        </div>
+                    </a>
+                    <a href="/Sinedd92" target="_blank">
+                        <img src="/src/img/partners/streamers/sineddhs.png"/>
+                        <div class="streamer-name">
+                            <span>Sinedd92</span>
+                        </div>
+                    </a>
+                    <a href="/OfficialSmithTV" target="_blank">
+                        <img src="/src/img/partners/streamers/officialsmithtv.png"/>
+                        <div class="streamer-name">
+                            <span>OfficialSmithTV</span>
+                        </div>
+                    </a>
+                </div>
+                <h1 class="visible-lg">Наши призы</h1>
+                <div class="row my-gifts visible-lg visible-md">
+                    <div class="gift-item" ng-repeat="row in vm.myAvalailableGifts track by $index" uib-tooltip="{{row.name}}" tooltip-placement="bottom">
+                        <div class="item">
+                            <img src="{{row.img}}"/>
+                            <div class="cost">
+                                <p>{{row.cat}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row how-it-work">
+                    <button ng-click=" vm.currentSection = 4; vm.showNav = true;">Как это работает?</button>
+                </div>
+            </div>
+        </section>
+        <section class="section section2" ng-class="{'currentSection' : vm.currentSection == 2 }">
+            <div class="container">
+                <div class="row my-indicators visible-lg visible-md">
+                    <div class="col-lg-4 col-md-4">
+                        <p class="top-text">Среднее кол-во просмотров твоего канала за сутки</p>
+                        <p class="number">{{vm.myBudget.metrics.viewersPerDay}}</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <p class="top-text">Ты проводишь трансляций за неделю</p>
+                        <p class="number">{{vm.myBudget.metrics.streamsCount}}</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <p class="top-text">Среднее количество зрителей одновременно</p>
+                        <p class="number">{{vm.myBudget.metrics.viewersAtSameTime}}</p>
+                    </div>
+                </div>
+                <h2>Твой бюджет</h2>
+                <h1>
+                    <bg>{{vm.myBudget.budget.all}}</bg> руб. в месяц
+                    <i class="fa fa-arrow-left" ng-click="vm.currentSection = 1"></i>
+                </h1>
+                <h2>на призы зрителям и твой гонорар</h2>
+                <div class="row create-my-raffle">
+                    <button ng-click="lastWaiter = true; vm.goToGiveAwayPage()" ng-disabled="lastWaiter">
+                        <span ng-hide="lastWaiter">Создать розыгрыш</span>
+                        <i class="fa fa-spin fa-spinner" ng-show="lastWaiter"></i>
+                    </button>
+                    <a class="btn more-info" ng-href="https://gs7.typeform.com/to/Og15dH?name={{vm.urlData.name}}" ng-click="vm.pageAnalitycs('streamer_not_ready', {url: vm.urlData});">Пока не готов</a>
+                </div>
+                <div class="row additional-links">
+                    <a class="more-info" href ng-click="vm.pageAnalitycs('streamer_with_whom_do_we_work', {url: vm.urlData}); vm.currentSection = 3; vm.showNav = true;">С кем мы работаем?</a>
+                    <a class="more-info" href ng-click="vm.pageAnalitycs('streamer_how_it_work', {url: vm.urlData}); vm.currentSection = 4; vm.showNav = true;">Как это работает?</a>
+                </div>
+            </div>
+        </section>
+        <section class="section section1" ng-class="{'currentSection' : vm.currentSection == 1 }">
+            <div class="container">
+                <h1>StreamPub бесплатно предоставляет призы от лучших брендов стримерам для розыгрыша среди зрителей</h1>
+                <h2>За каждый проведенный розыгрыш мы платим <bg>ДЕНЬГИ</bg></h2>
+                <div class="row">
+                    <form>
+                        <input type="text" ng-model="vm.myStreamLink" placeholder="Введи ссылку на свой стрим-канал или свой ник"/>
+                        <button class="button" type="submit" ng-click="vm.getMyBudget(vm.myStreamLink); vm.firstGetWaiter = true" ng-disabled="vm.firstGetWaiter || !vm.myStreamLink">
+                            <span ng-if="!vm.firstGetWaiter">Рассчитать потенциальный заработок</span>
+                            <i class="fa fa-spin fa-spinner" ng-if="vm.firstGetWaiter"></i>
+                        </button>
+                    </form>
+                </div>
+                <div class="myCounts visible-lg visible-md">
+                    <div class="container">
+                        <div class="col-lg-3 col-md-3">
+                            <p class="top-text">С нами уже</p>
+                            <p class="number">148</p>
+                            <p class="bottom-text">ютуберов и стримеров</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <p class="top-text">Мы провели</p>
+                            <p class="number">227</p>
+                            <p class="bottom-text">розыгрышей</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <p class="top-text">Мы отправили</p>
+                            <p class="number">251</p>
+                            <p class="bottom-text">призов победителям</p>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <p class="top-text">Сумма выигрыша</p>
+                            <p class="number">$4560</p>
+                            <p class="bottom-text">пользователями</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+    </div>
+</div>

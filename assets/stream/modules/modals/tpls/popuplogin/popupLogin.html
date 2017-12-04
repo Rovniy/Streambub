@@ -1,0 +1,26 @@
+<div ng-controller="popupLoginController as vm" class="popupLoginForm">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()"><i class="fa fa-close"></i></button>
+        <h3 class="modal-title ta-center">Вход на StreamPub.net</h3>
+    </div>
+    <div class="modal-body modal-body-notification text-center">
+        <form class="form-horizontal" role="form" name="popupLoginForm" ng-class="{ 'has-error' :  (popupLoginForm.login.$invalid-pattern) && (popupLoginForm.login.$dirty) }">
+            <input type="email" class="form-control input-lg ta-center" ng-model="vm.email" placeholder="Адрес электронной почты" validate-email required>
+            <input type="password" class="form-control input-lg ta-center" minlength="8" ng-model="vm.password" placeholder="Пароль" required>
+            <a href ng-click="$dismiss(); vm.restorePassword(vm.email)">Я забыл пароль <i class="fa fa-frown-o"></i></a>
+            <button type="submit" class="btn div-margin-auto button-action" ng-disabled="!popupLoginForm.$valid" ng-click="vm.login(vm.email,vm.password)">Войти</button>
+        </form>
+        <button ng-click="vm.enterWithTwitch('twitch'); disableMe = true" ng-disabled="disableMe" type="button" class="btn btn-twitch btn-lg" uib-tooltip="Войти с помощью аккаунта Twitch.tv" tooltip-placement="left">
+            <i ng-if="!disableMe" class="fa fa-twitch fa-2x"></i>
+            <i ng-if="disableMe" class="fa fa-spin fa-spinner fa-2x"></i>
+        </button>
+        <ul class="reg-menu">
+            <li><a href ng-click="vm.registerWindowOpen(); $dismiss()">Регистрация</a></li>
+        </ul>
+    </div>
+    <div class="modal-footer" ng-if="vm.loginError">
+        <ul class="error-type color-red" >
+            <li>{{vm.loginError}}</li>
+        </ul>
+    </div>
+</div>

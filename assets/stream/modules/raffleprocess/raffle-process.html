@@ -1,0 +1,124 @@
+<div id="raffle-process" ng-controller="raffleProcess as vm" ng-show="(raffleStart || vm.showSelectNumberWindow) && !Visibility.hidden()" ng-if="!widgetOpen">
+    <!-- Музыка для розыгрыща -->
+    <audio id="MusicReady" src="/src/misc/raffleStart.mp3" preload="none"></audio>
+
+    <div class="blur-bg-step1"></div>
+
+    <div class="big-carousele" ng-class="{'big-carouseleHide': !vm.raffleStep2}" ng-show="vm.raffleStep2">
+        <h1 class="text">Выбираем счастливчиков...</h1>
+        <ul>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+
+    <div class="carts-raffle">
+        <div class="cardWrapper" ng-class="{'cardWrapperHide': !vm.raffleStep3}">
+            <div class="row">
+                <div class="cardContainer" ng-repeat="(key, row) in vm.winners track by $index">
+                    <div class="card" ng-class="{'flipped': vm.flippedarray[key].scopeToggle}" ng-if="vm.flippedarray.length > 8">
+                        <div class="front">
+                            <img ng-if="row.avatar !== 'null'" ng-src="{{row.avatar}}"/>
+                            <img ng-if="row.avatar == 'null'" ng-src="/src/img/avatars/avatar_default.jpg"/>
+                            <!--<h3 class="cardTitle">{{row.name}}</h3>-->
+                        </div>
+                        <div class="back">
+                            <img src="/src/img/raffleprocess/card-back.png"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="winner" ng-show="vm.raffleStep4">
+            <div class="wrapper">
+                <h1>Поздравляем победителя!</h1>
+                <!--<a ng-href="https://twitch.tv/{{vm.winner.name}}" target="_blank">
+                    <div class="card-winner" ng-class="{'zoom' : !vm.raffleStep4}">
+                        <img ng-show="vm.winner.avatar !== 'null'" ng-src="{{vm.winner.avatar}}"/>
+                        <img ng-show="!vm.winner.avatar || vm.winner.avatar == 'null'" ng-src="/src/img/avatars/avatar_default.jpg"/>
+                        <h3>{{vm.winner.name}}</h3>
+                    </div>
+                </a>-->
+                <a>
+                    <div class="card-winner" ng-class="{'zoom' : !vm.raffleStep4}">
+                        <img ng-show="vm.winner.avatar !== 'null'" ng-src="{{vm.winner.avatar}}"/>
+                        <img ng-show="!vm.winner.avatar || vm.winner.avatar == 'null'" ng-src="/src/img/avatars/avatar_default.jpg"/>
+                        <h3>{{vm.winner.name}}</h3>
+                    </div>
+                </a>
+                <h2 class="ta-center">Команда StreamPub в ближайшее время свяжется с победителем по e-mail!</h2>
+                <div ng-if="!itIsMyFirstRaffle">
+                    <button ng-show="vm.processCount > 0" ng-click="vm.goRaffleProcessAgain()" ng-class="{'btn-hidden' : !vm.okButton}">Разыграть следующий приз!</button>
+                    <button ng-show="vm.processCount == 0" ng-click="vm.endRaffleProcess()" ng-class="{'btn-hidden' : !vm.okButton}">Отлично!</button>
+                </div>
+                <div  ng-if="itIsMyFirstRaffle">
+                    <!--<button ng-click="vm.replicateRaffle()">Повторить розыгрыш!</button>-->
+                    <button ng-click="vm.endRaffleProcess()">Выбрать новый приз!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="select-any-count" ng-show="vm.raffleStep1">
+        <div class="container">
+            <h1 class="ta-center">Определи номер победителя!</h1>
+            <div class="row">
+                <!--<div class="col-lg-6 ta-center">
+                    <h3>Random.org</h3>
+                    <iframe id="randomOrgFrame" src="{{vm.randomOrgIframeSrc}}" frameborder="0" width="160" height="200" scrolling="no">
+                    </iframe>
+                </div>-->
+                <div class="col-lg-12 ta-center">
+                    <div class="number-area">
+                        <h1>{{vm.winnerNumber}}</h1>
+                    </div>
+                    <button class="btn btn-danger" ng-click="vm.setWinnerNumber()" ng-disabled="vm.waitingRandomNumber">Сгенерировать число</button>
+                </div>
+            </div>
+            <hr/>
+            <!--            <div class="row">
+                            <h2 class="ta-center">Вставь выпавший номер в строку</h2>
+                        </div>-->
+            <div class="row form-inline ta-center">
+                <!--<input type="number" min="0" class="form-control" placeholder="Введи любое число из диапазона" ng-model="vm.winnerNumber" disabled>-->
+                <button class="btn btn-success btn-lg" ng-click="vm.startRaffle()" ng-disabled="vm.winnerNumber < 0 || vm.winnerNumber == '' || vm.winnerNumber == undefined">Начать розыгрыш, используя это число!</button>
+            </div>
+            <hr/>
+            <div class="row users-big">
+                <div class="row" ng-show="!vm.usersListVisible">
+                    <h2 class="ta-center">Список учатсников розыгрыша:</h2>
+                </div>
+                <div class="row" ng-show="vm.usersListVisible">
+                    <div class="col-lg-6">
+                        <h2 class="ta-center">Список учатсников розыгрыша:</h2>
+                    </div>
+                    <div class="col-lg-6">
+                        <form class="form-inline ta-right">
+                            <div class="form-group">
+                                <label>ПОИСК:</label>
+                                <input type="text"  class="form-control" ng-model="vm.searchUserByName" ng-change="vm.searchUserInUsersListName(vm.searchUserByName)" placeholder="По имени"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" ng-model="vm.searchUserByPosition" ng-change="vm.searchUserInUsersListPosition(vm.searchUserByPosition)" placeholder="По позиции"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="users-big-list" ng-show="vm.usersListVisible">
+                    <ul>
+                        <li ng-repeat="(key,row) in vm.usersList">{{row.name}} ({{row.position-row.luck+1}}-{{row.position}})</li>
+                    </ul>
+                </div>
+                <div class="ta-center">
+                    <button class="btn btn-info" ng-click="vm.usersListVisible = true; vm.loadMoreUsers()">Показать еще {{vm.usersListPerPage}} участников</button>
+                    <button class="btn btn-warning" ng-click="vm.usersListVisible = false" ng-show="vm.usersListVisible">Скрыть</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

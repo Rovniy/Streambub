@@ -1,0 +1,355 @@
+<div class="container-fluid">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Создание / Обновление страницы стримера</h1>
+            <p>Заполни все поля</p>
+        </div>
+        <div>
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Имя</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.userName" class="form-control" placeholder="Username">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Связанный аккаунт</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.userAccount" placeholder="Имя пользователя" uib-typeahead="state.user.id as state.user.name for state in vm.usersList | filter:{user:{name:$viewValue}} | limitTo:8" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Пол</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="vm.gender">
+                            <option value="MALE">Мужчина</option>
+                            <option value="FEMALE">Женщина</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Тип страницы</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="vm.pageType">
+                            <option value="OFFICIAL">OFFICIAL</option>
+                            <option value="INFORMAL">INFORMAL</option>
+                            <option value="OBSCENE">OBSCENE</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Основная платформа</label>
+                    <div class="col-sm-10">
+                        <select class="form-control" ng-model="vm.mainPlatform">
+                            <option value="TWITCH">Twitch.tv</option>
+                            <option value="YOUTUBE">YouTube</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Интерактив</label>
+                    <div class="col-sm-10">
+                        <input type="number" ng-model="vm.interactive" class="form-control" placeholder="Значение в цифрах">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Скилл</label>
+                    <div class="col-sm-10">
+                        <input type="number" ng-model="vm.skill" class="form-control" placeholder="Значение в цифрах">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Харизма</label>
+                    <div class="col-sm-10">
+                        <input type="number" ng-model="vm.charisma" class="form-control" placeholder="Значение в цифрах">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Уровень игры</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.skillValue" class="form-control" placeholder="Уровень навыков, его ранг или звание">
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Игры стримера</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-8">
+                            <select class="form-control" ng-model="vm.game">
+                                <option value="{{row.id}}" ng-repeat="row in vm.gamesData">{{row.name}}</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addGame(vm.game)">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.streamerGames.length > 0">
+                    <label class="col-sm-2 control-label">Список игр</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.streamerGames" ng-class="{'btn-danger' : row.main}" ng-click="row.main = !row.main">{{row.gameId}} - {{row.game}} <i class="fa fa-close color-red" ng-click="vm.removeGame(key)"></i></button>
+                        </div>
+                        <h5>Обязательно выбери главную игру</h5>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Загрузка фото</label>
+                    <div class="col-sm-10">
+                        <input class="div-margin-auto" type="file" nv-file-select="" uploader="vm.uploader">
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.uploader.queue.length > 0">
+                    <label class="col-sm-2 control-label">Файлы</label>
+                    <div class="col-sm-10">
+                        <div class="row">
+                            <table class="table">
+                                <thead>
+                                <tr class="ta-center">
+                                    <td>Имя файла</td>
+                                    <td>Размер</td>
+                                    <td>Прогресс загрузки</td>
+                                    <td>Статус загрузки</td>
+                                    <td>Операции с файлом</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr class="ta-center" ng-repeat="item in vm.uploader.queue">
+                                    <td>
+                                        <strong>{{item.file.name}}</strong>
+                                    </td>
+                                    <td><span ng-class="{'color-red' : item.file.size/1024/1024 > 5 }">{{ item.file.size/1024/1024|number:2 }} MB</span></td>
+                                    <td>
+                                        <div class="progress">
+                                            <uib-progressbar max="100" value="item.progress"><span>{{item.progress}} / {{100}}</span></uib-progressbar>
+                                        </div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span ng-show="item.isSuccess"><i class="fa fa-check color-green"></i></span>
+                                        <span ng-show="item.isCancel"><i class="fa fa-ban color-orange"></i></span>
+                                        <span ng-show="item.isError"><i class="fa fa-exclamation-circle color-red"></i></span>
+                                    </td>
+                                    <td class="ta-center">
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                            <span class="fa fa-trash"></span> Удалить
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Соц.сети</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="vm.platforms">
+                                <option value="TWITCH">Twitch.tv</option>
+                                <option value="YOUTUBE">Youtube</option>
+                                <option value="HITBOX">Hitbox</option>
+                                <option value="VK">Вконтакте</option>
+                                <option value="INSTAGRAM">Instagram</option>
+                                <option value="TWITTER">Twitter</option>
+                                <option value="FACEBOOK">Facebook</option>
+                                <option value="GOODGAME">GoodGame.ru</option>
+                                <option value="SC2TV">sc2tv.ru</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" placeholder="Ссылка" ng-model="vm.socialLink">
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addPlatform(vm.platforms,vm.socialLink); vm.socialLink = ''">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.streamerPlatform.length > 0">
+                    <label class="col-sm-2 control-label">Ссылки</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.streamerPlatform">
+                                {{row.type}} - {{row.link}} <i class="fa fa-close color-red" ng-click="vm.removePlatform(key)"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Описание (RU)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Текст о стримере вверху страницы" ng-model="vm.descProfile.ru"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Описание (EN)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Текст о стримере вверху страницы" ng-model="vm.descProfile.en"></textarea>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Биография (RU)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Полная биография стримера" ng-model="vm.descBio.ru"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Биография (EN)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Полная биография стримера" ng-model="vm.descBio.en"></textarea>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Стиль канала (RU)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Интересные факты о стримере" ng-model="vm.descFacts.ru"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Стиль канала (EN)</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" placeholder="Интересные факты о стримере" ng-model="vm.descFacts.en"></textarea>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Видео</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" ng-model="vm.videoName" placeholder="Описание видео"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <input class="form-control" type="text" ng-model="vm.videoUrl" placeholder="ID видео с YouTube"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addVideo(vm.videoName,vm.videoUrl); vm.videoName = ''; vm.videoUrl = ''">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.videos.length > 0">
+                    <label class="col-sm-2 control-label">Список видео</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.videos">
+                                {{row.name}} - {{row.link}} <i class="fa fa-close color-red" ng-click="vm.removeVideo(key)"></i>
+                            </button>
+                        </div>
+                        <h5>В URL должен быть лишь ID записи</h5>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Награды стримера</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <input class="form-control" type="date" ng-model="vm.awards.date" placeholder="Дата"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.awards.name" placeholder="Описание награды"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addAward(vm.awards.date, vm.awards.name); vm.awards.date = ''; vm.awards.name = ''">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.awardsList.length > 0">
+                    <label class="col-sm-2 control-label">Список наград</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.awardsList">
+                                {{row.date}} / {{row.text}} <i class="fa fa-close color-red" ng-click="vm.removeAward(key)"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Упоминания в СМИ</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-2">
+                            <input class="form-control" type="date" ng-model="vm.media.date" placeholder="Дата"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.media.name" placeholder="Название статьи"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.media.link" placeholder="URL на страницу"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.media.description" placeholder="Источник статьи"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addMediaReference(vm.media.date, vm.media.name, vm.media.description, vm.media.link); vm.media.date = ''; vm.media.name = ''; vm.media.description = ''; vm.media.link = ''">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.mediaReference.length > 0">
+                    <label class="col-sm-2 control-label">Упоминания</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.mediaReference">
+                                {{row.date}} / {{row.name}} / {{row.description}} <i class="fa fa-close color-red" ng-click="vm.removeMediaReference(key)"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Расписание стримов</label>
+                    <div class="col-sm-10">
+                        <div class="col-sm-4">
+                            <select class="form-control" ng-model="vm.week.day">
+                                <option value="MONDAY">Понедельник</option>
+                                <option value="TUESDAY">Вторник</option>
+                                <option value="WEDNESDAY">Среда</option>
+                                <option value="THURSDAY">Четверг</option>
+                                <option value="FRIDAY">Пятница</option>
+                                <option value="SATURDAY">Суббота</option>
+                                <option value="SUNDAY">Воскресенье</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.week.from" placeholder="HH:mm"/>
+                        </div>
+                        <div class="col-sm-2">
+                            <input class="form-control" type="text" ng-model="vm.week.to" placeholder="HH:mm"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-info" ng-click="vm.addStreamDay(vm.week.day, vm.week.from, vm.week.to); vm.week.from = ''; vm.week.to = ''">Добавить</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" ng-show="vm.streamDays.length > 0">
+                    <label class="col-sm-2 control-label">Время стрима</label>
+                    <div class="col-sm-10">
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default" ng-repeat="(key,row) in vm.streamDays">
+                                {{row.day}} | {{row.from}}-{{row.to}} <i class="fa fa-close color-red" ng-click="vm.removeStreamDay(key)"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="ta-center">
+                    <button class="btn btn-lg btn-success" ng-if="!vm.error" ng-click="vm.createPage()">Создать страницу</button>
+                    <button class="btn btn-lg btn-success" ng-if="vm.error" ng-click="vm.createPageWithoutImg()">Создать страницу</button>
+                </div>
+                <hr/>
+                <div class="debug">
+                    <blockquote>
+                        <p>DEBUG:</p>
+                    </blockquote>
+                    <blockquote>
+                        <h3 class="color-green" ng-show="vm.success">Товар создан ;-)</h3>
+                        {{vm.error}}
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

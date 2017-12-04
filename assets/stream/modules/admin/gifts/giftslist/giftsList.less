@@ -1,0 +1,49 @@
+#adminGiftsList {
+  .container {
+    .table {
+      thead {
+        tr {
+          td {
+            cursor: pointer;
+          }
+        }
+      }
+      tbody{
+        tr{
+          td{
+            vertical-align: middle;
+            .list-img {
+              width:40px;
+              height:40px;
+            }
+            .post-success {
+              background-color: rgba(2,201,110, .2)!important;
+            }
+            .restriction-changed {
+              background-color: rgba(245,156,0, .2);
+            }
+          }
+          .cancel-area {
+            cursor: pointer;
+            opacity: .8;
+            &:hover {
+              opacity: 1;
+              .fa-trash {
+                color: @color-red-hover;
+              }
+              .fa-eye {
+                color: @color-green-hover
+              }
+            }
+          }
+        }
+        .non-active {
+          color: lightgrey;
+        }
+      }
+    }
+    .fahider {
+      color: transparent;
+    }
+  }
+}

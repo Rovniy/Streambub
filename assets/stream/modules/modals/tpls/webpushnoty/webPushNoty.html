@@ -1,0 +1,14 @@
+<div ng-controller="webPushNotyController as vm" id="webPushNoty">
+    <div class="modal-header">
+        <h3 class="modal-title ta-center">Хочешь, мы сообщим тебе, как только Luck будет начислен?</h3>
+    </div>
+    <div class="modal-body">
+        <h4 class="ta-center">
+            Подпишись на браузерные уведомления, чтобы мы смогли отправить тебе сообщение, на какой бы вкладке ты не находился.
+        </h4>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="$dismiss(); vm.webPushNotyActivate()"><i class="fa fa-arrow-up fa-rotate-45"></i> Подписаться</button>
+        <button class="btn btn-danger btn-disabled" ng-click="$dismiss()">не, позже</button>
+    </div>
+</div>

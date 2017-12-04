@@ -1,0 +1,61 @@
+.advRegistration {
+  .modal-body {
+    padding:0 50px;
+    form {
+      input {
+        margin:20px auto;
+      }
+      a {
+        font:1rem/1rem @f-main;
+        margin-left:10px;
+        color:@h-color;
+        border-bottom: 1px dotted @color-semi;
+        &:hover {
+          color:@h-color;
+          outline:none;
+          text-decoration: none;
+          border-bottom: 1px dotted @h-color;
+        }
+        &:focus, &:active {
+          outline:none;
+          text-decoration: none;
+        }
+      }
+    }
+    .reg-menu {
+      text-align: center;
+      color: @color-red;
+      padding:0;
+      margin:0 0 20px 0;
+      li {
+        list-style: none;
+        a {
+          font:1rem/1rem @f-main;
+        }
+      }
+    }
+    .btn-twitch {
+      margin: 0 0 20px;
+      background: @color-fiolet;
+      border-color: @color-fiolet;
+      color: @color-main;
+      &:hover {
+        background: @color-fiolet-hover;
+        border-color: @color-fiolet-hover;
+        color: @color-main;
+      }
+    }
+  }
+  .modal-footer {
+    .error-type {
+      margin:10px 0 0 0;
+      text-align: left;
+      font:1rem/1rem @f-bold;
+      color: @color-red;
+      padding:0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+}

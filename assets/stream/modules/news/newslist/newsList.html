@@ -1,0 +1,65 @@
+<div class="container-fluid" id="newslist">
+    <div class="container">
+        <div class="title">
+            <h1>Новости</h1>
+        </div>
+        <div class="row toplayer" ng-show="vm.mainNew">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 leftcol">
+                <div class="main" style="background:url({{vm.mainNew.images[0].imageLink}})">
+                    <div class="overlay">
+                        <a href="/news/{{vm.mainNew.category.id}}/{{vm.mainNew.id}}"></a>
+                    </div>
+                    <div class="desc">
+                        <div class="rubrik">
+                            <a href="/news/{{vm.mainNew.category.id}}">
+                                <button>{{vm.mainNew.category.name}}</button>
+                            </a>
+                        </div>
+                        <div class="title-news">
+                            <a href="/news/{{vm.mainNew.category.id}}/{{vm.mainNew.id}}">
+                                <h3>{{vm.mainNew.name[0].text}}</h3>
+                            </a>
+                        </div>
+                        <div>
+                            <span>{{vm.mainNew.createTime | date:'dd.MM.yyyy'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 twitter-area">
+                <a class="twitter-timeline" data-lang="ru" data-height="422" data-dnt="true" data-theme="light" href="https://twitter.com/stream_pub">Tweets by stream_pub</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
+        </div>
+        <div class="row mainlayer">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 item" ng-repeat="row in vm.news track by $index" ng-if="row.category.id !== 5">
+                <div class="itemdata">
+                    <div class="imaga">
+                        <a href="/news/{{row.category.id}}/{{row.id}}">
+                            <img ng-src="{{row.images[0].imageLink}}"/>
+                        </a>
+                    </div>
+                    <div class="rubric">
+                        <a href="/news/{{row.category.id}}">{{row.category.name}}</a>
+                    </div>
+                    <div class="title">
+                        <a href="/news/{{row.category.id}}/{{row.id}}">
+                            <h3>{{row.name[0].text}}</h3>
+                        </a>
+                    </div>
+                    <div class="text" ng-bind-html="vm.to_trusted(row.shortDesc[0].text.substring(0, 275))"></div>
+                    <div class="meta">
+                        <span>{{row.createTime | date:'dd.MM.yyyy'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bottom-area" ng-show="vm.news.length > 9 && !vm.newsEnd">
+            <div class="col-xs-12">
+                <button ng-click="vm.loadMoreNews()">
+                    <i class="fa fa-refresh"></i> Загрузить больше новостей
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>

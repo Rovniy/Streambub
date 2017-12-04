@@ -1,0 +1,221 @@
+<div class="container-fluid" id="howto">
+    <div class="container bg-white">
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs sidebar">
+            <div class="sidemenu" bs-affix data-offset-top="50" data-offset-bottom="218">
+                <ul>
+                    <li><a href scroll-to-item scroll-to="#header">Волшебное слово - РОЗЫГРЫШ!</a></li>
+                    <li><a href scroll-to-item scroll-to="#faq-chat-commands">Чат команда - отличный способ рассказать о розыгрыше!</a></li>
+                    <li><a href scroll-to-item scroll-to="#faq-announce-in-soc">Анонс в группе Вконтакте - обязательное условие твоего успеха!</a></li>
+                    <li ng-show="user"><a href scroll-to-item scroll-to="#faq-graphic-content">Графический контент - говорит о профессионализме</a></li>
+                    <li><a href scroll-to-item scroll-to="#faq-attention-area">Внимание к твоим зрителям, наш долг.</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 content">
+            <h1 class="ta-center">Рекомендации по проведению розыгрышей:</h1>
+            <h3 class="ta-center"><b>Привет!</b></h3>
+            <div class="ta-center">
+                <!--<img style="width:80%" src="/src/img/faq/howto/circlde.png"/>-->
+                <img style="width:80%" src="/src/img/base/firstsession/first-session.png"/>
+            </div>
+            <p>Главная задача StreamPub, помочь тебе успешно и результативно провести розыгрыш среди своих зрителей!</p>
+            <p>Благодаря правильной работе в социальных сетях и с профилем на twitch.tv можно не только быстро завершить розыгрыш, но и привлечь новую аудиторию. Новички приходят за халявой, но мы уверены, что тебе удастся завоевать их внимание! Ведь ты это уже сделал с другими :)</p>
+            <hr/>
+            <img class="img-title" src="/src/img/faq/howto/title1.jpg"/>
+            <p>Если в начале заголовка трансляции стоит слово “РОЗЫГРЫШ”, “КОНКУРС” или “ПОДАРКИ” - случайных зрителей становится больше, чем обычно!</p>
+            <p>Причина в том, что когда зрители, заходят в список стримеров онлайн по какой-либо конкретной игре смотрят на:</p>
+            <ol>
+                <li>Кто сейчас на первом месте?</li>
+                <li>Кто из знакомых стримеров сейчас вообще онлайн?</li>
+                <li>Читают название трансляции</li>
+            </ol>
+            <p>Весь этот процесс проходит за 5-10 секунд.</p>
+            <p>Именно поэтому возможность привлечь зрителей розыгрышем работает!</p>
+            <span class="primer" ng-click="show1 = !show1">Вот пример :)</span>
+            <div class="ta-center" ng-show="show1">
+                <img class="img-thumbnail" style="width:100%" src="/src/img/faq/howto/1.png"/>
+            </div>
+
+            <hr/>
+            <img id="faq-chat-commands" class="img-title" src="/src/img/faq/howto/title2.jpg"/>
+            <p>Обязательно сделай команду чат-бота, который будет вбрасывать в чат эту ссылку по команде и по таймеру.</p>
+            <p>Команда - !Розыгрыш - является самой подходящей. Причем “!” сразу показывает зрителям, что это команда чата и они точно будут её повторять :) Главное не забыть сказать об этом модераторам, чтобы они периодически её вызывали, тем самым напоминая твоим зрителям о её существовании.</p>
+            <p>Содержание любой твоей команды должно быть простым и понятным!</p>
+            <span class="primer" ng-click="show2 = !show2">Вот пример :)</span>
+            <div class="ta-center" ng-show="show2">
+                <img class="img-thumbnail" style="width:500px" src="/src/img/faq/howto/2.png"/>
+            </div>
+            <uib-accordion close-others="true">
+                <div uib-accordion-group class="panel-default" heading="Как настроить команду, если ты используешь Moobot?">
+                    <h3 class="ta-center">Через чат на twitch.tv:</h3>
+                    <p>Введи этот текст в чат твитча:</p>
+                    <blockquote>
+                        <p><code>!moobot commands add розыгрыш Участвуй в розыгрыше <i>Вставь сюда название приза</i> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</code></p>
+                    </blockquote>
+                    <p>Тогда при вводе команды <b>!розыгрыш</b> в чат, будет появляться команда:</p>
+                    <blockquote>
+                        <p>Участвуй в розыгрыше <i>Приз</i> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</p>
+                    </blockquote>
+                    <p>Чтобы изменить команду нужно сначала удалить текущую, командой</p>
+                    <blockquote>
+                        <p><code>!moobot commands remove розыгрыш</code></p>
+                    </blockquote>
+                    <p>Затем можно вводить новую команду.</p>
+                    <h3 class="ta-center">Через сайт http://twitch.moobot.tv/</h3>
+                    <p><b>Путь простой:</b></p>
+                    <ol>
+                        <li><p>Жмем на <i>“Commands”</i></p></li>
+                        <li><p>Выбираем <i>“Command List”</i> в всплывающем окне</p></li>
+                        <li>
+                            <p>Затем делаем так, как показано на скриншоте</p>
+                            <div class="ta-center">
+                                <img class="img-thumbnail" src="/src/img/faq/howto/3.png"/>
+                            </div>
+                        </li>
+                        <li>
+                            <p>В появившемся окне ставим галочку над <i>"Show Advanced Settings"</i></p>
+                            <div class="ta-center">
+                                <img class="img-thumbnail" src="/src/img/faq/howto/4.png"/>
+                            </div>
+                        </li>
+                        <li>
+                            <p>Заполняем появившиеся графы</p>
+                            <div class="ta-center">
+                                <img class="img-thumbnail" src="/src/img/faq/howto/5.png"/>
+                            </div>
+                        </li>
+                        <li><p>Все, команда готова!</p></li>
+                    </ol>
+                </div>
+                <div uib-accordion-group class="panel-default" heading="Как настроить команду, если ты используешь NightBot?">
+                    <h3 class="ta-center">Через чат на twitch.tv:</h3>
+                    <p>Введи этот текст в чат твитча:</p>
+                    <blockquote>
+                        <p><code>!commands add !розыгрыш2 -ul=everyone-cd=5 Участвуй в розыгрыше <kbd>Вставь сюда название приза</kbd> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</code></p>
+                    </blockquote>
+                    <p>Тогда, при вводе команды !розыгрыш в чат, будет появляться команда:</p>
+                    <blockquote>
+                        <p>Участвуй в розыгрыше Приз по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</p>
+                    </blockquote>
+                    <p>Чтобы изменить в команде приз на новый, нужно написать</p>
+                    <blockquote>
+                        <p><code>!commands edit !розыгрыш Участвуй в розыгрыше <kbd>Вставь сюда название нового приза</kbd> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</code></p>
+                    </blockquote>
+                    <h3 class="ta-center">Через сайт https://beta.nightbot.tv/dashboard</h3>
+                    <p><b>Путь простой:</b></p>
+                    <ol>
+                        <li><p>Переходим по ссылке <a href="https://beta.nightbot.tv/commands/custom" target="_blank">https://beta.nightbot.tv/commands/custom</a></p></li>
+                        <li>
+                            <p>Выполняем все этапы, что указаны на скриншоте и все)</p>
+                            <div class="ta-center">
+                                <img class="img-thumbnail" src="/src/img/faq/howto/6.png"/>
+                            </div>
+                        </li>
+                        <li>
+                            <p>Как результат всех этих действий, должна появиться твоя команда розыгрыша!</p>
+                            <div class="ta-center">
+                                <img class="img-thumbnail" src="/src/img/faq/howto/7.png"/>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+                <div uib-accordion-group class="panel-default" heading="Как настроить команду, если ты используешь DeepBot?">
+                    <h3 class="ta-center">Через чат на twitch.tv:</h3>
+                    <p>Введи этот текст в чат твитча:</p>
+                    <blockquote>
+                        <p><code>!addcmd %1 !розыгрыш</code></p>
+                    </blockquote>
+                    <blockquote>
+                        <p><code>!commands add !розыгрыш Участвуй в розыгрыше <kbd>Вставь сюда название приза</kbd> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</code></p>
+                    </blockquote>
+                    <p>Тогда при вводе команды !розыгрыш в чат, будет появляться команда:</p>
+                    <blockquote>
+                        <p>Участвуй в розыгрыше Приз по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</p>
+                    </blockquote>
+                    <p>Чтобы изменить в команде приз на новый, нужно написать</p>
+                    <blockquote>
+                        <p><code>!delcmd !розыгрыш Участвуй в розыгрыше <kbd>Вставь сюда название нового приза</kbd> по ссылке https://streampub.net/{{user.userData.name}} Регистрируйся и жми “Участвовать”!</code></p>
+                    </blockquote>
+                </div>
+            </uib-accordion>
+            <hr/>
+            <img id="faq-announce-in-soc" class="img-title" src="/src/img/faq/howto/title3.jpg"/>
+            <p>Группа в Вк, один из главных источников организации и проведения отличного розыгрыша, марафона или просто стрима! Именно туда приходят твои верные зрители, именно там ты с ними общаешься, когда видеоплеер твоего стрим-канала выключен.</p>
+            <p>Мы не даем жестких рекомендаций о том, каким должен быть стиль поста в Вк, потому что у каждого свой способ общения со зрителями!</p>
+            <p class="text-">Нам очень нужно, чтобы в посте:</p>
+            <ul>
+                <li><p>указано имя спонсора подарка, - Nvidia, Razer, Citilink или любой другой наш рекламодатель</p></li>
+                <li><p>обозначен разыгрываемый приз, - Гарнитура, мышь, ноутбук или внутриигровая шкурка</p></li>
+                <li><p>ссылка на розыгрыш, - streampub.net/{{user.userData.name}}</p></li>
+            </ul>
+            <p>Мы приветствуем, когда:</p>
+            <ul>
+                <li><p>в посте присутствует описание способа регистрации на сайте - через twitch/email</p></li>
+                <li><p>рассказан способ увеличения шансов на победу, - жмите на квесты и увеличивайте шансы</p></li>
+                <li><p>указано минимальное число участников, после которого будет выбран победитель</p></li>
+                <li><p>сам пост закреплен в шапке группы (правилам Вк он не противоречит)</p></li>
+            </ul>
+            <span class="primer" ng-click="show3 = !show3">Вот пример :)</span>
+            <div class="ta-center" ng-show="show3">
+                <img class="img-thumbnail div-margin-auto" src="/src/img/faq/howto/8.png"/>
+            </div>
+            <hr/>
+            <div ng-show="user">
+                <img id="faq-graphic-content" class="img-title" src="/src/img/faq/howto/title4.jpg"/>
+                <p>Несмотря на то, что мы даем призы для розыгрышей бесплатно, стоимость этих призов напрямую зависит от числа необходимых участников! И если количество зрителей не растет так быстро, как этого бы хотелось, то число участников в твоих конкурсах можно увеличивать, если давать людям информацию очень качественно!</p>
+                <p>Поэтому мы придумали и нарисовали для тебя баннеры для описания канала на Twitch.tv и overlay-картинку, которую ты можешь поместить себе на экран!</p>
+                <div class="ta-center row images-obs-area">
+                    <div class="overlay-area">
+                        <div id="obs-overlay-info" class="no-animate" ng-class="{'obs-overlay-info-step1' : vm.countStep() > 0 && vm.countStep() <= 10,
+                                        'obs-overlay-info-step2' : vm.countStep() > 10 && vm.countStep() <= 20,
+                                        'obs-overlay-info-step3' : vm.countStep() > 20 && vm.countStep() <= 30,
+                                        'obs-overlay-info-step4' : vm.countStep() > 30 && vm.countStep() <= 40,
+                                        'obs-overlay-info-step5' : vm.countStep() > 40 && vm.countStep() <= 50,
+                                        'obs-overlay-info-step6' : vm.countStep() > 50 && vm.countStep() <= 60,
+                                        'obs-overlay-info-step7' : vm.countStep() > 60 && vm.countStep() <= 70,
+                                        'obs-overlay-info-step8' : vm.countStep() > 70 && vm.countStep() <= 80,
+                                        'obs-overlay-info-step9' : vm.countStep() > 80 && vm.countStep() <= 90,
+                                        'obs-overlay-info-step10' : vm.countStep() > 90}">
+                            <img src="/src/img/widgets/obs/pattern.png"/>
+                            <p class="count">{{vm.gaData.stats.activeMembers}} <span>/ {{vm.gaData.stats.minMembers}}</span></p>
+                            <p class="text">Участвуй в<br/> розыгрыше</p>
+                            <h1>{{vm.userInfo}}</h1>
+                            <div class="blick-area"></div>
+                        </div>
+                    </div>
+                    <div class="ta-left">
+                        <p>Вставь этот баннер в программу для стрима (например, OBS) путем вставки Media. Твоя персональная ссылка на этот баннер:</p>
+                        <blockquote>
+                            <p><code>http://{{vm.userInfo}}/widget/obsoverlay/{{user.userData.name}}</code></p>
+                        </blockquote>
+                        <p>Укажи точные размеры окна. Ширина <kbd>640px</kbd>, высота <kbd>200px</kbd></p>
+                    </div>
+                    <hr/>
+                    <div class="under-banner-area">
+                        <img class="img-thumbnail div-margin-auto" src="/src/img/widgets/obs/twitch.jpg"/>
+                    </div>
+                    <div class="ta-left">
+                        <p>Вставь этот баннер под стрим в блок информации и укажи ссылку на свои розыгрыши. Твой актуальный розыгрыш всегда доступен по персональной ссылке:</p>
+                        <blockquote>
+                            <p><code>http://{{vm.userInfo}}/{{user.userData.name}}</code></p>
+                        </blockquote>
+                    </div>
+                    <hr/>
+                </div>
+                <h3 class="ta-center">Это цикл бесконечного развития, который мы хотели бы тебе предложить!</h3>
+                <p>Более того, с определенного числа участников твоих розыгрышей, мы сможем зарабатывать деньги вместе!</p>
+                <hr/>
+            </div>
+            <img id="faq-attention-area" class="img-title" src="/src/img/faq/howto/title5.jpg"/>
+            <p>Ровно в тот момент, когда ты нажмешь на кнопку “Определить победителя” и узнаешь, кому из твоих зрителей улыбнулась Удача, тебе остается просто сказать, что сотрудники StreamPub свяжутся с победителем по его почте (на которую он зарегистрировал свой twitch аккаунт) и напишут в личные сообщения на twitch.tv с аккаунта StreamPub</p>
+            <p>Все остальные вопросы мы берем на себя, ведь позитивные эмоции от розыгрыша должны остаться у каждого участника конкурса!</p>
+            <ul>
+                <li>Все участники конкурса получат email c вкусным предложением от рекламодателя. Жирная скидка на подарок, который ты разыгрывал или что-нибудь ещё.</li>
+                <li>Контакт с победителем произойдет в ближайшие 24 часа с момента завершения розыгрыша.</li>
+                <li>Приз победителю отправляем либо мы, либо спонсор розыгрыша.</li>
+                <li>Мы обязательно попросим оставить отзыв о нашем сайте и о твоем конкурсе в наших социальных сетях.</li>
+            </ul>
+        </div>
+    </div>
+
+</div>

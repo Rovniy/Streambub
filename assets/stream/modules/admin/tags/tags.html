@@ -1,0 +1,67 @@
+<div class="container-fluid" id="adminTagsChack">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Активаци и удаление постов в соц. сетях</h1>
+        </div>
+        <div>
+            <ul class="list-inline">
+                <li>
+                    <input type="checkbox" ng-model="vm.created"/>
+                    <label>CREATED</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.applied"/>
+                    <label>APPLIED</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.canceled"/>
+                    <label>CANCELED</label>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>#</td>
+                        <td>ID</td>
+                        <td style="cursor:pointer" ng-click="vm.reverseSort('createTime')">
+                            Создание
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                        </td>
+                        <td style="cursor:pointer" ng-click="vm.reverseSort('updateTime')">
+                            Изменение
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce}"></i>
+                        </td>
+                        <td>Status</td>
+                        <td>Ссылка</td>
+                        <td>Тип</td>
+                        <td>Активация</td>
+                        <td>Отменить</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,row) in vm.tagsData track by $index" ng-if="vm.sortByCategory(row)">
+                        <td>{{row.id}}</td>
+                        <td>{{row.memberId}}</td>
+                        <td>{{row.createTime | date:'dd.MM'}}</td>
+                        <td>{{row.updateTime | date:'dd.MM'}}</td>
+                        <td>{{row.status}} <i class="fa fa-close color-red" ng-click="vm.deletePost(row.id, key)"></i></td>
+                        <td class="link-area">
+                            <a href="{{row.link}}" target="_blank">{{row.link}}</a>
+                        </td>
+                        <td>{{row.task.taskType}} / {{row.task.id}}</td>
+                        <td>
+                            <button class="btn btn-xs btn-success" ng-disabled="row.status == 'APPLIED'" ng-click="vm.activatePost(row.id, key)">Активировать</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-danger" ng-disabled="row.status == 'CANCELED'" ng-click="vm.cancelPost(row.id, key)">Удалить пост</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

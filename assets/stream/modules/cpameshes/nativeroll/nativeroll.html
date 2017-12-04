@@ -1,0 +1,38 @@
+<div class="container-fluid" id="cpaMeshesViboom">
+    <div class="container bg-white">
+        <div class="row title">
+            <h1>Просмотр видео</h1>
+            <h5>За просмотр каждого видео на этой странице тебе будет начисляться LUCK</h5>
+        </div>
+        <div class="row luck-area">
+            <h2 class="ta-center">Ты заработал <span>{{vm.status.luck}}</span> LUCK за просмотр этих видео</h2>
+        </div>
+        <div class="row ta-center player-area">
+            <div class="overlay-block" ng-if="vm.videoStart"></div>
+            <div id="playerArea"></div>
+            <script type="text/javascript">
+                (function (a, b, c, d, e, f, g, h) {
+                    g = b.createElement(c);
+                    g.src = d;
+                    g.type = "application/javascript";
+                    g.async = !0;
+                    h = b.getElementsByTagName(c)[0];
+                    h.parentNode.insertBefore(g, h);
+                    a[f] = [];
+                    a[e] = function () {
+                        a[f].push(Array.prototype.slice.apply(arguments));
+                    }
+                }) (window, document, "script", (document.location.protocol === "https:"
+                                ? "https:" : "http:") + "//cdn01.nativeroll.tv/js/seedr-player.min.js",
+                        "SeedrPlayer", "seedrInit");
+            </script>
+
+        </div>
+        <div class="row error-area" ng-show="vm.playerError">
+            <h3>К сожалению, новых видео для тебя пока нет. Приходи через несколько часов, может что и появится ;-)</h3>
+        </div>
+        <div class="row error-area">
+            <button ng-click="vm.backToRaffle()">Вернуться в розыгрыш</button>
+        </div>
+    </div>
+</div>

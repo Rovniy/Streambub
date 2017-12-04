@@ -1,0 +1,90 @@
+<div class="container-fluid" id="newsitem">
+    <div class="container">
+        <div class="bread">
+            <ul class="breadcrumb">
+                <li><a href="/news">Все новости</a></li>
+                <li><a href="/news/{{vm.newsData.category.id}}">{{vm.newsData.category.name}}</a></li>
+                <li>{{vm.newsData.name[0].text}}</li>
+            </ul>
+        </div>
+        <div class="header-meta">
+            <button>
+                {{vm.newsData.category.name}}
+            </button>
+            <span>{{vm.newsData.createTime | date:'HH:mm, dd.MM.yyyy'}}</span>
+            <span class="creator"><i class="fa fa-pencil"></i> {{vm.newsData.userName}}</span>
+        </div>
+        <div class="header-title">
+            <h1>{{vm.newsData.name[0].text}}</h1>
+        </div>
+        <div class="main-area">
+            <div class="img-area">
+                <img src="{{vm.newsData.images[0].imageLink}}"/>
+            </div>
+            <hr/>
+            <div class="text-area" ng-bind-html="vm.to_trusted(vm.newsData.text[0].text)"></div>
+            <div class="tags-area">
+                <ul class="list-inline pull-right">
+                    <li class="color-grey" ng-repeat="row in vm.newsData.tags track by $index">{{row}}</li>
+                </ul>
+            </div>
+            <div class="row meta-area">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 leftcol">
+                    <ul>
+                        <li class="links-title">
+                            Поделиться:
+                        </li>
+                        <li class="vk">
+                            <a ng-href="https://vk.com/share.php?url={{vm.newUrl}}&title={{vm.newsData.name[0].text}}&description={{vm.newsData.shortDesc[0].text}}&image=https://streampub.net{{vm.newsData.images[0].imageLink}}" target="_blank">
+                                <i class="fa fa-vk fa-2x"></i>
+                            </a>
+                        </li>
+                        <!--<li class="twitter">
+                            <i class="fa fa-twitter fa-2x"></i>
+                        </li>-->
+                        <li class="facebook" ng-click="vm.postSocial()">
+                            <i class="fa fa-facebook fa-2x"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 rightcol">
+                    <ul>
+                        <li ng-click="vm.openAddmodal()">
+                            <i class="fa fa-briefcase"></i> У меня больше инфы об этом
+                        </li>
+                        <li ng-click="vm.openAddmodal()">
+                            <i class="fa fa-file-text-o"></i> Я напишу офигенную историю
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-title">
+            <h1>Читай также</h1>
+        </div>
+        <div class="bottom-list">
+            <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 item" ng-repeat="row in vm.news" ng-if="row.category.id !== 5">
+                <div class="itemdata">
+                    <div class="imaga">
+                        <a href="/news/{{row.category.id}}/{{row.id}}">
+                            <img src="{{row.images[0].imageLink}}"/>
+                        </a>
+                    </div>
+                    <div class="rubric">
+                        <a href="/news/{{row.category.id}}">{{row.category.name}}</a>
+                    </div>
+                    <div class="title">
+                        <a href="/news/{{row.category.id}}/{{row.id}}">
+                            <h3>{{row.name[0].text}}</h3>
+                        </a>
+                    </div>
+                    <div class="text" ng-bind-html="vm.to_trusted(row.shortDesc[0].text)"></div>
+                    <div class="meta">
+                        <span>{{row.createTime | date:'dd.MM.yyyy'}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

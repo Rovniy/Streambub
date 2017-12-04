@@ -1,0 +1,52 @@
+<div class="container-fluid" id="adminAdsCompanyList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Рекламные кампании</h1>
+            <p>Список рекламных кампаний, заведенных на сайте StreamPub</p>
+        </div>
+        <div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                    <tr>
+                        <td ng-click="vm.orderData = 'key'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'key'}">
+                            #
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'key'}"></i>
+                        </td>
+                        <td ng-click="vm.orderData = 'sponsorName'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'sponsorName'}">
+                            Рекламодатель
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'sponsorName'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'name'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'name'}">
+                            Назваение/Тег
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'name'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'link'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'link'}">
+                            Ссылка
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'link'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'startDate'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'startDate'}">
+                            Дата старта
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'startDate'}"></i>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,row) in vm.adsList | orderBy: vm.orderData : vm.sortReverce" ng-class="{'non-active': !row.active}">
+                        <td>{{key}}</td>
+                        <td>{{row.sponsor.name}}</td>
+                        <td>{{row.name}}</td>
+                        <td><div>Ссылка при клике на фон: <a href="{{row.sponsor.link}}" target="_blank">{{row.sponsor.link}}</a>
+                        </div>
+                            <span ng:repeat="(index, value) in row.brandings">
+                                {{value.type}} <a href="{{value.src}}" target="_blank">{{value.src}}</a><br>
+                            </span>
+
+                        </td>
+                        <td class="ta-center">{{row.startDate | date:'dd.MM.yy'}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

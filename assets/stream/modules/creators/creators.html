@@ -1,0 +1,449 @@
+<div id="creators">
+    <div class="container-fluid" id="creators1">
+        <div class="container">
+            <div class="row description">
+                <div class="col-lg-3 left-side">
+                    <div class="main-avatar">
+                        <img src="{{vm.streamerData.images[vm.activeImg].imageLink}}"/>
+                    </div>
+                    <div class="other-avatars">
+                        <div class=" photos">
+                            <a href ng-class="{'active': key == vm.activeImg}" ng-click="vm.activeImg = key" ng-repeat="(key,row) in vm.streamerData.images">
+                                <img src="{{row.imageLink}}"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 right-side">
+                    <div class="row topchik">
+                        <div class="row name-rating">
+                            <div class="col-lg-5">
+                                <h1>{{vm.streamerData.name}}</h1>
+                            </div>
+                            <div class="col-lg-7 rating-area">
+                                <ul class="rating-list">
+                                    <li class="rating-item">
+                                        <h4>
+                                            <img src="/src/img/creators/heart.png"/>
+                                            <span>{{vm.streamerData.interactive | number:1}}</span>
+                                        </h4>
+                                    </li>
+                                    <li class="rating-item">
+                                        <h4>
+                                            <img src="/src/img/creators/sword.png"/>
+                                            <span>{{vm.streamerData.skill  | number:1}}</span>
+                                        </h4>
+
+                                    </li>
+                                    <li class="rating-item">
+                                        <h4>
+                                            <img src="/src/img/creators/smile.png"/>
+                                            <span>{{vm.streamerData.charisma  | number:1}}</span>
+                                        </h4>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row inner-div">
+                        <div class="col-lg-8 meta">
+                            <div class="main-desc">
+                                <p>{{vm.descFunction('PROFILE', 'ru')}}</p>
+                            </div>
+                            <div class="calendar">
+                                <table>
+                                    <tr class="title">
+                                        <td>ПН</td>
+                                        <td>ВТ</td>
+                                        <td>СР</td>
+                                        <td>ЧТ</td>
+                                        <td>ПТ</td>
+                                        <td>СБ</td>
+                                        <td>ВС</td>
+                                    </tr>
+                                    <tr class="dates">
+                                        <td>
+                                            <span ng-if="vm.monday != null">{{vm.monday.from}}-{{vm.monday.to}}</span>
+                                            <span ng-if="vm.monday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.tuesday != null">{{vm.tuesday.from}}-{{vm.tuesday.to}}</span>
+                                            <span ng-if="vm.tuesday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.wednesday != null">{{vm.wednesday.from}}-{{vm.wednesday.to}}</span>
+                                            <span ng-if="vm.wednesday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.thursday != null">{{vm.thursday.from}}-{{vm.thursday.to}}</span>
+                                            <span ng-if="vm.thursday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.friday != null">{{vm.friday.from}}-{{vm.friday.to}}</span>
+                                            <span ng-if="vm.friday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.saturday != null">{{vm.saturday.from}}-{{vm.saturday.to}}</span>
+                                            <span ng-if="vm.saturday == null">--</span>
+                                        </td>
+                                        <td>
+                                            <span ng-if="vm.sunday != null">{{vm.sunday.from}}-{{vm.sunday.to}}</span>
+                                            <span ng-if="vm.sunday == null">--</span>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <p>* уточняйте расписание в социальных сетях стримера</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 right-area">
+                            <div class="shadow-block">
+                                <table>
+                                    <tbody>
+                                    <tr>
+                                        <td class="title">Игра:</td>
+                                        <td class="text">
+                                            <img src="{{vm.findMainGame()}}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="title">Скилл:</td>
+                                        <td class="text">{{vm.streamerData.gameExperience}}</td>
+                                    </tr>
+                                    <!--
+                                    <tr>
+                                        <td class="title">Розыгрыши:</td>
+                                        <td class="text">Часто</td>
+                                    </tr>-->
+                                    <tr>
+                                        <td class="title">Стиль общения:</td>
+                                        <td class="text">{{vm.streamerData.communication}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="row statistic">
+                                <div class="col-lg-4 stat-area">
+                                    <h5><i class="fa fa-users"></i> {{vm.streamerData.viewersAtSameTime}}</h5>
+                                    <p>Зрителей одновременно</p>
+                                </div>
+                                <div class="col-lg-4 stat-area">
+                                    <h5><i class="fa fa-eye"></i> {{vm.streamerData.viewersPerDay}}</h5>
+                                    <p>Зрителей за один стрим</p>
+                                </div>
+                                <div class="col-lg-4 stat-area">
+                                    <h5><i class="fa fa-twitch"></i> {{vm.streamerData.followers}}</h5>
+                                    <p>Количество подписчиков</p>
+                                </div>
+                            </div>
+                            <div class="row social-buttons">
+                                <!--<a ng-repeat="row in vm.streamerData.platformLinks" href="{{row.link}}" target="_blank" class="{{row.platformType}}">
+                                    <i class="fa fa-vk fa-2x" ng-show="row.platformType == 'VK'"></i>
+                                    <i class="fa fa-twitch fa-2x" ng-show="row.platformType == 'TWITCH'"></i>
+                                    <i class="fa fa-facebook fa-2x" ng-show="row.platformType == 'FACEBOOK'"></i>
+                                    <i class="fa fa-youtube fa-2x" ng-show="row.platformType == 'YOUTUBE'"></i>
+                                    <i class="fa fa-twitter fa-2x" ng-show="row.platformType == 'TWITTER'"></i>
+                                </a>-->
+                                <a ng-if="vm.checkSocialLinks('TWITCH').length > 0" href="{{vm.checkSocialLinks('TWITCH')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('TWITCH')[0].platformType}}">
+                                    <i class="fa fa-twitch fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('YOUTUBE').length > 0" href="{{vm.checkSocialLinks('YOUTUBE')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('YOUTUBE')[0].platformType}}">
+                                    <i class="fa fa-youtube fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('HITBOX').length > 0" href="{{vm.checkSocialLinks('HITBOX')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('HITBOX')[0].platformType}}">
+                                    <img src="/src/img/base/icons/hitbox.png">
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('VK').length > 0" href="{{vm.checkSocialLinks('VK')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('VK')[0].platformType}}">
+                                    <i class="fa fa-vk fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('INSTAGRAM').length > 0" href="{{vm.checkSocialLinks('INSTAGRAM')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('INSTAGRAM')[0].platformType}}">
+                                    <i class="fa fa-instagram fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('TWITTER').length > 0" href="{{vm.checkSocialLinks('TWITTER')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('TWITTER')[0].platformType}}">
+                                    <i class="fa fa-twitter fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('FACEBOOK').length > 0" href="{{vm.checkSocialLinks('FACEBOOK')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('FACEBOOK')[0].platformType}}">
+                                    <i class="fa fa-facebook fa-2x"></i>
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('GOODGAME').length > 0" href="{{vm.checkSocialLinks('GOODGAME')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('GOODGAME')[0].platformType}}">
+                                    <img src="/src/img/base/icons/goodgame.png">
+                                </a>
+                                <a ng-if="vm.checkSocialLinks('SC2TV').length > 0" href="{{vm.checkSocialLinks('SC2TV')[0].link}}" target="_blank" class="{{vm.checkSocialLinks('SC2TV')[0].platformType}}">
+                                    <img src="/src/img/base/icons/sc2tv.png">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="creators2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 left-side">
+                    <h3>Розыгрыши</h3>
+                    <div class="raffles-list">
+                        <table ng-if="vm.streamerRaffles.length > 0">
+                            <tbody>
+                                <tr ng-repeat="row in vm.streamerRaffles | limitTo: vm.rafflesLimit track by $index" ng-class="{'active': row.finished == false}">
+                                    <td class="imaga">
+                                        <img src="{{row.gift.images[0].imageLink}}">
+                                    </td>
+                                    <td class="desc">
+                                        <h4><a href="{{row.gift.link}}" target="_blank">{{row.gift.name}}</a></h4>
+                                    </td>
+                                    <td class="btn-area">
+                                        <a href="{{row.shortLink}}" ng-show='row.finished == false' class="raffle-in-process">Участвовать</a>
+                                        <span ng-show='row.finished == true' class="raffle-end">Завершен</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div class="row see-more ta-center" ng-show="vm.streamerRaffles.length > 5 && vm.rafflesLimit !== 1000">
+                            <a href ng-click="vm.rafflesLimit = 1000">Посмотреть все</a>
+                        </div>
+                        <table ng-if="vm.streamerRaffles.length == 0">
+                            <tbody>
+                            <tr>
+                                <td class="btn-area">
+                                    <h3>Стример не создал еще ни одного розыгрыша</h3>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="col-lg-4 right-side">
+                    <h3>Оцени канал</h3>
+                    <div class="rating-area">
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/heart.png"/> Интерактив</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating1" max="5" on-rating-select="vm.rateFunction('INTERACTIVE')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько интересно смотерть трансляцию?</span>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/sword.png"/> Скилл</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating2" max="5" on-rating-select="vm.rateFunction('SKILL')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько высок новык игры стримера?</span>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/smile.png"/> Харизма</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating3" max="5" on-rating-select="vm.rateFunction('CHARISMA')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько приятен стример?</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-comments">
+                        <textarea placeholder="Напиши пару строк о стримере..." ng-model="vm.comment" ng-disabled="vm.commentDis" ng-show="user"></textarea>
+                        <textarea placeholder="Оставлять комментарии могут лишь зарегистрированные участники..." ng-disabled="!user" ng-show="!user"></textarea>
+                        <button class="btn-ga-style" ng-click="vm.postComment(vm.comment)" ng-disabled="vm.commentDis || !user">Оставить комментарий</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="container-fluid" id="creators3">
+        <div class="container">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12" ng-if="vm.streamUrl">
+                <iframe class="twitch-player" ng-src="{{vm.stream}}" frameborder="0" scrolling="no" ></iframe>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12" ng-if="vm.streamChatUrl">
+                <iframe class="twitch-chat" ng-src="{{vm.streamChat}}" frameborder="0" scrolling="no"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="creators4">
+        <div class="container">
+            <div class="row main-text" ng-hide="!vm.descFunction('BIOGRAPHY', 'ru')">
+                <h3>Биография</h3>
+                <p>{{vm.descFunction('BIOGRAPHY', 'ru')}}</p>
+            </div>
+            <div class="row awards-list">
+                <div class="row">
+                    <table>
+                        <tr class="award" ng-repeat="row in vm.streamerData.awards | limitTo: vm.awardsLimit">
+                            <td class="date-area">
+                                <span>{{row.date | date:'dd.MM.yyyy'}}</span>
+                            </td>
+                            <td class="text">
+                                <span>{{row.text}}</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="row see-more" ng-show="vm.streamerData.awards.length > 5 && vm.awardsLimit !== 1000">
+                    <a href ng-click="vm.awardsLimit = 1000">Посмотреть все</a>
+                </div>
+            </div>
+            <div class="row videos-preview">
+                <div class="row">
+                    <ul>
+                        <li ng-repeat="(key,row) in vm.streamerData.videos | limitTo: vm.videosLimit" ng-click="vm.onYouTubeIframeAPIReady(row.link)">
+                            <img src="http://img.youtube.com/vi/{{row.link}}/default.jpg"/>
+                            <h5 class="title">{{row.name}}</h5>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row see-more"  ng-show="vm.streamerData.videos.length > 5 && vm.videosLimit !== 1000">
+                    <a href ng-click="vm.videosLimit = 1000">Посмотреть все</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="creators5">
+        <div class="container">
+            <div class="row">
+                <div class="left-side" ng-class="{'col-lg-8' : vm.streamerData.mediaReferences.length > 0, 'col-lg-12': vm.streamerData.mediaReferences.length == 0}" ng-hide="!vm.descFunction('FACTS', 'ru')">
+                    <h3>Стиль канала</h3>
+                    <p>{{vm.descFunction('FACTS', 'ru')}}</p>
+                </div>
+                <div class="right-side" ng-show="vm.streamerData.mediaReferences.length > 0" ng-class="{'col-lg-4': vm.descFunction('FACTS', 'ru'), 'col-lg-12': !vm.descFunction('FACTS', 'ru')}">
+                    <h3>Упоминания в СМИ</h3>
+                    <div class="row list-area">
+                        <ul>
+                            <li ng-repeat="row in vm.streamerData.mediaReferences | limitTo: vm.mediaReferencesLimit">
+                                <p class="title">{{row.date | date:'dd.MM.yyyy'}} | источник: {{row.name}}</p>
+                                <a href="{{row.link}}" target="_blank" class="text">{{row.description}}</a>
+                            </li>
+                            <li class="ta-center" ng-show="vm.streamerData.mediaReferences.length > 3 && vm.mediaReferencesLimit == 3">
+                                <a href class="see-more" ng-click="vm.mediaReferencesLimit = 1000">Показать все</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid" id="creators6" ng-show="vm.commentsList.length > 0">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 left-side">
+                    <h3>Последние комментарии</h3>
+                    <div class="comments-area">
+                        <div class="filters">
+                            <ul>
+                                <li class="title">Показывать:</li>
+                                <li class="check" ng-class="{'active' : vm.commentFilter == ''}" ng-click="vm.commentFilter = ''">Все</li>
+                                <li class="check" ng-class="{'active' : vm.commentFilter == 'up'}" ng-click="vm.commentFilter = 'up'"><i class="fa fa-thumbs-o-up"></i></li>
+                                <li class="check" ng-class="{'active' : vm.commentFilter == 'down'}" ng-click="vm.commentFilter = 'down'"><i class="fa fa-thumbs-o-down"></i></li>
+                            </ul>
+                        </div>
+                        <div class="lists">
+                            <div class="row item" ng-repeat="(key,row) in vm.commentsList | filter: vm.commentsFilter track by $index">
+                                <div class="col-lg-8 text">
+                                    <h5 class="date">{{row.createTime | date:'dd.MM.yyyy'}}</h5>
+                                    <h4>{{row.name}}</h4>
+                                    <p>{{row.comment}}</p>
+                                </div>
+                                <div class="col-lg-4 ranks">
+                                    <ul class="pull-right">
+                                        <li>
+                                            <span><img src="/src/img/creators/heart.png"/></span>
+                                            <star-rating ng-model="vm.commentsList[key].interactive" max="5" readonly="true"></star-rating>
+                                        </li>
+                                        <li>
+                                            <span><img src="/src/img/creators/sword.png"/></span>
+                                            <star-rating ng-model="vm.commentsList[key].skill" max="5" readonly="true"></star-rating>
+                                        </li>
+                                        <li>
+                                            <span><img src="/src/img/creators/smile.png"/></span>
+                                            <star-rating ng-model="vm.commentsList[key].charisma" max="5" readonly="true"></star-rating>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--<div class="row item last">
+                                <h3 class="loadmore" ng-click="">Загрузить больше комментариев</h3>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 right-side">
+                    <h3>Оцени канал</h3>
+                    <div class="rating-area">
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/heart.png"/> Интерактив</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating1" max="5" on-rating-select="vm.rateFunction('INTERACTIVE')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько интересно смотерть трансляцию?</span>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/sword.png"/> Скилл</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating2" max="5" on-rating-select="vm.rateFunction('SKILL')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько высок новык игры стримера?</span>
+                            </div>
+                        </div>
+                        <div class="rating-item">
+                            <div class="row">
+                                <div class="col-lg-5">
+                                    <h3><img src="/src/img/creators/smile.png"/> Харизма</h3>
+                                </div>
+                                <div class="col-lg-7 stars-area">
+                                    <div star-rating ng-model="vm.rating3" max="5" on-rating-select="vm.rateFunction('CHARISMA')"></div>
+                                </div>
+                            </div>
+                            <div class="row bot-text">
+                                <span>Насколько приятен стример?</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rating-comments">
+                        <textarea placeholder="Напиши пару строк о стримере..." ng-model="vm.comment" ng-disabled="vm.commentDis" ng-show="user"></textarea>
+                        <textarea placeholder="Оставлять комментарии могут лишь зарегистрированные участники..." ng-disabled="!user" ng-show="!user"></textarea>
+                        <button class="btn-ga-style" ng-click="vm.postComment(vm.comment)" ng-disabled="vm.commentDis || !user">Оставить комментарий</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Youtube player -->
+<div ng-show="vm.showVideoIframe == true" class="youtubeVideoFrame">
+    <div id="player" frameborder="0" allowfullscreen></div>
+    <div class="close-button" ng-click="vm.closeVideoFrame()" ><i class="fa fa-close fa-3x"></i></div>
+</div>

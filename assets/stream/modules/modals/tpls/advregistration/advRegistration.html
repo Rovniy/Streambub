@@ -1,0 +1,17 @@
+<div ng-controller="advRegistration as vm" class="advRegistration">
+    <div class="modal-header">
+        <h3 class="modal-title ta-center">Please leave your email to register on StreamPub</h3>
+    </div>
+    <div class="modal-body modal-body-notification text-center">
+        <h4 ng-hide="vm.thatsok">Please leave your email to register on StreamPub<br/>
+            Make sure that the email is correct - it’ll be used as the main communication method.</h4>
+        <form ng-hide="vm.thatsok" class="form-horizontal" role="form" name="popupLoginForm" ng-class="{ 'has-error' :  (popupLoginForm.login.$invalid-pattern) && (popupLoginForm.login.$dirty) }">
+            <input type="email" class="form-control input-lg ta-center" ng-model="vm.email" placeholder="Email" validate-email required>
+            <button type="submit" class="btn div-margin-auto button-action" ng-disabled="!popupLoginForm.$valid" ng-click="vm.register(vm.email)">Register</button>
+        </form>
+        <h3 ng-show="vm.thatsok" class="color-green">Thank you for launching the campaign!<br/>
+            As soon as it is moderated your personal manager will contact you via provided email address.<br/>
+            GOT IT!
+        </h3>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="container-fluid" id="cpaMeshesMoeVideo">
+    <div class="container bg-white">
+        <div class="row title">
+            <h1>Просмотр видео</h1>
+            <h5>За просмотр каждого видео на этой странице тебе будет начисляться LUCK</h5>
+        </div>
+        <div class="row luck-area" ng-show="vm.iHaveLuckNow">
+            <h2 class="ta-center">Ты заработал <span>{{vm.myMoevideoLuck}}</span> LUCK за просмотр этих видео</h2>
+        </div>
+        <div class="row ta-center player-area">
+            <div id="playerArea"></div>
+
+            <script type="text/javascript" id="s-9f0a690915671667">!function (t, e, n, o, a, c, s) {
+                t[a] = t[a] || function () {
+                            (t[a].q = t[a].q || []).push(arguments)
+                        }, t[a].l = 1 * new Date, c = e.createElement(n), s = e.getElementsByTagName(n)[0], c.async = 1, c.src = o, s.parentNode.insertBefore(c, s)
+            }(window, document, "script", "//bsvideo10.ru/player/", "vim");
+            vim("get", "9f0a690915671667", {
+                "va": "top",
+                "t": "rotator",
+                "p": "5892",
+                "h": "480",
+                "w": "700",
+                "sig": "9f0a690915671667"
+            });</script>
+
+        </div>
+        <div class="row error-area" ng-show="vm.noVideo">
+            <h3>К сожалению, новых видео для тебя пока нет. Приходи через несколько часов, может что и появится ;-)</h3>
+        </div>
+        <div class="row error-area">
+            <button ng-click="vm.backToRaffle()">Вернуться в розыгрыш</button>
+        </div>
+    </div>
+</div>

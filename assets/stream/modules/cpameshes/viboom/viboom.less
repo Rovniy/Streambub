@@ -1,0 +1,73 @@
+#cpaMeshesViboom {
+  .container {
+    padding: 0 50px 50px;
+    .title {
+      width:100%;
+      padding:20px 0 40px 0;
+      h1 {
+        color: @h-color;
+        font:italic 2.71rem/2.71rem @f-head;
+        text-align:left;
+        text-transform: uppercase;
+      }
+      h5 {
+        color: @h-color;
+        font:1.14rem/1.14rem @f-main;
+        text-align:left;
+      }
+    }
+    .luck-area {
+      h2 {
+        color: @h-color;
+        font:italic 3rem/3rem @f-head;
+        text-transform: uppercase;
+        span {
+          color: @orange-color;
+        }
+      }
+    }
+    .player-area {
+      position: relative;
+      .overlay-block {
+        position:absolute;
+        top:0;
+        bottom:0;
+        left:0;
+        right:0;
+        display: block;
+        cursor: no-drop;
+        z-index: 99999;
+      }
+      .rtp-wrapper {
+        margin: auto;
+      }
+    }
+    .error-area {
+      text-align: center;
+      button {
+        margin: 30px auto 0;
+        display: block;
+        width: 300px;
+        text-align: center;
+        border: 0;
+        outline: 0;
+        height: 40px;
+        background: @orange-color;
+        color: #fff;
+        font: italic 1.4rem/40px @f-head;
+        -webkit-transition: .2s ease-out;
+        transition: .2s ease-out;
+        &:hover {
+          -webkit-transition: .2s ease-out;
+          transition: .2s ease-out;
+          background: @orange-color-hover;
+        }
+        &:focus {
+          -webkit-transition: .2s ease-out;
+          transition: .2s ease-out;
+          background: @orange-color;
+        }
+      }
+    }
+  }
+}

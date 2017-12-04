@@ -1,0 +1,447 @@
+<div id="dashboard">
+    <div class="container-fluid" id="pa-small-budget" ng-if="user.userData.role == 'STREAMER' || user.userData.role == 'ADMIN'">
+        <div class="container">
+            <div class="row">
+                <div class="pull-left">
+                    <ul>
+                        <li>
+                            <i class="fa fa-eye fa-2x" uib-tooltip="Количество зрителей на твоем стриме за день" tooltip-placement="bottom"></i>
+                            <span>{{vm.budget.metrics.viewersPerDay || 0}}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-users fa-2x" uib-tooltip="Количество одновременных зрителей на твоем стриме" tooltip-placement="bottom"></i>
+                            <span>{{vm.budget.metrics.viewersAtSameTime || 0}}</span>
+                        </li>
+                        <li>
+                            <i class="fa fa-twitch fa-2x" uib-tooltip="Количество твоих стримов в неделю" tooltip-placement="bottom"></i>
+                            <span>{{vm.budget.metrics.streamsCount || 0}}</span>
+                        </li>
+                        <li class="separator">|</li>
+                        <li><span>Доступный бюджет: </span> <span class="my-all-budget" uib-tooltip="Бюджет розыгрыша зависит от нескольких основных факторов, которое автоматически собираются с аккаунта Twitch.tv" tooltip-placement="bottom">{{currentRate(vm.budget.budget.availableCash)}}</span></li>
+                    </ul>
+                </div>
+                <div class="pull-right">
+                    <button class="btn btn-success btn-lg" ng-click="vm.createGiveAway()" ng-if="!vm.iHaveActiveRaffle">Запустить розыгрыш</button>
+                    <a href="/{{user.userData.name}}" class="btn btn-success btn-lg" ng-if="vm.iHaveActiveRaffle">Перейти в розыгрыш</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="pa-social">
+        <div class="container">
+            <div class="row title">
+                <h1>Подключенные аккаунты</h1>
+                <h5>Ты можешь подключить дополнительные аккаунты, чтобы тебе стали доступные новые целевые действия в розыгрышах</h5>
+            </div>
+            <div class="row social-list">
+                <div ng-class="{'active' : user.userData.providers.indexOf('password') != -1}">
+                    <a href class="email" ng-click="vm.connectAccount('password')">
+                        <i class="fa fa-2x fa-at"></i>
+                    </a>
+                </div>
+                <div ng-class="{'active' : user.userData.providers.indexOf('twitch') != -1}">
+                    <a href class="twitch" ng-click="vm.connectAccount('twitch')">
+                        <i class="fa fa-2x fa-twitch"></i>
+                    </a>
+                </div>
+                <div ng-class="{'active' : user.userData.providers.indexOf('vk') != -1}">
+                    <a href class="vk" ng-click="vm.connectAccount('vk')">
+                        <i class="fa fa-2x fa-vk"></i>
+                    </a>
+                </div>
+                <div ng-class="{'active' : user.userData.providers.indexOf('facebook') != -1}">
+                    <a href class="fb" ng-click="vm.connectAccount('facebook')">
+                        <i class="fa fa-2x fa-facebook"></i>
+                    </a>
+                </div>
+                <!--<div class="inactive" ng-class="{'active' : user.userData.providers.indexOf('instagram') != -1}">
+                    &lt;!&ndash;<a href class="instagram" ng-click="vm.connectAccount('instagram')">&ndash;&gt;
+                    <a href class="instagram">
+                        <i class="fa fa-2x fa-instagram"></i>
+                    </a>
+                </div>-->
+                <div class="inactive" ng-class="{'active' : user.userData.providers.indexOf('twitter') != -1}">
+                    <a href class="twitter">
+                        <i class="fa fa-2x fa-twitter"></i>
+                    </a>
+                </div>
+<!--                <div class="inactive" ng-class="{'active' : user.userData.providers.indexOf('linkedin') != -1}">
+                    <a href class="linkedin">
+                        <i class="fa fa-2x fa-linkedin"></i>
+                    </a>
+                </div>-->
+                <div class="inactive" ng-class="{'active' : user.userData.providers.indexOf('youtube') != -1}">
+                    <a href class="youtube">
+                        <i class="fa fa-2x fa-youtube"></i>
+                    </a>
+                </div>
+                <!--<div ng-class="{'active' : user.userData.providers.indexOf('google') != -1}">
+                    <a href class="google" ng-click="vm.connectAccount('google')">
+                        <i class="fa fa-2x fa-google-plus"></i>
+                    </a>
+                </div>-->
+                <div class="inactive">
+                    <a href class="google">
+                        <i class="fa fa-2x fa-steam"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="pa-cd" ng-if="user.userData.role == 'STREAMER' || user.userData.role == 'ADMIN'">
+        <div class="container">
+            <div class="row title">
+                <h1>Целевые действия</h1>
+                <h5>Настрой целевые действия, которые автоматически будут добавляться в твои розыгрыши</h5>
+            </div>
+            <div class="row cd-area">
+                <div class="col-lg-3">
+                    <div class="item active" ng-click="vm.showAddQuestForm = true; vm.questAddType = 'follow_twitch'; vm.quest.name = 'Подписка на канал Twitch'; vm.quest.taskType = 'FOLLOW_TWITCH'">
+                        <div class="item-body">
+                            <div class="item-body-inner">
+                                <i class="fa fa-twitch fa-5x twitch"></i>
+                            </div>
+                            <div class="item-body-footer">
+                                <p>Подписка на мой Twitch-канал</p>
+                            </div>
+                            <div class="item-controls" uib-tooltip="Все настроено верно. Этот квест появится во всех твоих розыгрышах автоматически" tooltip-placement="top">
+                                <i ng-if="vm.myQuestsList.FOLLOW_TWITCH" class="fa fa-check fa-2x color-green"></i>
+                                <i ng-if="!vm.myQuestsList.FOLLOW_TWITCH" class="fa fa-ban fa-2x color-red"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="item active" ng-click="vm.showAddQuestForm = true; vm.questAddType = 'subscribe_vk'; vm.quest.name = ''; vm.quest.taskType = 'SUBSCRIBE_VK'">
+                        <div class="item-body">
+                            <div class="item-body-inner">
+                                <i class="fa fa-vk fa-5x vk"></i>
+                            </div>
+                            <div class="item-body-footer">
+                                <p>Вступление в мою группу Вконтакте</p>
+                            </div>
+                        </div>
+                        <div class="item-controls" uib-tooltip="Эта соц. сеть еще не прикреплена к твоей учетной записи" tooltip-placement="top">
+                            <i ng-if="vm.myQuestsList.SUBSCRIBE_VK" class="fa fa-check fa-2x color-green"></i>
+                            <i ng-if="!vm.myQuestsList.SUBSCRIBE_VK" class="fa fa-ban fa-2x color-red"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="item active" ng-click="vm.showAddQuestForm = true; vm.questAddType = 'subscribe_twitch'; vm.quest.name = 'Платная подписка на канал Twitch'; vm.quest.taskType = 'SUBSCRIBE_TWITCH'">
+                        <div class="item-body">
+                            <div class="item-body-inner">
+                                <i class="fa fa-twitch fa-5x twitch"></i>
+                            </div>
+                            <div class="item-body-footer">
+                                <p>Платная подписка на мой Twitch-канал</p>
+                            </div>
+                        </div>
+                        <div class="item-controls" uib-tooltip="Эта соц. сеть еще не прикреплена к твоей учетной записи" tooltip-placement="top">
+                            <i ng-if="vm.myQuestsList.SUBSCRIBE_TWITCH" class="fa fa-check fa-2x color-green"></i>
+                            <i ng-if="!vm.myQuestsList.SUBSCRIBE_TWITCH" class="fa fa-ban fa-2x color-red"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="item active" ng-click="vm.showAddQuestForm = true; vm.questAddType = 'direct_link';  vm.quest.name = 'Подписка на YouTube'; vm.quest.taskType = 'DIRECT_LINK'">
+                        <div class="item-body">
+                            <div class="item-body-inner">
+                                <i class="fa fa-youtube-play fa-5x youtube"></i>
+                            </div>
+                            <div class="item-body-footer">
+                                <p>Подписка на мой YouTube-канал</p>
+                            </div>
+                        </div>
+                        <div class="item-controls" uib-tooltip="Эта соц. сеть еще не прикреплена к твоей учетной записи" tooltip-placement="top">
+                            <i ng-if="vm.myQuestsList.DIRECT_LINK" class="fa fa-check fa-2x color-green"></i>
+                            <i ng-if="!vm.myQuestsList.DIRECT_LINK" class="fa fa-ban fa-2x color-red"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="form-inline add-quest-area" ng-if="vm.showAddQuestForm">
+                <div class="quest-add-item" ng-if="vm.questAddType  == 'follow_twitch' && !vm.myQuestsList.FOLLOW_TWITCH">
+                    <span>Подписка на канал Twitch</span>
+                    <input class="form-control" ng-model="vm.quest.id" placeholder="Ссылка на канал"/>
+                    <button class="btn btn-success"
+                            ng-disabled="!vm.quest.id"
+                            ng-click="vm.showAddQuestForm = false; vm.saveMyQuest(vm.quest)">Сохранить</button>
+                </div>
+                <div class="quest-add-item" ng-if="vm.questAddType  == 'subscribe_vk' && !vm.myQuestsList.SUBSCRIBE_VK">
+                    <span>Подписка на группу Вконтакте</span>
+                    <input class="form-control" ng-model="vm.quest.id" placeholder="Ссылка на группу"/>
+                    <input class="form-control" ng-model="vm.quest.name" placeholder="Название группы"/>
+                    <button class="btn btn-success"
+                            ng-disabled="!vm.quest.id || !vm.quest.name"
+                            ng-click="vm.showAddQuestForm = false; vm.saveMyQuest(vm.quest)">Сохранить</button>
+                </div>
+                <div class="quest-add-item" ng-if="vm.questAddType  == 'subscribe_twitch' && !vm.myQuestsList.SUBSCRIBE_TWITCH">
+                    <span>Платная подписка на канал Twitch</span>
+                    <input class="form-control" ng-model="vm.quest.id" placeholder="Ссылка на канал"/>
+                    <button class="btn btn-success"
+                            ng-disabled="!vm.quest.id"
+                            ng-click="vm.showAddQuestForm = false; vm.saveMyQuest(vm.quest)">Сохранить</button>
+                </div>
+                <div class="quest-add-item" ng-if="vm.questAddType  == 'direct_link' && !vm.myQuestsList.DIRECT_LINK">
+                    <span>Подписка канал YouTube</span>
+                    <input class="form-control" ng-model="vm.quest.id" placeholder="Ссылка на канал"/>
+                    <button class="btn btn-success"
+                            ng-disabled="!vm.quest.id"
+                            ng-click="vm.showAddQuestForm = false; vm.saveMyQuest(vm.quest)">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="pa-balance">
+        <div class="container">
+            <div class="row title">
+                <h1>Баланс и вывод средств</h1>
+                <h5>Заработанные тобой средства и источники получения</h5>
+            </div>
+            <div class="row balance-area" ng-hide="vm.withdrawal == 0">
+                <h1 class="my-balance">{{currentRate(vm.withdrawal)}}</h1>
+                <div class="row icons-payment-area">
+                    <button class="btn btn-default" ng-click="vm.widthdrawalModal('QIWI')">
+                        <img src="/src/img/base/icons/qiwi.png"/>
+                    </button>
+                    <button class="btn btn-default" ng-click="vm.widthdrawalModal('WebMoney')">
+                        <img src="/src/img/base/icons/webmoney.png"/>
+                    </button>
+                </div>
+            </div>
+            <div class="row my-raffles-area" ng-if="(user.userData.role == 'STREAMER' || user.userData.role == 'ADMIN') && vm.history.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td class="ta-left">Название розыгрыша</td>
+                        <td class="ta-center">Приз</td>
+                        <td class="ta-center">Статус розыгрыша</td>
+                        <td class="ta-center">Стоимость приза</td>
+                        <td class="ta-center">Участники</td>
+                        <td class="ta-center">Заработок</td>
+                        <td class="ta-center">Отмена</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in vm.history track by $index" ng-if="!row.reject">
+                        <td class="ta-left">
+                            <a href="/{{row.shortLink}}" ng-if="!row.reject">
+                                {{row.activeGift.gift.name}} #{{row.name}}
+                            </a>
+                            <a href ng-if="row.reject">
+                                {{row.activeGift.gift.name}} #{{row.name}}
+                            </a>
+                        </td>
+                        <td class="ta-center">
+                            <img ng-src="{{row.activeGift.gift.images[0].imageLink}}" uib-tooltip="{{row.activeGift.gift.name}}" tooltip-placement="top"/>
+                        </td>
+                        <td class="ta-center">
+                            <span ng-if="!row.finished && !row.reject && (row.stats.activeMembers < row.stats.minMembers)">Набираем участников</span>
+                            <span ng-if="!row.finished && row.reject">Отменен</span>
+                            <span ng-if="(row.stats.activeMembers >= row.stats.minMembers) && !row.finished && !row.reject">Можно разыграть</span>
+                            <span ng-if="row.finished && !row.reject">Завершен {{row.finishDate | date:'dd.MM.yy'}}</span>
+                        </td>
+                        <td class="ta-center">
+                            <span>{{currentRate(row.activeGift.gift.price)}}</span>
+                        </td>
+                        <td class="ta-center">{{row.stats.activeMembers}} / {{row.stats.minMembers}}</td>
+                        <td class="ta-center" ng-if="row.pricePerUser">
+                            <span ng-if="row.finished && !row.reject">
+                                <span ng-if="getLanguage() == 'RU'">{{row.stats.activeMembers/2}} руб.</span>
+                                <span ng-if="getLanguage() == 'EN'">$ {{(row.stats.activeMembers/2/vm.config.dollar).toFixed(2)}}</span>
+                            </span>
+                            <span ng-if="!row.finished && !row.reject">
+                                <i class="fa fa-spin fa-refresh" uib-tooltip="Средства за данный розыгрыш будут начисленны на счет после его завершения" tooltip-placement="top"></i>
+                            </span>
+                            <span  ng-if="!row.finished && row.reject">
+                                <i class="fa fa-lock"></i>
+                            </span>
+                        </td>
+                        <td class="ta-center" ng-if="!row.pricePerUser">
+                            --
+                        </td>
+                        <td  class="ta-center">
+                            <button class="btn btn-sm btn-danger" ng-disabled="row.reject || row.finished" ng-click="vm.selectAnyItem(row.id)">Отменить</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--<div class="row my-referrals-area" ng-if="vm.referralsList.length > 0">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <td>Ник стримера</td>
+                        <td>Ссылка на розыгрыш</td>
+                        <td>Количество участников розыгрыша</td>
+                        <td>Заработок</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in vm.referralsData track by $index">
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>-->
+        </div>
+    </div>
+    <div class="container-fluid" id="pa-referral">
+        <div class="container">
+            <div class="row title">
+                <h1>Партнерская программа</h1>
+                <h5>Ты можешь приглашать друзей-стримеров и получать доход с их розыгрышей</h5>
+            </div>
+            <div class="row relerral-area">
+                <div class="input-title">
+                    <h3 class="ta-center">Твоя партнерская ссылка:</h3>
+                </div>
+                <div class="referal-link-area">
+                    <h2 class="ta-center" uib-tooltip="">{{vm.referalLink}}</h2>
+                </div>
+            </div>
+            <div class="row readmore">
+                <a href="/faq/partner">Подробнее о реферальной программе</a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="pa-my-raffles">
+        <div class="container">
+            <div class="row title">
+                <h1>Участие в розыгрышах</h1>
+                <h5>Список розыгрышей, в которых ты принимаешь участие</h5>
+            </div>
+            <div class="row my-raffles-list">
+                <table class="table table-striped" ng-show="vm.myHistory.length > 0">
+                    <thead>
+                    <tr>
+                        <td class="ta-left">Название розыгрыша</td>
+                        <td class="ta-center">Стример</td>
+                        <td class="ta-center">Приз</td>
+                        <td class="ta-center">Статус</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="row in vm.myHistory track by $index">
+                        <td class="ta-left">
+                            <a href="/{{row.shortLink}}" ng-if="!row.reject">
+                                {{row.activeGift.gift.name}} #{{row.name}}
+                            </a>
+                            <a href ng-if="row.reject">
+                                {{row.activeGift.gift.name}} #{{row.name}}
+                            </a>
+                        </td>
+                        <td class="ta-center">
+                            <a href="https://twitch.tv/{{row.name}}" target="_blank">
+                                {{row.name}}
+                            </a>
+                        </td>
+                        <td class="ta-center">
+                            <img ng-src="{{row.activeGift.gift.images[0].imageLink}}" uib-tooltip="{{row.activeGift.gift.name}}" tooltip-placement="top"/>
+                        </td>
+                        <td  class="ta-center">
+                            <span ng-if="!row.finished && !row.reject">Набираем участников</span>
+                            <span ng-if="row.finished && !row.reject">Завершен {{row.finishDate | date:'dd.MM.yy'}}</span>
+                            <span ng-if="row.reject">Отменен</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="row no-history" ng-show="vm.myHistory.length == 0">
+                    <h3>Ты еще не участвовал ни в одном розыгрыше :(</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid ng-hide" id="pa-viewers">
+        <div class="container">
+            <div class="row title">
+                <h1>Зрители</h1>
+                <h5>Актуальные списки твоих подписчиков и фолловеров</h5>
+            </div>
+            <div class="row viewers-tables">
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 subscribers panel">
+                    <div class="panel-title">
+                        <i class="fa fa-twitch fa-2x"></i><span>Подписчики</span><input class="form-control" placeholder="Поиск">
+                    </div>
+                    <div class="table-area">
+                        <table class="table table-striped">
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="button-area">
+                        <button><i class="fa fa-refresh"></i> Загрузить больше</button>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 followers panel">
+                    <div class="panel-title">
+                        <i class="fa fa-heart fa-2x"></i><span>Фолловеры</span><input class="form-control" placeholder="Поиск">
+                    </div>
+                    <div class="table-area">
+                        <table class="table table-striped">
+                            <tr>
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="avatar">
+                                    <img src="/src/img/avatars/avatar_default.jpg"/>
+                                </td>
+                                <td>
+                                    <span><a href target="_blank">StasTawit</a></span>
+                                </td>
+                            </tr>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="button-area">
+                        <button>
+                            <i class="fa fa-refresh"></i> Загрузить больше
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

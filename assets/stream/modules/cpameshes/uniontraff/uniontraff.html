@@ -1,0 +1,21 @@
+<div class="container-fluid" id="cpaMeshesUnionstaff">
+    <div class="container bg-white">
+        <div class="row title">
+            <h1>Просмотр видео</h1>
+            <h5>За просмотр каждого видео на этой странице тебе будет начисляться LUCK</h5>
+        </div>
+        <div class="row luck-area">
+            <h2 class="ta-center" ng-show="vm.status.playerShow">Ты заработал <span>{{vm.status.luck}}</span> LUCK за просмотр этих видео</h2>
+        </div>
+        <div class="row ta-center player-area">
+            <div id="utPlayer" style="width:600px;height:340px;">
+            <iframe width="600" height="340" src="https://uniontraff.com/index.php?r=view/player&host=www.streampub.net" frameborder="0" scrolling="no"></iframe>
+        </div>
+        <div class="row error-area" ng-if="vm.error">
+            <h3>К сожалению, новых видео для тебя пока нет. Приходи через несколько часов, может что и появится ;-)</h3>
+        </div>
+        <div class="row error-area">
+            <button ng-click="vm.backToRaffle()">Вернуться в розыгрыш</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<div ng-controller="newsAddMoreController as vm" id="popupNewsAddMore">
+    <div class="modal-header">
+        <h3 class="modal-title ta-center">У меня больше инфы об этом</h3>
+    </div>
+    <div class="modal-body modal-body-notification" ng-hide="vm.thatsok">
+        <h4 class="ta-center">Не забудь написать, как тебя зовут, где ты работаешь/учишься или где находишься - если это важно для материала.</h4>
+        <form class="form-horizontal" role="form" name="popupLoginForm" ng-class="{ 'has-error' :  (popupLoginForm.login.$invalid-pattern) && (popupLoginForm.login.$dirty) }">
+            <label>Как с тобой связаться?</label>
+            <input type="text" class="form-control input-lg" ng-model="vm.email" placeholder="Email или телефон" validate-email required>
+            <label>О чем ты хочешь расскахать?</label>
+            <textarea class="form-control" ng-model="vm.text" placeholder="Текст сообщения"></textarea>
+            <button type="submit" class="btn div-margin-auto button-action" ng-disabled="!popupLoginForm.$valid" ng-click="vm.msgPost(vm.email,vm.text)">Отправить</button>
+        </form>
+    </div>
+    <div class="modal-footer" ng-show="vm.thatsok">
+        <h3 class="thats-ok">Сообщение отправлено, спасибо за обращение!<br/>Мы очень скоро свяжемся с тобой.</h3>
+    </div>
+</div>

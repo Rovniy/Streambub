@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='streampub' ng-class="{'body-while-raffle': raffleStart}">
+<head>
+    <base href="/">
+    <meta charset="UTF-8">
+    <meta property="fb:app_id" content="1770916429852830"/>
+    <meta property="og:title" content="StreamPub - Giveaway service"/>
+    <meta property="og:description" content="Растим аудиторию. Даром."/>
+    <meta property="og:image" content="http://www.streampub.net/src/img/base/og-image.jpg">
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://www.streampub.net" />
+    <meta name="viewport" content="width=1200">
+
+    <title>StreamPub - Розыгрыши призов!</title>
+
+    <link rel="shortcut icon" href="/src/img/base/favicon.png">
+
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+
+    <script src="/src/js/vendor.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/templates.js"></script>
+    <script src="/src/js/ads.js"></script>
+    <script src="/src/js/lib/visibility.js"></script>
+
+    @@include('./core/includes/yandex.html')
+    @@include('./core/includes/viboom.html')
+    @@include('./core/includes/facebook_pixel.html')
+    @@include('./core/includes/googleanalitics.html', {"goId": "UA-82308901-1"})
+</head>
+<body ng-controller="AppController" ng-class="{'body-while-raffle': raffleStart || statusPreloaders || $uibModal.opened || bodyBlur, 'body-with-admin' : user.userData.role == 'ADMIN', 'body-while-widget': widgetOpen}">
+
+@@include('./core/includes/vk_api.html')
+@@include('./core/includes/youtube_api.html')
+@@include('./core/includes/twitter_api.html')
+@@include('./core/includes/facebook_api.html')
+@@include('./modules/preloader/preloader.html')
+@@include('./modules/raffleprocess/raffle-process.html')
+
+<!-- Start Wrap -->
+<div id="wrap">
+    <!-- include admin -->
+    @@include('./modules/admin/menu/admin.html')
+    <!-- include header -->
+    @@include('./modules/header/header.html')
+
+    <ng-view autoscroll="true"></ng-view>
+
+    <!-- include footer -->
+    @@include('./modules/footer/footer.html')
+</div>
+
+<!--Подключение CarrotQuest - службы поддержки-->
+<div ng-if="(user.userData.role == 'STREAMER') && !widgetOpen" ng-include="'/src/html/services/carrotquest.html'"></div>
+
+</body>
+</html>

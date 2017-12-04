@@ -1,0 +1,10 @@
+<div class="modal-header">
+    <h3 class="modal-title ta-center">Ой, возникла проблема! :(</h3>
+    <i class="genericon genericon-close modal-close" ng-click="$dismiss()"></i>
+</div>
+
+<div class="modal-body modal-body-notification text-center">
+    <h3>Ты пытаешься зайти на сайт с нового аккаунта. Твоя почта уже используется на другом аккаунте или ты пытаешься использовать несколько аккаунтов Twitch. Ты сможешь зайти лишь под аккаунтом:</h3>
+    <h2>{{vm.items.params}}</h2>
+    <a class="button-action" href="https://www.twitch.tv/" target="_blank">Выйти из аккаунта Twitch</a>
+</div>

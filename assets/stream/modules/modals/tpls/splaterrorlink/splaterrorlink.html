@@ -1,0 +1,24 @@
+<div class="splatError" ng-controller="splatErrorLinkController as vm">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()"><i class="fa fa-close"></i></button>
+        <h3 class="modal-title ta-center">Ошибка</h3>
+    </div>
+    <div class="modal-body modal-body-notification text-center">
+        <h4>Ты ввел некорректную ссылку на пост в соц.сети!</h4>
+        <span>Как правильно вставлять ссылки?</span>
+        <ul class="list-inline">
+            <li>
+                <a href><i class="fa fa-vk fa-2x" ng-click="$dismiss(); vm.helpModal('vk')"></i></a>
+            </li>
+            <li>
+                <a href><i class="fa fa-facebook fa-2x" ng-click="$dismiss(); vm.helpModal('facebook')"></i></a>
+            </li>
+            <li>
+                <a href><i class="fa fa-twitter fa-2x" ng-click="$dismiss(); vm.helpModal('twitter')"></i></a>
+            </li>
+            <li>
+                <a href><i class="fa fa-instagram fa-2x" ng-click="$dismiss(); vm.helpModal('instagram')"></i></a>
+            </li>
+        </ul>
+    </div>
+</div>

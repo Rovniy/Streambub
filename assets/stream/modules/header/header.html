@@ -1,0 +1,154 @@
+<div ng-controller="HeaderController as vm" class="container-fluid" id="header" ng-hide="widgetOpen" ng-class="{'iAmAdmin' : user.userData.role == 'ADMIN'}">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs logo-header">
+                <a href="{{vm.mainURL}}">
+                    <!-- logo -->
+                </a>
+            </div>
+            <div class="col-lg-7 col-md-4 col-sm-12 col-xs-12 main-menu">
+                <ul>
+                    <li class="separator"></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href id="dropdownMenu1" data-toggle="dropdown">
+                                Участникам
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a href="/global-luck"><i class="fa fa-globe"></i> {{'HEADER_MENU_GLOBAL_LUCK' | translate}}</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="/news"><i class="fa fa-newspaper-o"></i> {{'HEADER_MENU_NEWS' | translate}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="separator"></li>
+                    <li>
+                        <div class="dropdown">
+                            <a href id="dropdownMenu2" data-toggle="dropdown">
+                                Стримерам
+                            </a>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                                <li role="presentation">
+                                    <a href="/wizard"><i class="fa fa-plus-circle"></i> {{'HEADER_MENU_WIZARD'|translate}}</a>
+                                </li>
+                                <li role="presentation">
+                                    <a href="/faq/howto"><i class="fa fa-child"></i> {{'HEADER_MENU_HOW_TO'|translate}}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="separator"></li>
+                    <li>
+                        <a href="/advertisers">Рекламодателям</a>
+                    </li>
+                    <!--<li ng-show="user.userData.role == 'ADMIN' || user.userData.role == 'STREAMER'">
+                        <a href="/wizard">{{'HEADER_MENU_WIZARD'|translate}}</a>
+                    </li>
+                    <li class="separator"></li>
+                    <li>
+                        <a href="/global-luck">{{'HEADER_MENU_GLOBAL_LUCK' | translate}}</a>
+                    </li>
+                    <li class="separator"></li>
+                    <li>
+                        <a href="/faq/howto">{{'HEADER_MENU_HOW_TO'|translate}}</a>
+                    </li>
+                    <li class="separator"></li>
+                    <li>
+                        <a href="/news">{{'HEADER_MENU_NEWS' | translate}}</a>
+                    </li>-->
+                    <li class="separator  ng-hide"></li>
+                    <li class="rupor ng-hide">
+                        <a class="active" href ng-click="vm.showNotyArea = true">
+                            <i class="fa fa-bullhorn"></i> <span class="badge">42</span>
+                        </a>
+                        <div class="actions-list" ng-show="vm.showNotyArea" click-outside="vm.showNotyArea = false">
+                            <div class="action-item">
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 lk-header pull-right">
+                <div class="pull-right" ng-if="vm.userOnline()">
+                    <ul class="user-info">
+                        <li>
+                            <p class="my-balance" ng-if="user.userData.role != 'STREAMER'"
+                               uib-tooltip="{{'HEADER_GLOBAL_LUCK_DESC'|translate}}"
+                               tooltip-placement="bottom">
+                                <b>{{user.userData.luck}}</b> LUCK
+                            </p>
+                        </li>
+                        <li class="separator" ng-if="user.userData.luck != 0">|</li>
+                        <li>
+                            <div class="btn-group my-menu" uib-dropdown>
+                                <a class="" href uib-dropdown-toggle>
+                                    {{user.userData.name}} <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                                    <li role="menuitem">
+                                        <a href="/dashboard" class="exit-a">
+                                            <i class="fa fa-user"></i> {{'HEADER_LK_DASHBOARD'|translate}}
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="/dashboard?goto=social" class="exit-a">
+                                            <i class="fa fa-vk"></i> {{'HEADER_LK_ACCOUNTS'|translate}}
+                                        </a>
+                                    </li>
+                                    <li role="menuitem" ng-if="user.userData.role == 'STREAMER' || user.userData.role == 'ADMIN'">
+                                        <a href="/dashboard?goto=balance" class="exit-a">
+                                            <i class="fa fa-rub"></i> {{'HEADER_LK_BALANCE'|translate}}
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="/dashboard?goto=referral" class="exit-a">
+                                            <i class="fa fa-users"></i> {{'HEADER_LK_PARTNER'|translate}}
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href="/dashboard?goto=raffles" class="exit-a">
+                                            <i class="fa fa-bolt"></i> {{'HEADER_LK_MY_RAFFLES'|translate}}
+                                        </a>
+                                    </li>
+                                    <li role="menuitem">
+                                        <a href ng-click="vm.logout()">
+                                            <i class="fa fa-sign-out"></i> {{'HEADER_EXIT_TITLE'|translate}}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+
+
+
+                    <!--<div class="meta pull-right">
+                        <div class="username">
+                            <i>#<span class="color">{{user.userData.name}}</span></i>
+                        </div>
+                        <div class="balance">
+                            <a href="/dashboard" class="exit-a">{{'HEADER_LK_TITLE'|translate}}</a>
+                            <span href="/dashboard"class="separator">|</span>
+                            <span class="exit-a" ng-click="vm.logout()">{{'HEADER_EXIT_TITLE'|translate}}</span>
+                        </div>
+                    </div>
+                    <div class="avatar pull-right">
+                        <img ng-if="user.userData.avatar && user.userData.avatar !== 'null'" alt="avatar" ng-src="{{user.userData.avatar}}"/>
+                        <img ng-if="!user.userData.avatar || user.userData.avatar == 'null'" alt="avatar" src="/src/img/avatars/avatar_default.jpg"/>
+                    </div>-->
+                </div>
+                <div class="header-enter-sait" ng-if="!vm.userOnline()">
+                    <div class="pull-right enter-form">
+                        <a href class="color-orange" ng-click="vm.openRegistrationModal()">{{'HEADER_REGISTRATION_TITLE'|translate}}</a>
+                    </div>
+                    <div class="pull-right enter-form">
+                        <a href ng-click="vm.openLoginModal()">{{'HEADER_ENTER_TITLE'|translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

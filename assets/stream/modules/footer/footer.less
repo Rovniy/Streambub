@@ -1,0 +1,124 @@
+#footer {
+  background: #000;
+  color: @color-semi;
+  padding:2.1rem 0;
+  border-top: 2px solid @orange-color;
+  .menu {
+    margin-bottom:20px;
+    ul {
+      padding:0;
+      margin:0;
+      li {
+        margin:0 10px;
+        list-style: none;
+        display: inline-block;
+        a {
+          color:#fff;
+          transition: ease 0.2s;
+          &:hover, &:focus, &:active {
+            color:#fff;
+            transition: ease 0.2s;
+          }
+        }
+      }
+    }
+  }
+  .logo {
+    text-align: center;
+    a {
+      opacity: 0.8;
+      display: block;
+      margin: auto;
+      width: 50px;
+      height: 40px;
+      background: url('/src/img/base/logo-footer.png') no-repeat;
+      transform-style: preserve-3d;
+    }
+    &:hover {
+      a {
+        opacity: 1;
+        animation: main-rotate 0.3s linear;
+      }
+    }
+  }
+  .social {
+    text-align:center;
+    ul {
+      padding:0;
+      li {
+        height:25px;
+        font:1rem/1rem @f-main;
+        display:inline-block;
+        list-style:none;
+        vertical-align: middle;
+        margin:0 5px;
+        a {
+          color: @color-semi;
+          .fa-vk {
+            transition: ease 0.2s;
+            color: @social-color-vk;
+            opacity: 0.8;
+          }
+          .fa-facebook {
+            transition: ease 0.2s;
+            color: @social-color-facebook;
+            opacity: 0.8;
+          }
+          &:hover, &:active, &:focus {
+            color: @color-main;
+            text-decoration: none;
+            outline: none;
+            .fa-vk {
+              transition: ease 0.2s;
+              color:#507299;
+              opacity: 1;
+            }
+            .fa-facebook {
+              transition: ease 0.2s;
+              color: @social-color-facebook;
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+    }
+  }
+  .langs {
+    ul {
+      margin:0;
+      padding:0;
+      li {
+        list-style: none;
+        display: inline-block;
+        margin:0 10px;
+        color: @color-semi;
+        font:1rem/1rem @f-main;
+        a {
+          text-decoration: none;
+        }
+        &:hover, &:focus {
+          border-bottom: 1px solid @color-semi;
+          a {
+            text-decoration: none;
+          }
+        }
+      }
+      .active {
+        a {
+          color: @color-main;
+        }
+        border-bottom: 1px dotted @color-semi;
+      }
+    }
+  }
+  ul {
+    margin:0;
+    font:1rem/2rem @f-main;
+    li {
+      list-style:none;
+      a {
+        color: @color-semi;
+      }
+    }
+  }
+}

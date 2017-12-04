@@ -1,0 +1,3 @@
+(function () {
+    window.adblocker = 'activated';
+})();

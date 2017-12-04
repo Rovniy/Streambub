@@ -1,0 +1,122 @@
+<div ng-controller="adminRafflesCreateRaffle as vm" class="container-fluid" id="createRaffle">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Создание розыгрыша </h1>
+            <p>Тяжелый способо сделать жизнь Мурика легче ;-)</p>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Приз для розыгрыша</label>
+                <div class="col-sm-10">
+                    <input type="text" ng-model="vm.gift" placeholder="Разыгрываемый приз" uib-typeahead="state.id as state.name for state in vm.giftList | filter:{name:$viewValue} | limitTo:8" class="form-control">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Количество призов</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.count" placeholder="Количество призов" class="form-control" min="1">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Для кого этот розыгрыш?</label>
+                <div class="col-sm-10">
+                    <input type="text" ng-model="vm.owner" placeholder="Для кого создается розыгрыш?" uib-typeahead="state.user.id as state.user.name for state in vm.streamersList | filter:{user:{name:$viewValue}} | limitTo:8" class="form-control">
+                </div>
+            </div>
+            <div class="form-group form-inline">
+                <label class="col-sm-2 control-label">Целевые действия</label>
+                <div class="col-sm-8">
+                    <select class="form-control" ng-model="vm.selectTargetAction">
+                        <option value="SUBSCRIBE_VK">Вступление в группу Вконтакте</option>
+                        <option value="FOLLOW_TWITCH">Подписка на канал Twitch</option>
+                        <option value="SUBSCRIBE_TWITCH">Платная подписка на канал Twitch</option>
+                        <!--<option value="SUBSCRIBE_FB">Вступление в группу Facebook</option>-->
+                        <option value="LIKE_VK">Лайк записи Вконтакте</option>
+                        <option value="REPOST_VK">Репост записи Вконтакте</option>
+                        <!--<option value="LIKE_FB">Лайк записи в Facebook</option>-->
+                        <option value="DIRECT_LINK">Переход по внешней ссылке</option>
+                        <option value="VIDEO">Просмотр видео с YouTube</option>
+                        <option value="CPA">CPA</option>
+                        <!--<option value="SHOW_VIDEO">Поделиться видео</option>-->
+                    </select>
+                    <!--<hr/>-->
+                    <button class="btn btn-success" ng-disabled="!vm.selectTargetAction" ng-click="vm.addToActionsList(vm.selectTargetAction)">Добавить</button>
+                </div>
+            </div>
+            <div class="form-group">
+                <!--<label class="col-sm-2 control-label">Целевые действия</label>-->
+                <div class="col-sm-10">
+                    <p>Поля заполняются по необходимости</p>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td class="ta-center">#</td>
+                                <td class="ta-center">Type</td>
+                                <td class="ta-center">ID</td>
+                                <td class="ta-center">Name</td>
+                                <td class="ta-center">URL / count</td>
+                                <td class="ta-center">Sponsor</td>
+                                <td class="ta-center">Luck</td>
+                                <td class="ta-center">Delete</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="ta-center" ng-repeat="(key,row) in vm.tasks">
+                                <td class="va-middle">{{key}}</td>
+                                <td class="va-middle">
+                                    <span ng-show="row.taskType == 'SUBSCRIBE_VK'">Вступление в группу Вконтакте</span>
+                                    <span ng-show="row.taskType == 'FOLLOW_TWITCH'">Подписка на канал Twitch</span>
+                                    <span ng-show="row.taskType == 'SUBSCRIBE_TWITCH'">Платная подписка на канал Twitch</span>
+                                    <span ng-show="row.taskType == 'SUBSCRIBE_FB'">Вступление в группу Facebook</span>
+                                    <span ng-show="row.taskType == 'LIKE_VK'">Лайк записи Вконтакте</span>
+                                    <span ng-show="row.taskType == 'REPOST_VK'">Репост записи Вконтакте</span>
+                                    <span ng-show="row.taskType == 'LIKE_FB'">Лайк записи в Facebook</span>
+                                    <span ng-show="row.taskType == 'DIRECT_LINK'">Переход по внешней ссылке</span>
+                                    <span ng-show="row.taskType == 'VIDEO'">Просмотр видео с YouTube</span>
+                                    <span ng-show="row.taskType == 'CPA'">CPA</span>
+                                    <span ng-show="row.taskType == 'SHOW_VIDEO'">Поделиться видео</span>
+                                </td>
+                                <td class="va-middle">
+                                    <input type="text" ng-model="row.id" class="form-control ta-center" placeholder="ID"/>
+                                </td>
+                                <td class="va-middle">
+                                    <input type="text" ng-model="row.name" class="form-control ta-center" placeholder="Текст"/>
+                                </td>
+                                <td class="va-middle">
+                                    <input type="text" ng-model="row.params.url" ng-show="row.taskType == 'CPA'" class="form-control ta-center" placeholder="streampub.net"/>
+                                    <input type="text" ng-model="row.params.count" ng-show="row.taskType == 'SHOW_VIDEO'" class="form-control ta-center" placeholder="5"/>
+                                </td>
+                                <td class="va-middle">
+                                    <select class="form-control" ng-model="row.owner" ng-show="row.taskType == 'CPA'">
+                                        <option value="PLATFORM">StreamPub</option>
+                                        <option value="SPONSOR">Спонсор</option>
+                                        <option value="STREAMER">Стример</option>
+                                    </select>
+                                </td>
+                                <td class="va-middle">
+                                    <input type="number" ng-model="row.luck" min="0" class="form-control ta-center" placeholder="100500"/>
+                                </td>
+                                <td class="va-middle">
+                                    <button class="btn btn-danger" ng-click="vm.deleteFromTargetList(key)">Удалить</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group ta-center">
+                <button class="btn btn-success btn-lg" ng-click="vm.saveNewRaffle()">Создать розыгрыш</button>
+            </div>
+            <div class="debug">
+                <blockquote>
+                    <p>DEBUG:</p>
+                </blockquote>
+                <blockquote>
+                    <h3 class="color-green" ng-show="vm.response">Розыгрыш создан. Ссылка на розыгрыш - http://{{vm.address}}/{{vm.response.link}}</h3>
+                    {{vm.error}}
+                </blockquote>
+            </div>
+        </div>
+    </div>
+</div>

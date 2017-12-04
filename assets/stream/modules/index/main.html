@@ -1,0 +1,92 @@
+<div id="index-page">
+    <div class="container-fluid" id="index-top-banner">
+        <a href="#" target="_blank" ng-if="vm.indexBranding"></a>
+    </div>
+    <div class="container-fluid" id="index-first">
+        <div class="container">
+            <div class="left-href">
+                <a href="#" target="_blank" ng-if="vm.indexBranding"></a>
+            </div>
+            <div class="right-href">
+                <a href="#" target="_blank" ng-if="vm.indexBranding"></a>
+            </div>
+            <div class="row top-raffles">
+                <div class="raffle-item" ng-repeat="row in vm.topRafflesInfo | limitTo:4 track by $index">
+                    <div class="item-inner">
+                        <div class="item-title-area">
+                            <h2>{{row.activeGift.gift.name}}</h2>
+                            <h3>{{row.name}}</h3>
+                        </div>
+                        <div class="item-img-area">
+                            <img src="{{row.activeGift.gift.images[0].imageLink}}"/>
+                        </div>
+                        <div class="item-meta-area">
+                            <h4>Участников: <b>{{row.raffleMembersCount}}</b> / {{row.activeGift.minMembers}}</h4>
+                            <button class="join-raffle" ng-click="vm.joinRaffle(row)">Участвовать</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row games-list">
+                <ul>
+                    <li uib-tooltip="Все игры" ng-class="{'active' : vm.showCategory == ''}">
+                        <img ng-click="vm.setCurrentCategory('')" ng-src="/src/img/base/icons/allgames.png"/>
+                    </li>
+                    <li ng-repeat="row in vm.allGames track by $index" uib-tooltip="{{row.name}}"  ng-class="{'active' : vm.showCategory == row.link}">
+                        <img ng-click="vm.setCurrentCategory(row.link)" ng-src="/src/img/base/icons/{{row.link.toLowerCase()}}.png"/>
+                    </li>
+                </ul>
+            </div>
+            <div class="row div-separator"></div>
+            <div class="row streams-list">
+                <div class="stream-item" ng-repeat="(key,row) in vm.showStreamNow | limitTo:vm.streamsLimit track by $index">
+                    <div class="item-inner">
+                        <img src="{{row.preview[0].medium}}"/>
+                        <div class="link-area">
+                            <a class="link-icon" ng-href="//twitch.tv/{{row.name}}" target="_blank">
+                                <i class="fa fa-twitch fa-3x"></i>
+                            </a>
+                        </div>
+                        <div class="area-name">
+                            <span class="pull-left">{{row.name}}</span>
+                            <img class="pull-right" ng-repeat="img in row.games" ng-src="/src/img/base/icons/{{img.toLowerCase()}}.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="stream-item load-more" ng-if="vm.streamsPlusFilter()" ng-click="vm.streamsLimit = vm.streamsLimit + 8">
+                    <div class="item-inner">
+                        <img src="/src/img/index/streams-plus.jpg"/>
+                        <div class="link-area plus-area">
+                            <a class="link-icon" href>
+                                <i class="fa fa-plus-square fa-3x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="ta-center" ng-if="vm.showStreamNow.length == 0">Нет активных стримов по выбранной игре :(</h2>
+            </div>
+            <div class="row stream-area">
+                <div class="stream-bordered">
+                    <iframe class="twitch-player" iframe-onload="" ng-src="{{vm.streamHost}}" frameborder="0" scrolling="no" height="660" width="1170"></iframe>
+                </div>
+            </div>
+            <div class="row button-area">
+                <button ng-click="vm.startRaffle()">Создать розыгрыш</button>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="index-bottom">
+        <div class="container">
+            <div class="row partners">
+                <ul>
+                    <li ng-repeat="row in vm.ourPartners track by $index">
+                        <a ng-href="{{row.link}}" alt="{{row.alt}}" target="_blank">
+                            <img ng-src="{{row.img}}"/>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+

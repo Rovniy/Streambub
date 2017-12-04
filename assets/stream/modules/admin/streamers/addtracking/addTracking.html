@@ -1,0 +1,46 @@
+<div class="container-fluid">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Создание / Обновление каналов для отслеживания</h1>
+        </div>
+        <div>
+            <div class="form-horizontal">
+                <!--<div class="form-group">-->
+                    <!--<label class="col-sm-2 control-label">Имя канала</label>-->
+                    <!--<div class="col-sm-10">-->
+                        <!--<input type="text" ng-model="vm.name" class="form-control" placeholder="Twitch Name">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Связанный аккаунт</label>
+                    <div class="col-sm-10">
+                        <input type="text" ng-model="vm.name" placeholder="Twitch Name"
+                               uib-typeahead="state.user.name as state.user.name for state in vm.usersList | filter:{user:{name:$viewValue}} | limitTo:8"
+                               class="form-control">
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Следить или не следить</label>
+                    <div class="col-sm-10">
+                        <input type="checkbox" ng-model="vm.tracked" class="form-control" placeholder="Вклучить слежение"/>
+                    </div>
+                </div>
+                <hr/>
+                <div class="ta-center">
+                    <button class="btn btn-lg btn-success"  ng-click="vm.createTracking()">Создать канал</button>
+                </div>
+                <hr/>
+                <div class="debug">
+                    <blockquote>
+                        <p>DEBUG:</p>
+                    </blockquote>
+                    <blockquote>
+                        <h3 class="color-green" ng-show="vm.success">Канал создан ;-)</h3>
+                        {{vm.error}}
+                    </blockquote>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

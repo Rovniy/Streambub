@@ -1,0 +1,14 @@
+<div ng-controller="slowBalanceController as vm" id="slowBalance">
+    <div class="modal-header">
+        <h3 class="modal-title ta-center">Ты на верном пути к победе!</h3>
+    </div>
+    <div class="modal-body">
+        <h4 class="ta-center">
+            После того, как ты выполнишь этот квест, Luck будет начислен автоматически. Иногда зачисление Luck может занять до 20 минут. Пожалуйста, запасись терпением))
+        </h4>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-success btn-lg" ng-click="$dismiss(); vm.openSecondModal()">OK</button>
+        <!--<button class="btn btn-success btn-lg" ng-click="$dismiss()">OK</button>-->
+    </div>
+</div>

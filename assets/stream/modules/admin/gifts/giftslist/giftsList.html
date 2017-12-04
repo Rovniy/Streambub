@@ -1,0 +1,92 @@
+<div class="container-fluid" id="adminGiftsList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Список призов</h1>
+            <p>Для розыгрышей, доступных для стримеров</p>
+        </div>
+        <div>
+            <ul class="list-inline">
+                <li>
+                    <input type="checkbox" ng-model="vm.active"/>
+                    <label>ACTIVE</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.hidden"/>
+                    <label>HIDDEN</label>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                    <tr>
+                        <td ng-click="vm.orderData = 'name'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'name'}">
+                            Название
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'name'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'type'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'type'}">
+                            Тип
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'type'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'promo'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'promo'}">
+                            Промо
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'promo'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'cost'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'cost'}">
+                            Стоимость
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'cost'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'cost'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'cost'}">
+                            Дисконт (центы)
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'cost'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'count'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'count'}">
+                            Доступно/Кол-во
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'count'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'minmembers'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'minmembers'}">
+                            Участников
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'minmembers'}"></i>
+                        </td>
+                        <td class="ta-center" ng-click="vm.orderData = 'minmembers'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'minmembers'}">
+                            Диск. участников
+                            <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'minmembers'}"></i>
+                        </td>
+                        <td>
+                            Отображение
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,row) in vm.giftList | orderBy: vm.orderData : vm.sortReverce" ng-class="{'non-active': !row.active}"  ng-if="vm.sortByCategory(row)">
+                        <td>
+                            <img class="list-img" src="{{row.images[0].imageLink}}">
+                            <b>{{row.name}}</b>
+                        </td>
+                        <td class="ta-center">{{row.category.name}}</td>
+                        <td class="ta-center">
+                            <input type="checkbox" ng-model="row.promo" ng-change="vm.savePromo(row,key)"/>
+                        </td>
+                        <td class="ta-center">{{currentRate(row.price)}} ({{row.price}})</td>
+                        <td class="ta-center">
+                            <input type="text" class="form-control" ng-class="{'post-success': row.postSuccess, 'restriction-changed' : row.discountPrice}" ng-value="{{row.discountPrice ? row.discountPrice : 0}}" ng-model="row.discountPrice" ng-blur="vm.saveValue(row)"/>
+                        </td>
+                        <td class="ta-center">{{row.availableCount}} / {{row.count}}</td>
+                        <td class="ta-center">{{row.minMembers}}</td>
+                        <td class="ta-center">
+                            <input type="text" class="form-control" ng-class="{'post-success': row.postSuccess, 'restriction-changed' : row.discountMinMembers}" ng-value="{{row.discountMinMembers ? row.discountMinMembers : 0}}" ng-model="row.discountMinMembers" ng-blur="vm.saveValue(row)"/>
+                        </td>
+                        <td class="ta-center cancel-area" ng-if="row.active" ng-click="vm.switchShow(row)">
+                            <i class="fa fa-trash"></i>
+                        </td>
+                        <td class="ta-center cancel-area" ng-if="!row.active" ng-click="vm.switchShow(row)">
+                            <i class="fa fa-eye" ></i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>

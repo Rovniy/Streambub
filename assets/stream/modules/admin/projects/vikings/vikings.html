@@ -1,0 +1,73 @@
+<div class="container-fluid" id="projectVikings">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Викинги. Одобрение и удаление скриншотов</h1>
+        </div>
+        <div>
+            <ul class="list-inline">
+                <li>
+                    <input type="checkbox" ng-model="vm.created"/>
+                    <label>CREATED</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.applied"/>
+                    <label>APPLIED</label>
+                </li>
+                <li>
+                    <input type="checkbox" ng-model="vm.canceled"/>
+                    <label>CANCELED</label>
+                </li>
+            </ul>
+        </div>
+        <hr/>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <td>ID</td>
+                        <td>Member ID</td>
+                        <td>Изображение</td>
+                        <td>Luck</td>
+                        <td>Дата поста</td>
+                        <td>Одобрение</td>
+                        <td>Вернуть</td>
+                        <td>Удаление</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="(key,row) in vm.uploadList track by $index"  ng-if="vm.sortByCategory(row)">
+                        <td>{{row.id}}</td>
+                        <td>{{row.memberId}}</td>
+                        <td>
+                            <a href="{{row.link}}" target="_blank">
+                                <img style="width:150px" ng-src="{{row.link}}"/>
+                            </a>
+                        </td>
+                        <td>
+                            <span ng-if="row.status == 'APPLIED'">{{row.luck}}</span>
+                            <input ng-if="row.status != 'APPLIED'"
+                                   type="text"
+                                   class="form-control"
+                                   ng-model="row.addLuck"
+                                   placeholder="Luck"
+                                   ng-class="{'input-success' : vm.uploadList[key].applySuccess, 'input-error' : vm.uploadList[key].applyDanger}"/>
+                        </td>
+                        <td>
+                            {{row.updateTime | date:'dd.MM.yyyy'}}
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-success" ng-disabled="!row.addLuck" ng-click="vm.applyImage(row, key)">Добавить</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-info" ng-disabled="row.status != 'APPLIED'" ng-click="vm.revertImage(row, key)">Вернуть</button>
+                        </td>
+                        <td>
+                            <button class="btn btn-xs btn-danger" ng-click="vm.deleteImage(row, key)">Удалить</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

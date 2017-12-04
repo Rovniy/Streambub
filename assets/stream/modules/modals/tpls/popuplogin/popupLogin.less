@@ -1,0 +1,61 @@
+.popupLoginForm {
+  .modal-body {
+    padding:0 150px;
+    form {
+      input {
+        margin:20px auto;
+      }
+      a {
+        font:1rem/1rem @f-main;
+        margin-left:10px;
+        color:@h-color;
+        border-bottom: 1px dotted @color-semi;
+        &:hover {
+          color:@h-color;
+          outline:none;
+          text-decoration: none;
+          border-bottom: 1px dotted @h-color;
+        }
+        &:focus, &:active {
+          outline:none;
+          text-decoration: none;
+        }
+      }
+    }
+    .reg-menu {
+      text-align: center;
+      color: @color-red;
+      padding:0;
+      margin:0 0 20px 0;
+      li {
+        list-style: none;
+        a {
+          font:1rem/1rem @f-main;
+        }
+      }
+    }
+    .btn-twitch {
+      margin: 0 0 20px;
+      background: @color-fiolet;
+      border-color: @color-fiolet;
+      color: @color-main;
+      &:hover {
+        background: @color-fiolet-hover;
+        border-color: @color-fiolet-hover;
+        color: @color-main;
+      }
+    }
+  }
+  .modal-footer {
+    .error-type {
+      margin:10px 0 0 0;
+      text-align: center;
+      font:1.2rem/1.2rem @f-main;
+      color: @color-red;
+      padding:0;
+      li {
+        list-style: none;
+      }
+    }
+  }
+}

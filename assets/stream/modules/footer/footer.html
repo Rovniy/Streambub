@@ -1,0 +1,44 @@
+<div ng-controller="footerController as vm" class="container-fluid" id="footer" ng-hide="widgetOpen || landingPage">
+    <div class="container">
+        <div class="row menu ta-center">
+            <ul>
+                <li><a href="/">{{'FOOTER_MENU_ITEM1'|translate}}</a></li>
+                <li><a href="/raffle-rules">{{'FOOTER_MENU_ITEM2'|translate}}</a></li>
+                <li><a href="/privacy-policy">{{'FOOTER_MENU_ITEM3'|translate}}</a></li>
+                <li><a href="/terms-of-use">{{'FOOTER_MENU_ITEM4'|translate}}</a></li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-12">
+                <p class="copy" ng-bind-html="vm.copy"></p>
+                <p><i class="fa fa-home"></i> {{'FOOTER_ADDRESS'|translate}}</p>
+                <p><i class="fa fa-envelope-o"></i> info@streampub.net</a>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 ta-center langs">
+                <ul>
+                    <li ng-class="{'active' : vm.getCurrentLanguage() === 'RU'}"><a href ng-click="vm.setLanguage('RU')">Русский</a></li>
+                    <li ng-class="{'active' : vm.getCurrentLanguage() === 'EN'}"><a href ng-click="vm.setLanguage('EN')">English</a></li>
+                </ul>
+            </div>
+            <div class="col-lg-4 col-md-4 col-sm-12 social">
+                <ul>
+                    <li>
+                        <a ng-href="{{vm.vk}}" target="_blank">
+                            <i class="fa fa-vk fa-3x"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a ng-href="{{vm.fb}}" target="_blank">
+                            <i class="fa fa-facebook fa-3x"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="row logo">
+            <a href="{{config.mainUrl}}" target="_self"></a>
+        </div>
+    </div>
+</div>
+
+<div id="fb-root"></div>

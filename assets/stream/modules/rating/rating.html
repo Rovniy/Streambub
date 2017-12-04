@@ -1,0 +1,451 @@
+<div class="container-fluid" id="rating">
+    <div class="container" ng-mousedown="trackClick('page','any')">
+        <h1>Рейтинг стримеров</h1>
+        <uib-tabset active="active">
+            <uib-tab index="0">
+                <uib-tab-heading>
+                    <div class="selector-btn">
+                        <img src="/src/img/base/icons/hs.png"/>
+                    </div>
+                </uib-tab-heading>
+                <div class="row main">
+                    <div class="col-lg-4 col-md-4 col-sm-4 main-img">
+                        <img src="/src/img/rating/hs.jpg"/>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 main-table">
+                        <table>
+                            <thead>
+                                <tr class="noselect">
+                                    <td class="number" ng-click="vm.orderMainData = 'place'; vm.sortMainReverce = !vm.sortMainReverce">#
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'place'}"></i></td>
+                                    <td class="name ta-left" ng-click="vm.orderMainData = 'name'; vm.sortMainReverce = !vm.sortMainReverce">Ник стримера
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'name'}"></i>
+                                    </td>
+                                    <td class="rating" ng-click="vm.orderMainData = 'stars'; vm.sortMainReverce = !vm.sortMainReverce">Общий рейтинг
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'stars'}"></i>
+                                    </td>
+                                    <td class="rating-count" ng-click="vm.orderMainData = 'rating'; vm.sortMainReverce = !vm.sortMainReverce">Оценка
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'rating'}"></i>
+                                    </td>
+                                    <td class="count" ng-click="vm.orderMainData = 'count'; vm.sortMainReverce = !vm.sortMainReverce">Кол-во голосов
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'count'}"></i>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(key,row) in vm.hs.main | orderBy: vm.orderMainData : vm.sortMainReverce">
+                                <td>{{row.place}}</td>
+                                <td class="ta-left"><a href="{{row.link}}" target="_blank" ng-click="trackClick('hs',row.link)">{{row.name}}</a></td>
+                                <td>
+                                    <star-rating ng-model="row.stars" max="5" readonly="true"></star-rating>
+                                </td>
+                                <td>{{row.rating | number:1}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<button><i class="fa fa-refresh"></i> <span>Загрузить еще</span></button>-->
+                    </div>
+                </div>
+                <div class="row semi-tables">
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                                <tr class="noselect">
+                                    <td><img src="/src/img/rating/heart.png"/> Интерактив
+                                    <td ng-click="vm.orderIntarictiveData = 'rating'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Оценка
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'rating'}"></i></td>
+                                    <td ng-click="vm.orderIntarictiveData = 'count'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Кол-во голосов
+                                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'count'}"></i></td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="row in vm.hs.interactive | orderBy: vm.orderIntarictiveData : vm.sortIntarictiveReverce">
+                                    <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('hs_intarective',row.link)">{{row.name}}</a></td>
+                                    <td>{{row.rating}}</td>
+                                    <td>{{row.count}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/sword.png"/> Скилл
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'rating'; vm.sortSkillReverce = !vm.sortSkillReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'rating'}"></i>
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'count'; vm.sortSkillReverce = !vm.sortSkillReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.hs.skill | orderBy: vm.orderSkillData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('hs_skill',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/smile.png"/> Харизма
+                                <td ng-click="vm.orderHarizmData = 'rating'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderHarizmData = 'count'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.hs.harizm | orderBy: vm.orderHarizmData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('hs_harizm',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1">
+                <uib-tab-heading>
+                    <div class="selector-btn">
+                        <img src="/src/img/base/icons/dota2.png"/>
+                    </div>
+                </uib-tab-heading>
+                <div class="row main">
+                    <div class="col-lg-4 col-md-4 col-sm-4 main-img">
+                        <img src="/src/img/rating/dota2.jpg"/>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 main-table">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td class="number" ng-click="vm.orderMainData = 'place'; vm.sortMainReverce = !vm.sortMainReverce">#
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'place'}"></i></td>
+                                <td class="name ta-left" ng-click="vm.orderMainData = 'name'; vm.sortMainReverce = !vm.sortMainReverce">Ник стримера
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'name'}"></i>
+                                </td>
+                                <td class="rating" ng-click="vm.orderMainData = 'stars'; vm.sortMainReverce = !vm.sortMainReverce">Общий рейтинг
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'stars'}"></i>
+                                </td>
+                                <td class="rating-count" ng-click="vm.orderMainData = 'rating'; vm.sortMainReverce = !vm.sortMainReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'rating'}"></i>
+                                </td>
+                                <td class="count" ng-click="vm.orderMainData = 'count'; vm.sortMainReverce = !vm.sortMainReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(key,row) in vm.dota2.main | orderBy: vm.orderMainData : vm.sortMainReverce">
+                                <td>{{row.place}}</td>
+                                <td class="ta-left"><a href="{{row.link}}" target="_blank" ng-click="trackClick('dt2',row.link)">{{row.name}}</a></td>
+                                <td>
+                                    <star-rating ng-model="row.stars" max="5" readonly="true"></star-rating>
+                                </td>
+                                <td>{{row.rating | number:1}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<button><i class="fa fa-refresh"></i> <span>Загрузить еще</span></button>-->
+                    </div>
+                </div>
+                <div class="row semi-tables">
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/heart.png"/> Интерактив
+                                <td ng-click="vm.orderIntarictiveData = 'rating'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderIntarictiveData = 'count'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.dota2.interactive | orderBy: vm.orderIntarictiveData : vm.sortIntarictiveReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('dt2_intarective',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/sword.png"/> Скилл
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'rating'; vm.sortSkillReverce = !vm.sortSkillReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'rating'}"></i>
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'count'; vm.sortSkillReverce = !vm.sortSkillReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.dota2.skill | orderBy: vm.orderSkillData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('dt2_skill',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/smile.png"/> Харизма
+                                <td ng-click="vm.orderHarizmData = 'rating'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderHarizmData = 'count'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.dota2.harizm | orderBy: vm.orderHarizmData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('dt2_harizm',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="2">
+                <uib-tab-heading>
+                    <div class="selector-btn">
+                        <img src="/src/img/base/icons/csgo.png"/>
+                    </div>
+                </uib-tab-heading>
+                <div class="row main">
+                    <div class="col-lg-4 col-md-4 col-sm-4 main-img">
+                        <img src="/src/img/rating/csgo.jpg"/>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 main-table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <td class="number" ng-click="vm.orderMainData = 'place'; vm.sortMainReverce = !vm.sortMainReverce">#
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'place'}"></i></td>
+                                <td class="name ta-left" ng-click="vm.orderMainData = 'name'; vm.sortMainReverce = !vm.sortMainReverce">Ник стримера
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'name'}"></i>
+                                </td>
+                                <td class="rating" ng-click="vm.orderMainData = 'stars'; vm.sortMainReverce = !vm.sortMainReverce">Общий рейтинг
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'stars'}"></i>
+                                </td>
+                                <td class="rating-count" ng-click="vm.orderMainData = 'rating'; vm.sortMainReverce = !vm.sortMainReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'rating'}"></i>
+                                </td>
+                                <td class="count" ng-click="vm.orderMainData = 'count'; vm.sortMainReverce = !vm.sortMainReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(key,row) in vm.csgo.main | orderBy: vm.orderMainData : vm.sortMainReverce">
+                                <td>{{row.place}}</td>
+                                <td class="ta-left"><a href="{{row.link}}" target="_blank" ng-click="trackClick('csgo',row.link)">{{row.name}}</a></td>
+                                <td>
+                                    <star-rating ng-model="row.stars" max="5" readonly="true"></star-rating>
+                                </td>
+                                <td>{{row.rating | number:1}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<button><i class="fa fa-refresh"></i> <span>Загрузить еще</span></button>-->
+                    </div>
+                </div>
+                <div class="row semi-tables">
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/heart.png"/> Интерактив
+                                <td ng-click="vm.orderIntarictiveData = 'rating'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderIntarictiveData = 'count'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.csgo.interactive | orderBy: vm.orderIntarictiveData : vm.sortIntarictiveReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('csgo_intarective',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/sword.png"/> Скилл
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'rating'; vm.sortSkillReverce = !vm.sortSkillReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'rating'}"></i>
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'count'; vm.sortSkillReverce = !vm.sortSkillReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.csgo.skill | orderBy: vm.orderSkillData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('csgo_skill',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/smile.png"/> Харизма
+                                <td ng-click="vm.orderHarizmData = 'rating'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderHarizmData = 'count'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.csgo.harizm | orderBy: vm.orderHarizmData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('csgo_harizm',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="3">
+                <uib-tab-heading>
+                    <div class="selector-btn">
+                        <img src="/src/img/base/icons/wot.png"/>
+                    </div>
+                </uib-tab-heading>
+                <div class="row main">
+                    <div class="col-lg-4 col-md-4 col-sm-4 main-img">
+                        <img src="/src/img/rating/wot.jpg"/>
+                    </div>
+                    <div class="col-lg-8 col-md-8 col-sm-8 main-table">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td class="number" ng-click="vm.orderMainData = 'place'; vm.sortMainReverce = !vm.sortMainReverce">#
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'place'}"></i></td>
+                                <td class="name ta-left" ng-click="vm.orderMainData = 'name'; vm.sortMainReverce = !vm.sortMainReverce">Ник стримера
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'name'}"></i>
+                                </td>
+                                <td class="rating" ng-click="vm.orderMainData = 'stars'; vm.sortMainReverce = !vm.sortMainReverce">Общий рейтинг
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'stars'}"></i>
+                                </td>
+                                <td class="rating-count" ng-click="vm.orderMainData = 'rating'; vm.sortMainReverce = !vm.sortMainReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'rating'}"></i>
+                                </td>
+                                <td class="count" ng-click="vm.orderMainData = 'count'; vm.sortMainReverce = !vm.sortMainReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortMainReverce, 'fa-angle-down' : vm.sortMainReverce, 'fahider': vm.orderMainData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="(key,row) in vm.wot.main | orderBy: vm.orderMainData : vm.sortMainReverce">
+                                <td>{{row.place}}</td>
+                                <td class="ta-left"><a href="{{row.link}}" target="_blank" ng-click="trackClick('wot',row.link)">{{row.name}}</a></td>
+                                <td>
+                                    <star-rating ng-model="row.stars" max="5" readonly="true"></star-rating>
+                                </td>
+                                <td>{{row.rating | number:1}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <!--<button><i class="fa fa-refresh"></i> <span>Загрузить еще</span></button>-->
+                    </div>
+                </div>
+                <div class="row semi-tables">
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/heart.png"/> Интерактив
+                                <td ng-click="vm.orderIntarictiveData = 'rating'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderIntarictiveData = 'count'; vm.sortIntarictiveReverce = !vm.sortIntarictiveReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortIntarictiveReverce, 'fa-angle-down' : vm.sortIntarictiveReverce, 'fahider': vm.orderIntarictiveData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.wot.interactive | orderBy: vm.orderIntarictiveData : vm.sortIntarictiveReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('wot_intarective',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/sword.png"/> Скилл
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'rating'; vm.sortSkillReverce = !vm.sortSkillReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'rating'}"></i>
+                                </td>
+                                <td ng-click="vm.orderSkillData = 'count'; vm.sortSkillReverce = !vm.sortSkillReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortSkillReverce, 'fa-angle-down' : vm.sortSkillReverce, 'fahider': vm.orderSkillData !== 'count'}"></i>
+                                </td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.wot.skill | orderBy: vm.orderSkillData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('wot_skill',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-lg-4">
+                        <table>
+                            <thead>
+                            <tr class="noselect">
+                                <td><img src="/src/img/rating/smile.png"/> Харизма
+                                <td ng-click="vm.orderHarizmData = 'rating'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Оценка
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'rating'}"></i></td>
+                                <td ng-click="vm.orderHarizmData = 'count'; vm.sortHarizmReverce = !vm.sortHarizmReverce">Кол-во голосов
+                                    <i class="fa" ng-class="{'fa-angle-up' : !vm.sortHarizmReverce, 'fa-angle-down' : vm.sortHarizmReverce, 'fahider': vm.orderHarizmData !== 'count'}"></i></td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="row in vm.wot.harizm | orderBy: vm.orderHarizmData : vm.sortSkillReverce">
+                                <td><a href="{{row.link}}" target="_blank" ng-click="trackClick('wot_harizm',row.link)">{{row.name}}</a></td>
+                                <td>{{row.rating}}</td>
+                                <td>{{row.count}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </uib-tab>
+        </uib-tabset>
+    </div>
+</div>

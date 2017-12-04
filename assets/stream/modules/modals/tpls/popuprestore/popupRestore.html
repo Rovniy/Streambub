@@ -1,0 +1,21 @@
+<div ng-controller="popupRestoreController as vm" class="popupRestoreForm">
+    <div class="modal-header">
+        <h3 class="modal-title ta-center">Восстановления доступа к StreamPub.net</h3>
+    </div>
+    <div class="modal-body modal-body-notification text-center">
+        <form ng-show="vm.step == 'form'"class="form-horizontal" role="form" name="popupLoginForm" ng-class="{ 'has-error' :  (popupLoginForm.login.$invalid-pattern) && (popupLoginForm.login.$dirty) }">
+            <input type="email" class="form-control input-lg ta-center" ng-model="vm.email" placeholder="Адрес электронной почты" validate-email required>
+            <button type="submit" class="btn div-margin-auto button-action" ng-disabled="!popupLoginForm.$valid" ng-click="vm.restorePassword(vm.email)">Отправить данные на почту</button>
+        </form>
+        <div ng-show="vm.step == 'ok'">
+            <h3>Письмо с новым паролем отправлено тебе на почту.</h3>
+        </div>
+    </div>
+    <div class="modal-footer" ng-if="vm.errorType">
+        <ul class="error-type color-red">
+            <li ng-if="vm.errorType == 'UserNotFoundException'">Такой пользователь не найден. Проверь правильность написания почты!</li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</div>

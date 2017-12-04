@@ -1,0 +1,162 @@
+<div class="container-fluid" id="adminGiftsAdd">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Добавление приза</h1>
+            <p>Для розыгрыша</p>
+        </div>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Название</label>
+                <div class="col-sm-10">
+                    <input type="text" ng-model="vm.name" class="form-control" placeholder="Нвазание приза">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Категория</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.category">
+                        <option value="{{row.id}}" ng-repeat="row in vm.categoriesList[0].childs">{{row.name}} (ID:{{row.id}})</option>
+                        <option value="{{row.id}}" ng-repeat="row in vm.categoriesList[1].childs">{{row.name}} (ID:{{row.id}})</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Стоимость</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.price" class="form-control" placeholder="Стоимость в центах">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Стоимость при скидке</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.discountPrice" class="form-control" placeholder="Стоимость при скидке в центах">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Спонсорский приз</label>
+                <div class="col-sm-10">
+                    <input type="checkbox" ng-model="vm.money">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Промо приз</label>
+                <div class="col-sm-10">
+                    <input type="checkbox" ng-model="vm.promo">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Описание</label>
+                <div class="col-sm-10">
+                    <textarea class="form-control" ng-model="vm.description" placeholder="Описание приза"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Количество призов</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.count" class="form-control" placeholder="Сколько штук имеется?">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Мин. участников</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.minMembers" class="form-control" placeholder="Сколько нужно человек для старта розыгрыша?">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Мин. участников при скидке</label>
+                <div class="col-sm-10">
+                    <input type="number" ng-model="vm.discountMinMembers" class="form-control" placeholder="Сколько нужно человек для старта розыгрыша при скидке на товар?">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Кампания</label>
+                <div class="col-sm-10">
+                    <select class="form-control" ng-model="vm.campaign">
+                        <option value="{{row.id}}" ng-repeat="row in vm.campaignList">----- {{row.sponsor.name}} -----     {{row.startDate | date:'dd.MM.yyyy'}} - {{row.endDate | date:'dd.MM.yyyy'}}</option>
+                    </select>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Изображение</label>
+                <div class="col-sm-10">
+                    <input class="div-margin-auto" type="file" nv-file-select="" uploader="vm.uploader">
+                </div>
+            </div>
+            <div class="form-group" ng-show="vm.uploader.queue.length > 0">
+                <label class="col-sm-2 control-label">Файлы</label>
+                <div class="col-sm-10">
+                    <div class="row">
+                        <table class="table">
+                            <thead>
+                            <tr class="ta-center">
+                                <td>Имя файла</td>
+                                <td>Размер</td>
+                                <td>Прогресс загрузки</td>
+                                <td>Статус загрузки</td>
+                                <td>Операции с файлом</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="ta-center" ng-repeat="item in vm.uploader.queue">
+                                <td>
+                                    <strong>{{item.file.name}}</strong>
+                                </td>
+                                <td><span ng-class="{'color-red' : item.file.size/1024/1024 > 5 }">{{ item.file.size/1024/1024|number:2 }} MB</span></td>
+                                <td>
+                                    <div class="progress">
+                                        <uib-progressbar max="100" value="item.progress"><span>{{item.progress}} / {{100}}</span></uib-progressbar>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    <span ng-show="item.isSuccess"><i class="fa fa-check color-green"></i></span>
+                                    <span ng-show="item.isCancel"><i class="fa fa-ban color-orange"></i></span>
+                                    <span ng-show="item.isError"><i class="fa fa-exclamation-circle color-red"></i></span>
+                                </td>
+                                <td class="ta-center">
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove();vm.downloadStatusOk = false;">
+                                        <span class="fa fa-trash"></span> Удалить
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Ссылка на товар</label>
+                <div class="col-sm-10">
+                    <input type="text" ng-model="vm.link" class="form-control" placeholder="Ссылка на страницу описания товара">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Дата блокировки</label>
+                <div class="col-sm-10">
+                    <p class="input-group">
+                        <input type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" is-open="vm.datePicker" datepicker-options="vm.dateOptions" ng-model="vm.endDate"  close-text="Close" alt-input-formats="vm.altInputFormats"/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-info" ng-click="vm.datePicker = !vm.datePicker"><i class="fa fa-calendar"></i></button>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <hr/>
+            <div class="ta-center">
+                <button class="btn btn-lg btn-success" ng-click="vm.createGift()">Создать приз</button>
+            </div>
+            <hr/>
+            <div class="debug">
+                <blockquote>
+                    <p>DEBUG:</p>
+                </blockquote>
+                <blockquote>
+                    <h3 class="color-green" ng-show="vm.success">Товар создан ;-)</h3>
+                    {{vm.error}}
+                </blockquote>
+            </div>
+
+        </div>
+    </div>
+</div>

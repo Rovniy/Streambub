@@ -1,0 +1,321 @@
+#globalLuck {
+  background: url('/src/img/modules/global-luck/gl-background.jpg') no-repeat #000;
+  .container {
+    padding: 0 50px;
+    .title {
+      width:100%;
+      padding:30px 0 0;
+    }
+    .my-luck {
+      h1 {
+        color: @h-color;
+        font:italic 2.71rem/2.71rem @f-head;
+        text-align:center;
+        text-transform: uppercase;
+      }
+    }
+    .up-your-chance {
+      background: @color-main;
+      width: 90%;
+      margin: auto;
+      .accordeon-area {
+        .panel-group {
+          .panel {
+            .panel-heading {
+              padding: 0;
+              .panel-title {
+                a {
+                  span {
+                    img {
+                      transition: .2s ease;
+                      opacity: 0.8;
+                    }
+                  }
+                }
+              }
+              &:hover {
+                .panel-title {
+                  a {
+                    span {
+                      img {
+                        transition: .2s ease;
+                        opacity: 1;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+            .panel-collapse {
+              .panel-body {
+                border-top-width: 0;
+                padding-top: 0;
+              }
+
+            }
+          }
+        }
+      }
+      .table {
+        margin:0;
+        tbody {
+          tr {
+            td {
+              border-top: none;
+              border-bottom: 1px solid #ddd;
+              padding:8px 0;
+              vertical-align: middle;
+              p {
+                margin:0;
+                padding:0 20px 0 50px;
+                span {
+                  line-height: 51px;
+                  position: absolute;
+                  top:0;
+                  left:0;
+                  i {
+                    font-size: 28px;
+                  }
+                }
+                .fa-facebook {
+                  color:#3b5998;
+                }
+                .fa-vk {
+                  color:#587ea3;
+                }
+                .fa-twitter {
+                  color:#55acee;
+                }
+                .fa-twitch {
+                  color:#6441a4;
+                }
+                .fa-youtube-play {
+                  color:#e62117;
+                }
+                .fa-question-circle {
+                  &:hover {
+                    cursor: pointer;
+                    color: @orange-color-hover;
+                  }
+                }
+              }
+              red {
+                color: darkred;
+              }
+              .btn {
+                border-radius: 0;
+              }
+              .btn-ga {
+                text-align: center;
+                width:180px;
+                color: @color-main;
+                background: @color-fiolet;
+                &:hover, &:focus {
+                  background: @color-fiolet-hover;
+                }
+              }
+              .btn-icon {
+                width: 90px;
+                padding: 2px 12px;
+                i {
+                  font-size: 24px;
+                }
+              }
+              .btn-ok {
+                text-align: center;
+                width:180px;
+                color: @color-main;
+                background: @color-green;
+                &:hover, &:focus {
+                  background: @color-green-hover;
+                }
+              }
+              .btn-wait {
+                text-align: center;
+                width:180px;
+                color: @color-main;
+                background: @orange-color;
+                &:hover, &:focus {
+                  background: @orange-color-hover;
+                }
+              }
+              .btn-error {
+                text-align: center;
+                width:180px;
+                color: @color-main;
+                background: @color-red;
+                &:hover, &:focus {
+                  background: @color-red;
+                }
+              }
+              .disabled {
+                cursor: default;
+              }
+              .box-relative {
+                position: relative;
+                .box-absolute {
+                  position: absolute;
+                  top:0;
+                  left: -488px;
+                  height:32px;
+                  input {
+                    float: left;
+                    width:85%;
+                  }
+                  i {
+                    width:15%;
+                    float: left;
+                    line-height: 32px;
+                    opacity:0.7;
+                    &:hover {
+                      cursor: pointer;
+                      opacity: 1;
+                    }
+                  }
+                }
+                @media (min-width: 768px) {
+                  .box-absolute {
+                    left: -453px;
+                    width: 460px;
+                  }
+                }
+                @media (min-width: 992px) {
+                  .box-absolute {
+                    left: -488px;
+                    width:520px;
+                  }
+                }
+                @media (min-width: 1200px) {
+                  .box-absolute {
+                    left: -488px;
+                    width:500px;
+                  }
+                }
+              }
+            }
+            .width-50-percent {
+              width: 50%;
+              button, a {
+                margin: 20px 0;
+              }
+            }
+            .with-blocker {
+              position: relative;
+              padding:0;
+              margin:0;
+              .abblocker {
+                position: absolute;
+                top:0;
+                left:0;
+                right:0;
+                bottom:0;
+                background: linear-gradient(to right, rgba(217,83,79,1) 0%,rgba(217,83,79,1) 60%, rgba(255,255,255,0) 90%, rgba(255,255,255,0) 100%);
+                line-height: 42px;
+                font-family: @f-main;
+                color: @color-main;
+                padding:0 0 0 10px;
+              }
+            }
+          }
+        }
+      }
+      .luck-progress {
+        height:30px;
+        width:100%;
+        margin:0 0 20px 0;
+        border: 5px solid @color-main;
+        background: linear-gradient(to right, purple 0%, blue 20%, green 40%, yellow 60%, orange 80%, red 100%);
+      }
+    }
+    .accordeon-area {
+      .panel-group {
+        .panel {
+          -webkit-border-radius:0;
+          -moz-border-radius:0;
+          border-radius:0;
+          border:none;
+          background: none;
+          .panel-heading {
+            border:none;
+            background: none;
+            h4 {
+              a {
+                &:focus {
+                  outline: none;
+                  text-decoration: none;
+                }
+              }
+
+            }
+          }
+          .panel-collapse {
+            p {
+              color: #000;
+              font: 1.1rem/1.5rem @f-main;
+            }
+          }
+        }
+        .panel-open {
+
+        }
+      }
+    }
+    .youtubeVideoFrame {
+      position:fixed;
+      top:0;
+      cursor: pointer;
+      left:0;
+      bottom:0;
+      right:0;
+      background: rgba(0,0,0,.8);
+      padding:100px;
+      z-index: 200;
+      text-align: center;
+      #player {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: -100;
+      }
+      .video-timer {
+        position: fixed;
+        top:20px;
+        left:20px;
+        z-index: 9999;
+        font:italic 3rem/3rem @f-head;
+        color: @color-main;
+      }
+      .close-button {
+        position: fixed;
+        top:10px;
+        right:15px;
+        color:@color-main;
+        opacity: 0.7;
+        transition: .2s ease-out;
+        &:hover {
+          opacity: 1;
+          color:@color-main;
+          transition: .2s ease-out;
+        }
+      }
+    }
+    .faq {
+      margin: 20px auto 30px;
+      h1 {
+        color: @h-color;
+        font:italic 2.71rem/2.71rem @f-head;
+        text-align:left;
+        text-transform: uppercase;
+      }
+      h5 {
+        color: @h-color;
+        font:1.14rem/1.14rem @f-main;
+        text-align:left;
+      }
+    }
+  }
+}

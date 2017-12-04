@@ -1,0 +1,63 @@
+#uploadImageModal {
+  .modal-body {
+    padding:30px 50px;
+    position: relative;
+    .cropArea {
+      overflow: hidden;
+      width: 500px;
+      height: 360px;
+    }
+    .croppedImage {
+      margin: 10px 0 0 0;
+      text-align: center;
+    }
+    .uploader-input-area {
+      text-align: center;
+      .file-upload {
+        position: relative; /* Даем возможность делать позиционирование, внутри данного элемента */
+        overflow: hidden; /* Все что выходит за пределы - скрываем */
+        width: 200px; /* Задаем ширину кнопки выбора файла */
+        height: 40px; /* Задаем высоту кнопки выбора файла */
+        background: @color-fiolet;
+        border-radius: 0;
+        padding: 8px 4px;
+        color: #fff;
+        text-align: center;
+        margin: auto;
+        &:hover {
+          background: @color-fiolet-hover;
+        }
+        input[type="file"]{
+          display: none; /* Обязательно скрываем настоящий Input File */
+        }
+        label {
+          /* Растягиваем label на всю возможную площадь блока .file-upload */
+          display: block;
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+        span {
+          font: 1.1rem/40px @f-main;
+          color: #fff;
+        }
+      }
+    }
+    .remove-button {
+      position: absolute;
+      top:30px;
+      right:50px;
+    }
+  }
+  .modal-footer {
+    text-align: center;
+    .progress-result {
+      .progress {
+        margin:0 auto;
+      }
+    }
+  }
+}

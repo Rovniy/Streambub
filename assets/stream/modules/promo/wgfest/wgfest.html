@@ -1,0 +1,76 @@
+<div id="wgfest">
+    <div class="container-fluid ta-center h1-area">
+        <div class="container">
+            <h1>StreamPub врывается с благотворительным флешмобом на WGfest16</h1>
+        </div>
+    </div>
+    <div class="container-fluid ta-center logo-area">
+        <img src="/src/img/promo/wgfestlogo.png"/>
+    </div>
+    <div class="container-fluid ta-center slogan-area">
+        <div class="container">
+            <h2>И разыгрывает 10 000 золота!</h2>
+        </div>
+    </div>
+    <hr/>
+    <div class="container-fluid first-area">
+        <div class="container">
+            <h3>Компания SPLAT проводит благотворительный флешмоб по сбору средств в Фонд К. Хабенского, помогающего детям с тяжелыми заболеваниями головного мозга.</h3>
+            <p><span class="text-danger"><b>Зачем это StreamPub?</b></span> Нам не все равно. Мы уже помогли собрать более 100 тыс. рублей!</p>
+            <p><span class="text-success"><b>Зачем это тебе?</b></span> Потому что ты – боец. Танкист, летчик, моряк – защитник. А такие – детей не бросают.</p>
+            <p>Ты много раз побеждал. Разил врага без промаха. Теперь – просто сделай фото/видео, которое поможет детям. Это по-настоящему доброе дело.
+                Каждый день десятки тысяч бойцов сражаются в танковых, воздушных и морских баталиях. Если каждый просто сфоткается и сделает пост с #ЧищуЗубыПомогаю и #ТанкоПомощь… Тогда Фонд получит сотни тысяч рублей. Эти средства спасут не одну жизнь!
+            </p>
+        </div>
+    </div>
+    <hr/>
+    <div class="container-fluid ta-center counter-area">
+        <div class="container">
+            <h2>Присоединяйся! нас уже</h2>
+            <span ng-bind="vm.usersCount">96</span>
+        </div>
+    </div>
+    <hr/>
+    <div class="container-fluid ta-center prize-area">
+        <div class="container">
+            <h2>Огромнейший приз!</h2>
+            <span>10 000 <br/><small>золота</small></span>
+            <h4>Победитель будет определен случайным образом среди всех публикаций 20 декабря на нашем Twitch-канале.  Мы напишем победителю личное сообщение в той соц.сети, где был опубликован победивший пост.</h4>
+        </div>
+    </div>
+    <hr/>
+    <div class="container-fluid ta-center condition-area">
+        <div class="container">
+            <h2>Для участия нужно совсем немного.</h2>
+            <ul>
+                <li>Сделать фото/видео, связанное с зубной щеткой/чисткой зубов.</li>
+                <li>Выложить его в любой соцсети с хештегами <badge>#ЧищуЗубыПомогаю</badge> и <badge>#ТанкоПомощь</badge></li>
+                <li>В этом посте указать один уникальный код, с обратной стороны визитки (пример: #4efa3g)</li>
+                <li>Фонд Хабенского получит за каждый пост 10 руб.</li>
+                <li>А ты получишь возможность выиграть 10К золота!</li>
+            </ul>
+            <h4>P.S. Ты можешь увеличить шансы на победу, публикуя больше постов в социальных сетях (мы дали тебе 4 кода, это позволит увеличить шансы на победу в 4 раза, если ты сделаешь 4 таких поста!). Если хочешь сделать больше - генерируй новые коды онлайн</h4>
+            <button ng-click="vm.getCode()" ng-if="!vm.myCode">Получить код</button>
+            <div class="myCode-area" ng-if="vm.myCode">
+                <h4>Твой код: {{vm.myCode}}</h4>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid ta-center stream-area">
+        <div class="container">
+            <iframe class="twitch-player" src="https://player.twitch.tv/?channel=streampub" frameborder="0" scrolling="no" height="609" width="1000"></iframe>
+        </div>
+    </div>
+    <div class="container-fluid ta-center imgs-area">
+        <div class="container">
+            <img src="/src/img/promo/image1.jpg" />
+            <img src="/src/img/promo/image2.jpg" />
+            <img src="/src/img/promo/image3.jpg" />
+        </div>
+    </div>
+
+
+
+
+
+</div>

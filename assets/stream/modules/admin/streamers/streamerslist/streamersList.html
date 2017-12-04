@@ -1,0 +1,84 @@
+<div class="container-fluid" id="adminStreamersList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Список стримеров</h1>
+            <p>Список всех стримеров, зарегистрированных в StreamPub</p>
+        </div>
+        <div>
+            <div class="row">
+                <form>
+                    <input type="text" placeholder="Поиск пользователей в БД" class="form-control"
+                           ng-model="vm.searchUser"
+                           ng-model-options='{ debounce: 500 }'
+                           ng-change="vm.getStreamersList()">
+                </form>
+            </div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                <tr>
+                    <td>#</td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.name'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.name'}">
+                        Ник
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.name'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.email'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.email'}">
+                        Email
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.email'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'budget.cash'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'budget.cash'}">
+                        Остаток / Бюджет
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'budget.cash'}"></i>
+                    </td>
+                    <td class="ta-center" class="ta-center">В день / Онлайн / Стримов</td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.lastLogin'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.lastLogin'}">
+                        Активность
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.lastLogin'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.createTime'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.createTime'}">
+                        Регистрация
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.createTime'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.restriction'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.restriction'}">
+                        Ограничение (%)
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.restriction'}"></i>
+                    </td>
+                    <td class="ta-center">
+                        Действия
+                    </td>
+                    <!--<td class="ta-center" ng-click="vm.orderData = 'user.tracked'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'user.tracked'}">-->
+                        <!--Трек метрик twitch-->
+                        <!--<i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'promo'}"></i>-->
+                    <!--</td>-->
+                </tr>
+                </thead>
+                <tbody>
+                   <tr ng-repeat="(key, row) in vm.streamers | orderBy: vm.orderData : vm.sortReverse track by $index">
+                       <td ng-bind="::key+1"></td>
+                       <td><b ng-bind="row.user.name"></b> ({{row.user.lang}})</td>
+                       <td ng-bind="row.user.email"></td>
+                       <td class="ta-center">{{row.budget.availableCash || 0}} / {{row.budget.cash || 0}}</td>
+                       <td class="ta-center">{{row.metrics.viewersPerDay || 0}} / {{row.metrics.viewersAtSameTime || 0}} / {{row.metrics.streamsCount || 0}}</td>
+                       <td class="ta-center" ng-bind="row.user.lastLogin | date:'dd.MM.yyyy'"></td>
+                       <td class="ta-center" ng-bind="row.user.createTime | date:'dd.MM.yyyy'"></td>
+                       <td class="ta-center">
+                           <input type="text" class="form-control ta-center" ng-blur="vm.saveValue(row,key)" ng-class="{'post-success': row.postSuccess, 'restriction-changed' : row.user.restriction != 60}" ng-model="row.user.restriction" value="{{row.user.restriction}}"/>
+                       </td>
+                       <td class="ta-center">
+                           <i ng-hide="row.question" class="fa fa-refresh" ng-click="vm.updateBudgetByAdmin(row)"></i>
+                       </td>
+                       <!--<td class="ta-center">-->
+                           <!--<input type="checkbox" ng-model="row.user.tracked" ng-change="vm.saveTracked(row,key)"/>-->
+                       <!--</td>-->
+                   </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination_list">
+                <uib-pagination max-size="5" total-items="vm.count" items-per-page="vm.itemsPerPage"
+                                ng-model="vm.currentPage" ng-change="vm.getStreamersList()">
+                </uib-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>

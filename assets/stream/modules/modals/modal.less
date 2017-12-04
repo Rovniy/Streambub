@@ -1,0 +1,116 @@
+/* Замутнение фона сайта, если открыто модальное окно */
+.modal-open {
+  /*overflow: visible;*/
+  #wrap {
+    -webkit-filter: blur(3px);
+    -moz-filter: blur(3px);
+    -o-filter: blur(3px);
+    -ms-filter: blur(3px);
+    filter: blur(3px);
+  }
+}
+
+.modal-dialog {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+}
+
+.modal-content {
+  /*background: none!important;
+  -webkit-box-shadow: none!important;
+  -moz-box-shadow: none!important;
+  box-shadow: none!important;
+  border: none!important;*/
+  border-radius: 0;
+}
+
+.helloBanner-modal {
+  .modal-dialog {
+    width: 1000px;
+    .modal-content {
+      background: none!important;
+      -webkit-box-shadow: none!important;
+      -moz-box-shadow: none!important;
+      box-shadow: none!important;
+      border: none!important;
+      border-radius: 0;
+    }
+  }
+
+}
+
+.modal-body {
+  ol {
+    li {
+      margin:5px 0;
+      line-height: 1.3;
+    }
+  }
+  ul {
+    li {
+      margin:5px 0;
+      line-height: 1.3;
+    }
+  }
+  img {
+    max-width: 100%;
+  }
+}
+.gaModal-header {
+  h3 {
+    text-align:center;
+    font:2rem/2rem @f-main;
+  }
+}
+
+.gaModal-body {
+  padding:15px 80px;
+  h3 {
+    text-align:left;
+    font:1.5rem/1.5rem @f-main;
+  }
+  ul {
+    li {
+      font:1.14rem/1.6rem @f-main;
+    }
+  }
+}
+
+.gaModal-footer {
+  text-align: center;
+  button {
+    color: #fff;
+    background: @color-fiolet;
+    border-radius: 0;
+    &:hover {
+      background: @color-fiolet-hover;
+    }
+  }
+
+}
+
+
+.button-action {
+  display: block;
+  background: @color-green;
+  margin:20px auto;
+  color:#fff;
+  padding: 0 10%;
+  height:60px;
+  font:italic 1.71rem/60px @f-head;
+  text-align: center;
+  border:none;
+  &:hover {
+    background: @color-green-hover;
+    color:#fff;
+    outline:0;
+    border:none;
+    text-decoration: none;
+  }
+  &:focus {
+    color:#fff;
+    border: none;
+    outline: 0;
+  }
+}

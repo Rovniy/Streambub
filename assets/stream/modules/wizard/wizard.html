@@ -1,0 +1,255 @@
+<div class="container-fluid" id="wizard-step1">
+    <div class="container">
+        <div class="row title">
+            <div class="col-lg-1 col-md-3 hidden-sm-down">
+                <img src="/src/img/base/wizard/step1.png">
+            </div>
+            <div class="col-lg-11 col-md-9 col-sm-12 col-xs-12">
+                <h1>Бюджет розыгрыша</h1>
+                <h5>Бюджет розыгрыша зависит от нескольких основных факторов, которое автоматически собираются с аккаунта Twitch.tv</h5>
+            </div>
+        </div>
+        <div class="row step1-body">
+            <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12 leftcol">
+                <div class="row viewers">
+                    <div class="col-lg-1 visible-lg icon">
+                        <i class="fa fa-eye"></i>
+                    </div>
+                    <div class="col-lg-6 visible-lg decs">
+                        <h3>Просмотров стрима за сутки (<span>{{vm.budget.metrics.viewersPerDay || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 hidden-lg ta-center decs">
+                        <h3>Просмотров стрима за сутки (<span>{{vm.budget.metrics.viewersPerDay || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 progress-line">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="start-counter">{{vm.budget.metrics.viewersPerDay - vm.budget.metrics.viewersPerDay / 2 || 0 | number:0}}</h4>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <uib-progressbar class="progress-striped active" max="vm.budget.metrics.viewersPerDay + vm.budget.metrics.viewersPerDay*2" value="vm.budget.metrics.viewersPerDay" type="success"><i class="ng-hide">{{vm.budget.metrics.viewersPerDay}} / {{vm.budget.metrics.viewersPerDay+vm.budget.metrics.viewersPerDay*2 | number:0}}</i></uib-progressbar>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="end-counter">{{vm.budget.metrics.viewersPerDay + vm.budget.metrics.viewersPerDay * 2 || 0 | number:0}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row onemonent">
+                    <div class="col-lg-1 visible-lg icon">
+                        <i class="fa fa-users"></i>
+                    </div>
+                    <div class="col-lg-6 visible-lg decs">
+                        <h3>Зрителей одновременно (<span>{{vm.budget.metrics.viewersAtSameTime || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 hidden-lg ta-center decs">
+                        <h3>Зрителей одновременно (<span>{{vm.budget.metrics.viewersAtSameTime || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 progress-line">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="start-counter">{{vm.budget.metrics.viewersAtSameTime - vm.budget.metrics.viewersAtSameTime/2 || 0 | number:0}}</h4>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <uib-progressbar class="progress-striped active" max="vm.budget.metrics.viewersAtSameTime + vm.budget.metrics.viewersAtSameTime*0.8" value="vm.budget.metrics.viewersAtSameTime" type="warning"><i class="ng-hide">{{vm.budget.metrics.viewersAtSameTime}} / {{vm.budget.metrics.viewersAtSameTime + vm.budget.metrics.viewersAtSameTime/2 | number:0}}</i></uib-progressbar>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="end-counter">{{vm.budget.metrics.viewersAtSameTime + vm.budget.metrics.viewersAtSameTime/2 || 0 | number:0}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="row forweek">
+                    <div class="col-lg-1 visible-lg icon">
+                        <i class="fa fa-twitch"></i>
+                    </div>
+                    <div class="col-lg-6 visible-lg decs">
+                        <h3>Трансляций за неделю (<span>{{vm.budget.metrics.streamsCount || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12 hidden-lg ta-center decs">
+                        <h3>Трансляций за неделю (<span>{{vm.budget.metrics.streamsCount || 0}}</span>)</h3>
+                    </div>
+                    <div class="col-lg-5 col-md-12 col-sm-12 col-xs-12 progress-line">
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="start-counter">0</h4>
+                        </div>
+                        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+                            <uib-progressbar class="progress-striped active" max="7" value="vm.budget.metrics.streamsCount" type="danger"><i class="ng-hide">{{vm.budget.metrics.streamsCount}} / 7</i></uib-progressbar>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <h4 class="end-counter">7</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 rightcol">
+                <div class="box-money">
+                    <h3 class="my-money">
+                        Доступный бюджет
+                    </h3>
+                    <h2 class="start-money">{{currentRate(vm.budget.budget.availableCash)}}</h2>
+                    <button ng-click="vm.createGiveAway()" ng-disabled="!vm.budget" scroll-to-item scroll-to="#wizard-step2" id="createGap" class="go-to-step2">Создать розыгрыш</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ng-class="{'wizard-overlay-hidden' : !vm.step1}" class="row animation triangle"></div>
+    <div ng-class="{'wizard-overlay-hidden' : vm.step1}" class="wizard-overlay animation"></div>
+</div>
+<div class="container-fluid" id="wizard-step2">
+    <div class="container">
+        <div class="row title">
+            <div class="col-lg-1 col-md-3 hidden-sm-down">
+                <img src="/src/img/base/wizard/step2.png">
+            </div>
+            <div class="col-lg-11 col-md-9 col-sm-12 col-xs-12">
+                <h1>Выбор приза для розыгрыша</h1>
+            </div>
+        </div>
+        <div class="categories-area">
+            <div class="btn-group">
+                <label class="btn btn-info" ng-model="vm.sortPaidBack" ng-click="vm.sortFromBack({name:'Любая категория'})" uib-btn-radio="''" uncheckable>Все призы</label>
+                <label class="btn btn-info" ng-model="vm.sortPaidBack" ng-repeat="row in vm.sortByCategoryRow[0].childs" ng-click="vm.sortFromBack(row)" uib-btn-radio="row.id" uncheckable ng-bind="row.name"></label>
+                <label class="btn btn-info" ng-model="vm.sortPaidBack" ng-repeat="row in vm.sortByCategoryRow[1].childs" ng-click="vm.sortFromBack(row)" uib-btn-radio="row.id" uncheckable ng-bind="row.name"></label>
+            </div>
+        </div>
+        <div class="category-waiter">
+            <div class="ta-center" ng-show="vm.giftList.length == 0 && !vm.giftsUpdate" style="margin-top:50px">
+                <h3>У нас нет таких призов :(</h3>
+            </div>
+            <div class="ta-center" ng-show="vm.giftList.length == 0 && vm.giftsUpdate" style="margin-top:50px">
+                <i class="fa fa-refresh fa-spin fa-3x"></i>
+            </div>
+        </div>
+
+        <!-- ДОСТУПНЫЕ ПРИЗЫ -->
+        <div class="row items i-can" ng-show="vm.giftList.length > 0">
+            <div class="row items-item item-add-own col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="items-item-body">
+                    <div class="item-desc">
+                        <h2>Добавь и разыграй свой собственный приз!</h2>
+                    </div>
+                    <div class="item-action">
+                        <a class="btn select" href="/createraffle">Создать приз</a>
+                    </div>
+                </div>
+            </div>
+            <div ng-repeat="(key,row) in vm.giftList track by $index" ng-if="row.count > 0" class="row items-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="items-item-body" ng-mouseenter="vm.showMoreInfo = []; vm.showMoreInfo[key] = !vm.showMoreInfo[key]">
+                    <div class="item-image">
+                        <img ng-src="{{row.gift.images[0].imageLink}}"/>
+                        <h2 class="promo" ng-if="row.count > 1" uib-tooltip="Ты разыграешь сразу {{row.count}} таких приза"><small>x</small>{{row.count}}</h2>
+                    </div>
+                    <div class="item-title">
+                        <h3 ng-bind="row.gift.name"></h3>
+                        <h5 ng-bind-html="row.gift.description.substr(0, 27)+'...'"></h5>
+                    </div>
+                    <div>
+                        <div class="item-price" ng-if="!row.gift.discountPrice">
+                            <h2 ng-if="!row.count || row.count == 0 || row.count == 1">{{currentRate(row.gift.price)}}</h2>
+                            <h2 ng-if="row.count > 1">{{currentRate(row.gift.price*row.count)}}<small> ({{currentRate(row.gift.price)}})</small></h2>
+                        </div>
+                        <div class="item-price" ng-if="row.gift.discountPrice">
+                            <h2 ng-if="!row.count || row.count == 0 || row.count == 1">{{currentRate(row.gift.discountPrice)}} <small style="text-decoration:line-through"> ({{currentRate((row.gift.price))}})</small></h2>
+                            <h2 ng-if="row.count > 1">{{currentRate(row.gift.discountPrice*row.count)}} <small style="text-decoration:line-through"> ({{currentRate((row.gift.price*row.count))}})</small></h2>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="item-userc-count" ng-if="!row.gift.discountMinMembers">
+                            <h5>Мин. число участников: <orange>{{row.count > 1 ? row.gift.minMembers*row.count : row.gift.minMembers}}</orange></h5>
+                        </div>
+                        <div class="item-userc-count" ng-if="row.gift.discountMinMembers">
+                            <h5>Мин. число участников: <orange>{{row.count > 1 ? row.gift.discountMinMembers*row.count : row.gift.discountMinMembers}}</orange> <small style="text-decoration:line-through"> {{row.count > 1 ? row.gift.minMembers*row.count : row.gift.minMembers}}</small></h5>
+                        </div>
+                    </div>
+                    <div class="item-action">
+                        <button class="btn select" ng-click="vm.goToGiveAwayPage(row.gift.id, row.count)">Выбрать приз</button>
+                    </div>
+                </div>
+                <div class="items-item-body-onhover" ng-show="vm.showMoreInfo[key]" ng-mouseleave="vm.showMoreInfo[key] = !vm.showMoreInfo[key]">
+                    <div class="item-image">
+                        <img ng-src="{{row.gift.images[0].imageLink}}" />
+                        <h2 class="promo" ng-if="row.count > 1" uib-tooltip="Ты разыграешь сразу {{row.count}} таких приза"><small>x</small>{{row.count}}</h2>
+                    </div>
+                    <div class="item-title">
+                        <h3>{{row.gift.name}}</h3>
+                        <h5 ng-bind-html="row.gift.description"></h5>
+                    </div>
+                    <div>
+                        <div class="item-price" ng-if="!row.gift.discountPrice">
+                            <h2 ng-if="!row.count || row.count == 0 || row.count == 1">{{currentRate(row.gift.price)}}</h2>
+                            <h2 ng-if="row.count > 1">{{currentRate(row.gift.price*row.count)}}<small> ({{currentRate(row.gift.price)}})</small></h2>
+                        </div>
+                        <div class="item-price" ng-if="row.gift.discountPrice">
+                            <h2 ng-if="!row.count || row.count == 0 || row.count == 1">{{currentRate(row.gift.discountPrice)}} <small style="text-decoration:line-through"> ({{currentRate((row.gift.price))}})</small></h2>
+                            <h2 ng-if="row.count > 1">{{currentRate(row.gift.discountPrice*row.count)}} <small style="text-decoration:line-through"> ({{currentRate((row.gift.price*row.count))}})</small></h2>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="item-userc-count" ng-if="!row.gift.discountMinMembers">
+                            <h5>Мин. число участников: <orange>{{row.count > 1 ? row.gift.minMembers*row.count : row.gift.minMembers}}</orange></h5>
+                        </div>
+                        <div class="item-userc-count" ng-if="row.gift.discountMinMembers">
+                            <h5>Мин. число участников: <orange>{{row.count > 1 ? row.gift.discountMinMembers*row.count : row.gift.discountMinMembers}}</orange> <small style="text-decoration:line-through"> {{row.count > 1 ? row.gift.minMembers*row.count : row.gift.minMembers}}</small></h5>
+                        </div>
+                    </div>
+                    <div class="item-action">
+                        <button class="btn select" ng-click="vm.goToGiveAwayPage(row.gift.id, row.count)">Выбрать приз</button>
+                    </div>
+                    <div class="ta-left meta-info">
+                        <ul class="ta-left">
+                            <li>Спонсор: <a ng-href="{{row.gift.campaign.sponsor.link}}" target="_blank"><b ng-bind="row.gift.campaign.sponsor.name"></b></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row title step3-title"  ng-if="vm.giftList.length != 0">
+            <div class="col-lg-1 col-md-3 hidden-sm-down">
+                <img src="/src/img/base/wizard/step3.png">
+            </div>
+            <div class="col-lg-11 col-md-9 col-sm-12 col-xs-12">
+                <h1>Недоступные тебе призы</h1>
+                <h5>Ты не можешь выбрать эти призы, т.к. твой текущий бюджет меньше необходимой суммы или значительно больше стоимости приза.</h5>
+            </div>
+        </div>
+        <!-- НЕДОСТУПНЫЕ ПРИЗЫ -->
+        <div class="row items i-not-can" ng-if="vm.giftList.length > 0">
+            <div ng-repeat="(key,row) in vm.giftList | orderBy: vm.orderData : vm.sortReverce track by $index" ng-if="row.count == 0" class="item-inactive row items-item col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="items-item-body" ng-mouseenter="vm.showMoreInfo = []; vm.showMoreInfo[key] = !vm.showMoreInfo[key]">
+                    <div class="item-image">
+                        <img ng-src="{{row.gift.images[0].imageLink}}"/>
+                    </div>
+                    <div class="item-title">
+                        <h3 ng-bind="row.gift.name"></h3>
+                        <h5 ng-bind-html="row.gift.description.substr(0, 27)+'...'"></h5>
+                    </div>
+                    <div class="item-price">
+                        <h2 ng-bind="currentRate(row.gift.price)"></h2>
+                    </div>
+                    <div class="item-userc-count">
+                        <h5>Мин. число участников: <orange ng-bind="row.gift.minMembers"></orange></h5>
+                    </div>
+                </div>
+                <div class="items-item-body-onhover" ng-show="vm.showMoreInfo[key]" ng-mouseleave="vm.showMoreInfo[key] = !vm.showMoreInfo[key]">
+                    <div class="item-image">
+                        <img ng-src="{{row.gift.images[0].imageLink}}" />
+                    </div>
+                    <div class="item-title">
+                        <h3>{{row.gift.name}}</h3>
+                        <h5 ng-bind-html="row.gift.description"></h5>
+                    </div>
+                    <div class="item-price">
+                        <h2 ng-bind="currentRate(row.gift.price)"></h2>
+                    </div>
+                    <div class="item-userc-count">
+                        <h5>Мин. число участников: <orange ng-bind="row.gift.minMembers"></orange></h5>
+                    </div>
+                    <div class="ta-left meta-info">
+                        <ul class="ta-left">
+                            <li>Спонсор: <a ng-href="{{row.gift.campaign.sponsor.link}}" target="_blank"><b ng-bind="row.gift.campaign.sponsor.name"></b></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div ng-class="{'wizard-overlay-hidden' : vm.step2}" class="wizard-overlay animation"></div>
+</div>

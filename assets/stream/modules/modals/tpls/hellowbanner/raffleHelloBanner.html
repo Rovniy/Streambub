@@ -1,0 +1,16 @@
+<div class="modal-background hello-Banner" style="background:url('{{vm.items.background}}')">
+    <div class="modal-body gaModal-body">
+        <button type="button" class="close" ng-click="$dismiss()"><i class="fa fa-close"></i></button>
+        <h3 class="modal-title">Поздравляем!</h3>
+        <h3>Ты стал участником розыгрыша {{vm.items.giftName}} от {{vm.items.sponsorName}}.</h3>
+        <div ng-if="!vm.items.task">
+            <h3>Хочешь повысить свои шансы на победу? Жми на большую зелёную кнопку и выбирай наиболее подходящие тебе способы!</h3>
+            <button class="actionButton" type="button" ng-click="$dismiss()">Ясно, понятно</button>
+        </div>
+        <div ng-if="vm.items.task">
+            <h3>Хочешь повысить шансы на победу в {{vm.items.task.luck+1}} раз? Посмотри видео до конца.</h3>
+            <button class="actionButton" type="button" ng-click="vm.openvideo(); $dismiss()">Посмотреть короткое видео</button>
+        </div>
+    </div>
+    </div>
+</div>

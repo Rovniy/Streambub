@@ -1,0 +1,34 @@
+.hello-Banner {
+  width:1000px;
+  height:600px;
+  padding:100px 180px;
+  .modal-body {
+    text-align: center;
+    background: url('/src/img/base/hello-modal-bg.png') no-repeat;
+    h3 {
+      text-align: center;
+    }
+    .modal-title {
+      margin: 0 auto 35px;
+      font:italic 4rem/4rem @f-head;
+    }
+    .actionButton {
+      border-radius: 0;
+      font: italic 1.4rem/1.4rem @f-head;
+      color: @color-main;
+      text-align: center;
+      background: @color-fiolet;
+      padding: 0.8rem;
+      margin:50px auto 20px;
+      width: 50%;
+      border:none;
+      &:hover {
+        background: @color-fiolet-hover;
+        outline: 0;
+      }
+      &:focus {
+        outline: 0;
+      }
+    }
+  }
+}

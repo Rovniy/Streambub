@@ -1,0 +1,178 @@
+<div id="adminAdsCreateCompany" ng-controller="adminAdsCreateCompany as vm" class="container-fluid">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1 >Создание рекламной кампании</h1>
+            <p>Процедура создания кампании для рекламодателя</p>
+        </div>
+        <div>
+            <div>
+                <h2 class="ta-center">Название и дата проведения</h2>
+            </div>
+            <div class="form-group">
+                <label>Название рекламной кампании</label>
+                <input ng-model="vm.companyName" type="text" id="companyName" class="form-control" placeholder="Название рекламной кампании"/>
+            </div>
+            <div class="form-group">
+                <label>Email для отправки отчетов</label>
+                <input ng-model="vm.companyEmail" type="text" id="companyEmail" class="form-control" placeholder="email@streampub.net"/>
+            </div>
+            <div class="form-group has-feedback">
+                <label>Имя рекламодателя</label>
+                <input type="text"
+                       ng-model="vm.adsName"
+                       placeholder="Начинай вводить имя рекламодателя, кампании или всего, что с ним связано"
+                       uib-typeahead="address.name for address in vm.getAdsList($viewValue)"
+                       typeahead-loading="loadingLocations"
+                       typeahead-no-results="noResults"
+                       class="form-control">
+                <i ng-show="loadingLocations" class="fa fa-refresh color-green form-control-feedback"></i>
+                <i ng-show="noResults && !loadingLocations" class="fa fa-close color-red form-control-feedback"></i>
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+                </div>
+                <div class="col-lg-4">
+                    <div class="div-margin-auto">
+                        <h4 class="ta-center">Начало розыгрыша</h4>
+                        <div uib-datepicker ng-model="vm.startDate" class="well well-sm" datepicker-options="options"></div>
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="div-margin-auto">
+                        <h4 class="ta-center">Окончание розыгрыша</h4>
+                        <div uib-datepicker ng-model="vm.endDate" class="well well-sm" datepicker-options="options"></div>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                </div>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <div>
+                <h2 class="ta-center">Ссылка на рекламодателя</h2>
+            </div>
+            <div class="form-group">
+                <label for="adsLink">Ссылка на рекламодателя</label>
+                <input ng-model="vm.adsLink" type="text" id="adsLink" class="form-control" placeholder="http://streampub.net"/>
+                <p class="color-grey">При клике на баннер в розыгрыше мы будем попадать по этому адресу</p>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <div>
+                <h2 class="ta-center">Изображение рекламной кампании</h2>
+            </div>
+            <div class="form-inline ta-center">
+                <button ng-disabled="vm.adsLink.length <= 1" class="btn btn-danger" ng-click="vm.uploadImage('background')">Background image</button>
+                <button ng-disabled="vm.adsLink.length <= 1" class="btn btn-info" ng-click="vm.uploadImage('modal')">Modal image</button>
+            </div>
+            <div class="form-inline ta-center">
+                <img ng-if="vm.images[0]" style="height:100px;" ng-src="{{vm.images[0].src}}"/>
+                <img ng-if="vm.images[1]" style="height:100px;" ng-src="{{vm.images[1].src}}"/>
+            </div>
+
+        </div>
+        <div>
+            <div>
+                <h2 class="ta-center">Целевые действия</h2>
+            </div>
+            <hr/>
+            <div class="ta-center">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <select class="form-control" ng-model="vm.selectTargetAction">
+                            <option value="youtube">Просмотр видео с Youtube</option>
+                            <option value="vk">Вступление в группу Вконтакте</option>
+                            <option value="fb">Вступление в группу в Facebook</option>
+                            <option value="twitter">Подписка на Twitter</option>
+                            <option value="twitch">Подписка на канал Twitch.tv</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" ng-disabled="!vm.selectTargetAction" ng-click="vm.addToActionsList()">Добавить целевое действие</button>
+                    </div>
+                </div>
+            </div>
+            <hr/>
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr class="ta-center">
+                            <td>#</td>
+                            <td>Тип целевого действия</td>
+                            <td>Ссылка</td>
+                            <td>Luck</td>
+                            <td>Управление</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ta-center" ng-repeat="(key,row) in vm.targetList">
+                            <td ng-bind="key+1"></td>
+                            <td>{{row.name}}</td>
+                            <td>
+                                <input type="text" ng-model="row.link" class="form-control ta-center" placeholder="http://streampub.net"/>
+                            </td>
+                            <td>
+                                <input type="number" ng-model="row.luck" min="0" class="form-control ta-center" placeholder="100500"/>
+                            </td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="vm.deleteFromTargetList(key)">Удалить</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr/>
+        <div>
+            <div>
+                <h2 class="ta-center">Заблокированные стримеры</h2>
+            </div>
+            <div class="ta-center">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="text" ng-model="vm.banListItem" class="form-control" placeholder="Ссылка на канал Twitch"/>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" ng-disabled="!vm.banListItem" ng-click="vm.addToBanList(vm.banListItem)">Добавить стримера в бан</button>
+                    </div>
+                </div>
+            </div>
+            <hr  ng-show="vm.banList.length > 0"/>
+            <div ng-show="vm.banList.length > 0">
+                <table class="table">
+                    <thead>
+                        <tr class="ta-center">
+                            <td>#</td>
+                            <td>Имя стримера</td>
+                            <td>Удаление</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="ta-center" ng-repeat="(key,row) in vm.banList">
+                            <td ng-bind="key+1">1</td>
+                            <td ng-bind="row"></td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="vm.removeFromBanList(key)">Удалить с бан-листа</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div>
+            <div class="form-inline">
+                <label for="adsLink">Активировать рекламную кампанию</label>
+                <input ng-model="vm.companyActive" type="checkbox"/>
+            </div>
+        </div>
+        <div>
+            <div class="ta-center foot-btns">
+                <button class="btn btn-success btn-lg" ng-click="vm.createAdsOnServer()">Создать рекламную кампанию</button>
+                <h4>{{vm.success}}</h4>
+                <h4>{{vm.error}}</h4>
+            </div>
+        </div>
+    </div>
+</div>

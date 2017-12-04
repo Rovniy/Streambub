@@ -1,0 +1,226 @@
+<table class="table">
+    <tbody>
+    <tr ng-repeat="(key,row) in vm.tasksList">
+        <td class="with-blocker">
+            <!-- SUBSCRIBE_VK -->
+            <p ng-if="row.taskType == 'SUBSCRIBE_VK'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-vk fa-stack-1x"></i>
+                                        </span>
+                Подписка на группу Вконтакте - {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- FOLLOW_TWITCH -->
+            <p ng-if="row.taskType == 'FOLLOW_TWITCH'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-twitch fa-stack-1x"></i>
+                                        </span>
+                Подписка на канал Twitch - {{row.id}} / <b><red>+{{row.luck}}</red> Luck ({{row.luck*10}} luck, если ты подписан дольше 1 месяца)</b></p>
+            <!-- SUBSCRIBE_TWITCH -->
+            <p ng-if="row.taskType == 'SUBSCRIBE_TWITCH'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-twitch fa-stack-1x"></i>
+                                        </span>
+                Платная подписка на канал Twitch - {{row.id}} / <b><red>+{{row.luck}}</red> Luck ({{row.luck*10}} luck, если ты подписан дольше 1 месяца)</b></p>
+            <!-- SUBSCRIBE_FB -->
+            <p ng-if="row.taskType == 'SUBSCRIBE_FB'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-facebook fa-stack-1x"></i>
+                                        </span>
+                Подписаться на группу в Facebook - {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- DIRECT_LINK -->
+            <p ng-if="row.taskType == 'DIRECT_LINK'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-link fa-stack-1x"></i>
+                                        </span>
+                {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- VIDEO -->
+            <p ng-if="row.taskType == 'VIDEO'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- CPA -->
+            <p ng-if="row.taskType == 'CPA'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-link fa-stack-1x"></i>
+                                        </span>
+                {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- SHOW_VIDEO -->
+            <p ng-if="row.taskType == 'SHOW_VIDEO'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                {{row.name}} / <b><red>+{{row.luck}}</red> Luck</b></p>
+            <!-- CODE -->
+            <p ng-if="row.taskType == 'CODE'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-question-circle-o fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+            <!-- VIBOOM -->
+            <p ng-if="row.taskType == 'VB'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+            <!-- NATIVEROLL -->
+            <p ng-if="row.taskType == 'NR'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+            <!-- UNIONTRAFF -->
+            <p ng-if="row.taskType == 'UT'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+            <!-- VIDEOSEED -->
+            <p ng-if="row.taskType == 'VS'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+            <!-- MOEVIDEO -->
+            <p ng-if="row.taskType == 'MV'">
+                                        <span class="fa-stack fa-lg">
+                                          <i class="fa fa-youtube-play fa-stack-1x"></i>
+                                        </span>
+                <span style='line-height: normal; position: relative'  ng-bind-html="vm.to_trusted(row.name)"></span>
+                / <b><red>+{{row.luck}}</red> Luck</b>
+            </p>
+        </td>
+        <td class="ta-right">
+            <!-- Подписка на группу в вк -->
+            <div ng-if="row.taskType == 'SUBSCRIBE_VK'">
+                <button class="btn btn-wait" ng-show="user.userData.providers.indexOf('vk') == -1" ng-disabled="blockVkButton" ng-click="blockVkButton = !blockVkButton; vm.connectAccount('vk')">Подключить Вконтакте</button>
+                <div ng-show="user.userData.providers.indexOf('vk') != -1">
+                    <a class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length === 0 && !vm.waiter[key]" ng-href="http://vk.com/{{row.id}}" target="_blank" ng-click="vm.waiter[key] = true">Вступить в группу</a>
+                    <button class="btn btn-wait" ng-show="vm.waiter[key] && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-click="vm.subscribeVK('SUBSCRIBE_VK', row.id, row.name, row.luck)">Проверить</button>
+                    <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-disabled="true">Выполнено +{{row.luck}} Luck</button>
+                </div>
+            </div>
+            <!-- Подписка на канал Twitch -->
+            <div ng-if="row.taskType == 'FOLLOW_TWITCH'">
+                <button class="btn btn-wait" ng-show="user.userData.providers.indexOf('twitch') == -1" ng-disabled="blockTwitchButton" ng-click="blockFTwitchButton = !blockTwitchButton; vm.connectAccount('twitch')">Подключить Twitch</button>
+                <div ng-show="user.userData.providers.indexOf('twitch') != -1">
+                    <a class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length === 0 && !vm.waiter[key]"  ng-href="https://twitch.tv/{{row.id}}" target="_blank" ng-click="vm.waiter[key] = true" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Подписаться на канал</a>
+                    <button class="btn btn-wait" ng-show="vm.waiter[key] && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-click="vm.postTaskStatus(row,key)" uib-tooltip="{{vm.checkSocialTooltip}}" tooltip-placement="left">Проверить</button>
+                    <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-disabled="true">Выполнено +{{row.newLuck ? row.newLuck : row.luck}} Luck</button>
+                </div>
+            </div>
+            <!-- Платная подписка на канал -->
+            <div ng-if="row.taskType == 'SUBSCRIBE_TWITCH'">
+                <button class="btn btn-wait" ng-show="user.userData.providers.indexOf('twitch') == -1" ng-disabled="blockTwitchButtonSub" ng-click="blockTwitchButtonSub = !blockTwitchButtonSub; vm.connectAccount('twitch')">Подключить Twitch</button>
+                <div ng-show="user.userData.providers.indexOf('twitch') != -1">
+                    <a class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length == 0 && !vm.waiter[key]"  ng-href="https://twitch.tv/{{row.id}}" target="_blank" ng-click="vm.waiter[key] = true" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Subscribe на канал</a>
+                    <button class="btn btn-wait" ng-show="vm.waiter[key] && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-click="vm.postTaskStatus(row, key)" uib-tooltip="{{vm.checkSocialTooltip}}" tooltip-placement="left">Проверить</button>
+                    <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-disabled="true">Выполнено +{{row.luck}} Luck</button>
+                </div>
+            </div>
+            <!-- Подписка на группу в Facebook -->
+            <div ng-if="row.taskType == 'SUBSCRIBE_FB'">
+                <button class="btn btn-wait" ng-show="user.userData.providers.indexOf('facebook') == -1" ng-disabled="blockVkButton" ng-click="blockVkButton = !blockVkButton; vm.connectAccount('facebook')">Подключить Facebook</button>
+                <div ng-show="user.userData.providers.indexOf('facebook') != -1">
+                    <a class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length == 0 && vm.checkMyNewStatus(row.taskType).length == 0"  ng-href="https://facebook.com/{{row.id}}" ng-click="vm.postTaskStatus(row)" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Подписаться на группу</a>
+                    <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-disabled="true">Выполнено +{{row.luck}} Luck</button>
+                </div>
+            </div>
+            <!-- Переход по ссылке -->
+            <div ng-if="row.taskType == 'DIRECT_LINK'">
+                <a class="btn btn-ga" ng-if="vm.findMyTaskStatus(row.taskType, row.id).length == 0 && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-href="{{row.id}}" ng-click="vm.postTaskStatus(row)" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Перейти по ссылке</a>
+                <a class="btn btn-ok" ng-if="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-href="{{row.id}}" target="_blank">Выполнено +{{row.luck}} Luck</a>
+            </div>
+
+            <!-- Просмотр видосика -->
+            <div ng-if="row.taskType == 'VIDEO'">
+                <a class="btn btn-ga" ng-if="!row.disable && vm.findMyTaskStatus(row.taskType, row.id).length == 0 && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-click="vm.onYouTubeIframeAPIReady(row)" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                <button class="btn btn-ok" ng-if="!row.disable && (vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0)" ng-click="vm.onYouTubeIframeAPIReady(row,key)" >Посмотреть еще. +{{row.luck}} Luck</button>
+                <button class="btn btn-ok disabled" ng-show="row.disable" ng-disabled="true">Выполнено +{{row.luck}} Luck</button>
+            </div>
+            <!-- CPA -->
+            <div ng-if="row.taskType == 'CPA'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length == 0 && !vm.waiter[key]" ng-href="{{row.params.url}}" target="_blank" ng-click="vm.waiter[key] = true;vm.openSlowBalanceModal()" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Перейти по ссылке</a>
+                    <button class="btn btn-wait" ng-show="vm.waiter[key] && vm.checkMyNewStatus(row.taskType, row.id).length == 0" ng-click="vm.postTaskStatus(row)" uib-tooltip="{{vm.checkCPATooltip}}" tooltip-placement="left">Проверить</button>
+                    <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-disabled="true">Выполнено +{{row.newLuck ? row.newLuck : row.luck}} Luck</button>
+                </div>
+            </div>
+            <!-- Поделится видео с друзьями -->
+            <div ng-if="row.taskType == 'SHOW_VIDEO'">
+                <button class="btn btn-ga" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length == 0" ng-click="vm.getVideoLink(row.id, row.luck, row.params.count)" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Показать ссылку</button>
+                <button class="btn btn-ok disabled" ng-show="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0" ng-click="vm.getVideoLink(row.id, row.luck, row.params.count)">Выполнено +{{row.luck}} Luck</button>
+            </div>
+            <!-- Ответ на любой вопрос -->
+            <div ng-if="row.taskType == 'CODE'" class="box-relative">
+                <div ng-if="!vm.myStatusCodeError(row.id) && !vm.responseError[key]">
+                    <div ng-show="!vm.waiter[key] && vm.findMyTaskStatus(row.taskType, row.id).length == 0 && vm.checkMyNewStatus(row.taskType, row.id).length == 0">
+                        <a class="btn btn-ga" ng-if="row.params.urlCount == 1" ng-href="{{row.params.urls[0].url}}" target="_blank" ng-click="vm.waiter[key] = true">Узнать на сайте</a>
+                        <div class="btn-group" ng-if="row.params.urlCount == 2">
+                            <a class="btn btn-ga btn-icon" ng-href="{{row.params.urls[0].url}}" target="_blank" ng-click="vm.waiter[key] = true">
+                                <i class="fa {{row.params.urls[0].type}}" ></i>
+                            </a>
+                            <a class="btn btn-ga btn-icon" ng-href="{{row.params.urls[1].url}}" target="_blank" ng-click="vm.waiter[key] = true">
+                                <i class="fa {{row.params.urls[1].type}}" ></i>
+                            </a>
+                        </div>
+                    </div>                                    <button class="btn btn-wait" ng-show="vm.waiter[key]" ng-disabled="blockCodeCheck || vm.myCodeAnswer[key] == undefined" ng-click="blockCodeCheck = true; vm.waiter[key] = false; vm.enterCodeAnswer(row, {code:vm.myCodeAnswer[key]}, key)">Отправить ответ</button>
+                    <button class="btn btn-ok" ng-if="vm.findMyTaskStatus(row.taskType, row.id).length > 0 || vm.checkMyNewStatus(row.taskType, row.id).length > 0"  ng-disabled="true">Выполнено +{{row.luck}} Luck</button>
+                    <div class="box-absolute" ng-show="vm.waiter[key] && vm.checkMyNewStatus(row.taskType, row.id).length == 0">
+                        <input type="text" class="form-control" ng-model="vm.myCodeAnswer[key]" placeholder="Введи свой ответ" ng-change="blockCodeCheck = false"/>
+                        <i class="fa fa-close color-red ta-center" ng-click="vm.waiter[key] = false; vm.myCodeAnswer[key] = undefined"></i>
+                    </div>
+                </div>
+                <div ng-if="vm.myStatusCodeError(row.id) || vm.responseError[key]" >
+                    <button class="btn btn-error" ng-disabled="true">Ты ввел неверный ответ!</button>
+                </div>
+            </div>
+            <!-- VIBOOM -->
+            <div ng-if="row.taskType == 'VB'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-href="/cpameshes/vb?taskid={{row.id}}" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                </div>
+            </div>
+            <!-- NATIVEROLL -->
+            <div ng-if="row.taskType == 'NR'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-href="/cpameshes/nr?taskid={{row.id}}" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                </div>
+            </div>
+            <!-- NATIVEROLL -->
+            <div ng-if="row.taskType == 'UT'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-href="/cpameshes/ut?taskid={{row.id}}" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                </div>
+            </div>
+            <!-- VIDEOSEED -->
+            <div ng-if="row.taskType == 'VS'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-href="/cpameshes/vs?taskid={{row.id}}" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                </div>
+            </div>
+            <!-- MOEVIDEO -->
+            <div ng-if="row.taskType == 'MV'">
+                <button class="btn btn-error" ng-show="adblocker" uib-tooltip="{{vm.adBlockerInfo}}" tooltip-placement="left"><i class="fa fa-exclamation-circle"></i> Выключи Ad Blocker</button>
+                <div ng-show="!adblocker">
+                    <a class="btn btn-ga" ng-href="/cpameshes/mv?taskid={{row.id}}" target="_blank" uib-tooltip="{{vm.showChanceTooltip(row.luck)}}" tooltip-placement="left">Посмотреть видео</a>
+                </div>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>

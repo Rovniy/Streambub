@@ -1,0 +1,48 @@
+<div class="container-fluid" id="adminStreamersList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Список каналов для отслеживания</h1>
+        </div>
+        <div>
+            <div class="row">
+                <form>
+                    <input type="text" placeholder="Поиск пользователей в БД" class="form-control"
+                           ng-model="vm.searchUser"
+                           ng-model-options='{ debounce: 500 }'
+                           ng-change="vm.getStreamersList()">
+                </form>
+            </div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                <tr>
+                    <td>#</td>
+                    <td class="ta-center" ng-click="vm.orderData = 'name'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'name'}">
+                        Название канала
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'name'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'tracked'; vm.sortReverce = !vm.sortReverce" ng-class="{'active' : vm.orderData == 'tracked'}">
+                        Трек метрик twitch
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverce, 'fa-angle-down' : vm.sortReverce, 'fahider': vm.orderData !== 'tracked'}"></i>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                   <tr ng-repeat="(key, row) in vm.streamers | orderBy: vm.orderData : vm.sortReverse track by $index">
+                       <td ng-bind="::key+1"></td>
+                       <td><a href="https://www.twitch.tv/{{row.name}}"><b ng-bind="row.name"></b></a></td>
+                       <td class="ta-center">
+                           <input type="checkbox" ng-model="row.tracked" ng-change="vm.saveTracked(row,key)"/>
+                       </td>
+                   </tr>
+                </tbody>
+            </table>
+
+            <div class="pagination_list">
+                <uib-pagination max-size="5" total-items="vm.count" items-per-page="vm.itemsPerPage"
+                                ng-model="vm.currentPage" ng-change="vm.getStreamersList()">
+                </uib-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>

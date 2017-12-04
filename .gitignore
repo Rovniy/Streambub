@@ -1,0 +1,15 @@
+/bower_components
+/node_modules
+/.idea
+/_windows
+*.xml
+
+/sites/**/js/script.js
+/sites/src/js/base.js
+/sites/**/js/templates.js
+/sites/src/js/templates-base.js
+/admin/css/style.css
+/sites/src/css/base.css
+/sites/**/css/style.css
+/sites/**/index.html
+/admin/js/script.js

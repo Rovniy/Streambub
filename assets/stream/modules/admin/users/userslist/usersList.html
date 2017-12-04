@@ -1,0 +1,73 @@
+<div class="container-fluid" id="adminUsersList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Список пользователей</h1>
+            <p>Список всех пользователей, зарегистрированных в StreamPub</p>
+        </div>
+        <div>
+            <div class="row">
+                <form>
+                    <input type="text" placeholder="Поиск пользователей в БД" class="form-control"
+                           ng-model="vm.searchUser"
+                           ng-model-options='{ debounce: 500 }'
+                           ng-change="vm.getPageData()">
+                </form>
+            </div>
+
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                <tr>
+                    <td>#</td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.id'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.id'}">
+                        ID
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.id'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.name'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.name'}">
+                        Ник
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.name'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.email'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.email'}">
+                        Email
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.email'}"></i>
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.luck'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.luck'}">
+                        Глобальный Лак
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.luck'}"></i>
+                    </td>
+                    <td class="ta-center">
+                        Роль
+                    </td>
+                    <td class="ta-center" ng-click="vm.orderData = 'user.createTime'; vm.sortReverse = !vm.sortReverse" ng-class="{'active' : vm.orderData == 'user.createTime'}">
+                        Регистрация
+                        <i class="fa" ng-class="{'fa-angle-up' : !vm.sortReverse, 'fa-angle-down' : vm.sortReverse, 'fahider': vm.orderData !== 'user.createTime'}"></i>
+                    </td>
+                    <td class="ta-center">
+                        Действия
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                   <tr ng-repeat="(key, row) in vm.users | orderBy: vm.orderData : vm.sortReverse track by $index">
+                       <td ng-bind="::key+1"></td>
+                       <td ng-bind="row.user.id"></td>
+                       <td><b ng-bind="row.user.name"></b> ({{row.user.lang}})</td>
+                       <td ng-bind="row.user.email"></td>
+                       <td ng-bind="row.user.luck"></td>
+                       <td ng-bind="row.user.role"></td>
+
+                       <td class="ta-center" ng-bind="row.user.createTime | date:'dd.MM.yyyy'"></td>
+                       <td class="ta-center">
+                           <i class="fa fa-address-card" aria-hidden="true" ng-click="vm.updateBudgetByAdmin(row)"></i>
+                       </td>
+                   </tr>
+                </tbody>
+            </table>
+            <div class="pagination_list">
+                <uib-pagination max-size="5" total-items="vm.count" items-per-page="vm.itemsPerPage"
+                                ng-model="vm.currentPage" ng-change="vm.getPageData()">
+                </uib-pagination>
+            </div>
+        </div>
+
+    </div>
+</div>

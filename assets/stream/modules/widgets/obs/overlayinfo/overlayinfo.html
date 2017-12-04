@@ -1,0 +1,16 @@
+<div id="obs-overlay-info" class="no-animate" ng-class="{'obs-overlay-info-step1' : vm.countStep() > 0 && vm.countStep() <= 10,
+                                        'obs-overlay-info-step2' : vm.countStep() > 10 && vm.countStep() <= 20,
+                                        'obs-overlay-info-step3' : vm.countStep() > 20 && vm.countStep() <= 30,
+                                        'obs-overlay-info-step4' : vm.countStep() > 30 && vm.countStep() <= 40,
+                                        'obs-overlay-info-step5' : vm.countStep() > 40 && vm.countStep() <= 50,
+                                        'obs-overlay-info-step6' : vm.countStep() > 50 && vm.countStep() <= 60,
+                                        'obs-overlay-info-step7' : vm.countStep() > 60 && vm.countStep() <= 70,
+                                        'obs-overlay-info-step8' : vm.countStep() > 70 && vm.countStep() <= 80,
+                                        'obs-overlay-info-step9' : vm.countStep() > 80 && vm.countStep() <= 90,
+                                        'obs-overlay-info-step10' : vm.countStep() > 90}">
+    <img src="/src/img/widgets/obs/pattern.png"/>
+    <p class="count">{{vm.gaData.stats.activeMembers}} <span>/ {{vm.gaData.stats.minMembers}}</span></p>
+    <p class="text">Участвуй в<br/> розыгрыше</p>
+    <h1>{{vm.userInfo}}</h1>
+    <div class="blick-area"></div>
+</div>

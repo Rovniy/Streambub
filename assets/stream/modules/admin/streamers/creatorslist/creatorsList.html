@@ -1,0 +1,55 @@
+<div class="container-fluid" id="adminCreatorsList">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Список стримеров</h1>
+            <p>Список всех стримеров, зарегистрированных в StreamPub</p>
+        </div>
+        <div class="ta-center">
+            <button class="btn btn-info" ng-click="vm.saveAll()">Сохранить все</button>
+        </div>
+        <div>
+            <table class="table table-hover table-striped">
+                <thead class="noselect">
+                <tr>
+                    <td>ID</td>
+                    <td>Name</td>
+                    <td>StreamPub acc</td>
+                    <td>Игры</td>
+                    <td>Добавить игру</td>
+                    <td>Платформа</td>
+                    <td>Интер./Скилл/Харизма</td>
+                    <td>Communication</td>
+                    <td>Save</td>
+                </tr>
+                </thead>
+                <tbody>
+                   <tr ng-repeat="(key, row) in vm.creators track by $index" ng-class="{'danger' : row.danger && !row.success, 'success' : row.success}">
+                       <td>{{row.id}}/ {{key}}</td>
+                       <td>{{row.name}}</td>
+                       <td>{{row.user.name ? row.user.name : '-'}}</td>
+                       <td>
+                           <img ng-repeat="(key,game) in row.streamerGames"
+                                ng-src="/src/img/base/icons/{{game.game.link.toLowerCase()}}.png"
+                                style="width: 30px; height:30px; cursor: pointer"
+                                ng-click="row.streamerGames.splice(key,1); row.danger = true; row.success = false;"/>
+                       </td>
+                       <td>
+                           <select ng-model="row.addGame[0]" class="form-control" ng-change="vm.addGameToCreator(row,key)">
+                               <option value="{{selectGame}}" ng-repeat="selectGame in vm.gamesList track by $index">{{selectGame.name}}</option>
+                           </select>
+                       </td>
+                       <td>{{row.mainPlatform}}</td>
+                       <td>{{row.interactive}}/{{row.skill}}/{{row.charisma}}</td>
+                       <td>{{row.communication}}</td>
+                       <td>
+                           <button class="btn btn-sm btn-success" ng-click="vm.saveCreator(row, key)" ng-disabled="vm.disableBtn">Сохранить</button>
+                       </td>
+                   </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="ta-center">
+            <button class="btn btn-info" ng-click="vm.saveAll()">Сохранить все</button>
+        </div>
+    </div>
+</div>

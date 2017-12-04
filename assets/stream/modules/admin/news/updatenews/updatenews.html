@@ -1,0 +1,126 @@
+<div class="container-fluid" id="adminUpdateNews">
+    <div class="container bg-white">
+        <div class="page-header">
+            <h1>Изменение новости</h1>
+            <p>Запись замещается в блоге в соответствии с выбранной категорией</p>
+        </div>
+        <!--<div class="news-meta">
+            <div class="form-inline">
+                <div class="form-group">
+                    <label class="control-label">Тип поста: </label>
+                    <select class="form-control" ng-model="vm.targetAction">
+                        <option value="NEWS" >Новость на сайте</option>
+                        <option value="BLOG" >Запись в блог</option>
+                    </select>
+                </div>
+            </div>
+        </div>-->
+        <div class="row form-group">
+            <label class="col-sm-2 control-label">Рубрика</label>
+            <div class="col-sm-10">
+                <select class="form-control" ng-model="vm.selectedCategory">
+                    <option value="{{row.id}}" ng-repeat="row in vm.allCategories">{{row.name}}</option>
+                </select>
+            </div>
+        </div>
+        <hr/>
+        <!--<div class="row form-group">-->
+            <!--<label class="col-sm-2 control-label">Обложка</label>-->
+            <!--<div class="col-sm-10">-->
+                <!--<label>Размер изображения 750px x 412px</label>-->
+                <!--<input type="file" nv-file-select="" uploader="vm.uploader">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="row form-group" ng-show="vm.uploader.queue.length > 0">-->
+            <!--<label class="col-sm-2 control-label">Файлы</label>-->
+            <!--<div class="col-sm-10">-->
+                <!--<div class="row">-->
+                    <!--<table class="table">-->
+                        <!--<thead>-->
+                        <!--<tr class="ta-center">-->
+                            <!--<td>Имя файла</td>-->
+                            <!--<td>Размер</td>-->
+                            <!--<td>Прогресс загрузки</td>-->
+                            <!--<td>Статус загрузки</td>-->
+                            <!--<td>Операции с файлом</td>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody>-->
+                        <!--<tr class="ta-center" ng-repeat="item in vm.uploader.queue">-->
+                            <!--<td>-->
+                                <!--<strong>{{item.file.name}}</strong>-->
+                            <!--</td>-->
+                            <!--<td><span ng-class="{'color-red' : item.file.size/1024/1024 > 5 }">{{ item.file.size/1024/1024|number:2 }} MB</span></td>-->
+                            <!--<td>-->
+                                <!--<div class="progress">-->
+                                    <!--<uib-progressbar max="100" value="item.progress"><span>{{item.progress}} / {{100}}</span></uib-progressbar>-->
+                                <!--</div>-->
+                            <!--</td>-->
+                            <!--<td class="text-center">-->
+                                <!--<span ng-show="item.isSuccess"><i class="fa fa-check color-green"></i></span>-->
+                                <!--<span ng-show="item.isCancel"><i class="fa fa-ban color-orange"></i></span>-->
+                                <!--<span ng-show="item.isError"><i class="fa fa-exclamation-circle color-red"></i></span>-->
+                            <!--</td>-->
+                            <!--<td class="ta-center">-->
+                                <!--<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">-->
+                                    <!--<span class="fa fa-trash"></span> Удалить-->
+                                <!--</button>-->
+                            <!--</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <hr/>
+        <div class="row form-group">
+            <label class="col-sm-2 control-label">Название новости</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="vm.newTitle" placeholder="Любое короткое название новости">
+            </div>
+        </div>
+        <hr/>
+        <div class="redactor">
+            <h4>Полный текст записи</h4>
+            <wysiwyg textarea-id="question" textarea-class="form-control"  textarea-height="500px" textarea-name="textareaQuestion" textarea-required ng-model="vm.textAreaFull" textarea-menu="vm.textRedactor.customMenu"></wysiwyg>
+        </div>
+        <hr/>
+        <div class="redactor">
+            <h4>Анонс новости</h4>
+            <wysiwyg textarea-id="question" textarea-class="form-control"  textarea-height="200px" textarea-name="textareaQuestion" textarea-required ng-model="vm.textAreAnons" textarea-menu="vm.textRedactor.customMenu"></wysiwyg>
+        </div>
+        <hr/>
+        <div class="row form-group">
+            <label class="col-sm-2 control-label">Теги</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" ng-model="vm.tags" placeholder="Теги через запятую">
+            </div>
+        </div>
+        <div class="ta-center saveButton">
+            <button class="btn btn-success btn-ga btn-lg" ng-click="vm.completeNew()">Сохранить</button>
+        </div>
+        <hr/>
+        <div class="row form-group">
+            <label class="col-sm-2 control-label">Загрузка файлов</label>
+            <div class="col-sm-10">
+                <input type="file" nv-file-select="" uploader="vm.uploadImgs">
+            </div>
+        </div>
+        <div class="row ta-center">
+            <button class="btn btn-sm btn-success" ng-click="vm.uploadImgs.uploadAll()">Загрузить</button>
+        </div>
+        <div class="row form-group alert-success" ng-show="vm.imgServerUrl">
+            <h2 class="ta-center">{{vm.imgServerUrl}}</h2>
+        </div>
+        <hr/>
+        <div class="debug">
+            <blockquote>
+                <p>DEBUG:</p>
+            </blockquote>
+            <blockquote>
+                <p ng-show="vm.allOk">Новость добавлена ;-)</p>
+            </blockquote>
+        </div>
+
+    </div>
+</div>

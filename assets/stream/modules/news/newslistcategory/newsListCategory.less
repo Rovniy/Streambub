@@ -1,0 +1,221 @@
+#newsListCategory {
+  .container {
+    .title {
+      width:100%;
+      padding:45px 0 0 0;
+      h1 {
+        color: @h-color;
+        font:italic 2.71rem/2.71rem @f-head;
+        text-align:left;
+        text-transform: uppercase;
+        margin:0;
+      }
+      .breadcrumb {
+        margin:30px auto 10px;
+      }
+    }
+    .toplayer {
+      .main {
+        height:421px;
+        width:100%;
+        position: relative;
+        background-repeat: no-repeat;
+        background-size:cover;
+        .overlay {
+          position: absolute;
+          top:0;
+          bottom:0;
+          left:0;
+          right:0;
+          background: linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,.1)) repeat-x;
+          opacity: 1;
+          transition: ease-out 0.2s;
+          a {
+            display: block;
+            width:100%;
+            height:100%;
+            &:hover, &:focus, &:active {
+              border:none;
+              outline: none;
+              color:inherit;
+            }
+          }
+          &:hover, &:focus, &:active {
+            opacity: 0.8;
+          }
+        }
+        .desc {
+          position: absolute;
+          bottom:0;
+          left:0;
+          right:0;
+          padding:0 25px 15px;
+          .rubrik {
+            a {
+              button {
+                border:1px solid @color-main;
+                background: none;
+                color:@color-main;
+                text-shadow: 1px 1px 2px @h-color;
+                font: 9px/18px @f-bold;
+                padding:0 9px;
+                text-transform: uppercase;
+                &:hover, &:active, &:focus {
+                  border:1px solid @color-fiolet-hover;
+                  background: none;
+                  outline: none;
+                  color:@color-fiolet-hover
+                }
+              }
+              &:hover, &:focus, &:active {
+                border:none;
+                outline: none;
+                color:inherit;
+              }
+            }
+          }
+          .title-news {
+            a {
+              h3 {
+                font:24px/24px @f-bold;
+                color:@color-main;
+                text-shadow: 1px 1px 4px @h-color;
+                margin:20px 0;
+              }
+              &:hover, &:focus, &:active {
+                border:none;
+                outline: none;
+                text-decoration: none;
+                h3 {
+                  color: @color-fiolet-hover;
+                }
+              }
+            }
+
+          }
+          span {
+            color: @color-semi;
+            text-shadow: 1px 1px 2px @h-color;
+          }
+        }
+      }
+
+      .twitter-area {
+        .datka {
+          background: #ccccff;
+          height: 421px;
+          max-width:100%;
+        }
+      }
+    }
+    .mainlayer {
+      padding-bottom:30px;
+      .item {
+        margin-top:30px;
+        height: 477px;
+        .itemdata {
+          background: @color-main;
+          position: relative;
+          height: 477px;
+          width:100%;
+          margin: auto;
+          .imaga {
+            min-width:100%;
+            max-width:100%;
+            width:100%;
+            height:218px;
+            a {
+              transition: ease-out 0.2s;
+              opacity: .9;
+              img {
+                width:100%;
+              }
+              &:hover {
+                opacity: 1;
+              }
+            }
+
+          }
+          .rubric {
+            width:100%;
+            padding:20px 20px 0;
+            a {
+              border:1px solid @color-grey;
+              background: none;
+              color:@color-grey;
+              font: 9px/18px @f-bold;
+              text-transform: uppercase;
+              padding:5px 9px;
+              display: inline;
+              &:hover, &:active, &:focus {
+                border:1px solid @color-fiolet-hover;
+                background: none;
+                outline: none;
+                text-decoration: none;
+                color:@color-fiolet-hover
+              }
+            }
+          }
+          .title {
+            width:100%;
+            padding:0 20px;
+            a {
+              h3 {
+                font:18px/18px @f-bold;
+                color:@h-color;
+                margin:20px 0;
+              }
+              &:hover {
+                outline: none;
+                border: none;
+                text-decoration: none;
+                h3 {
+                  color:@color-fiolet-hover;
+                }
+              }
+            }
+
+          }
+          .text {
+            padding:0 20px;
+            width:100%;
+            p {
+              font:1rem/1rem @f-main;
+              color:@h-color;
+            }
+          }
+          .meta {
+            position: absolute;
+            bottom:0;
+            left:0;
+            right:0;
+            padding:0 20px 20px;
+            width:100%;
+            span {
+              font:1rem/1rem @f-main;
+              color:@color-grey;
+            }
+          }
+        }
+      }
+    }
+    .bottom-area {
+      padding-bottom:30px;
+      button {
+        border:none;
+        width:100%;
+        font:italic 24px/50px @f-head;
+        color:@color-main;
+        background: @color-fiolet;
+        &:hover, &:active, &:focus {
+          outline: none;
+          border: none;
+          color:@color-main;
+          background: @color-fiolet-hover;
+        }
+      }
+
+    }
+  }
+
+}

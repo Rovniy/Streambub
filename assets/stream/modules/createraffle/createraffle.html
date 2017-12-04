@@ -1,0 +1,131 @@
+<div class="container bg-white" id="createRaffle">
+    <div class="row danger">
+        <p class="bg-danger">
+            <b>Внимание!!!</b><br/><br/>
+            Ты создаешь свой собственный розыгрыш!<br/>
+            Мы даем тебе наш функционал - разыгрывай любые призы, добавляй нужные
+            тебе целевые действия (подписки на группу, на канал, репосты и пр), дари
+            подарки зрителям!<br/>
+            <i><b>Важно</b></i>: подарки ты оплачиваешь и доставляешь самостоятельно. После
+            завершения розыгрыша тебе на почту придет email с контактными данными
+            победителя.</p>
+    </div>
+    <div class="row title">
+        <h1>Создание собственного розыгрыша</h1>
+        <h5>Ты можешь добавить свой приз и разыграть его среди своих подписчиков</h5>
+    </div>
+    <div class="form-horizontal">
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Название</label>
+            <div class="col-sm-10" ng-class="{'has-error' : vm.nameError}">
+                <input type="text" ng-model="vm.name" class="form-control" placeholder="Нвазание приза">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Описание</label>
+            <div class="col-sm-10" ng-class="{'has-error' : vm.descriptionError}">
+                <textarea class="form-control" ng-model="vm.description" placeholder="Описание приза"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Мин. участников</label>
+            <div class="col-sm-10" ng-class="{'has-error' : vm.minMembersError}">
+                <input type="number" ng-model="vm.minMembers" class="form-control" placeholder="Сколько нужно человек для старта розыгрыша?">
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Количество призов</label>
+            <div class="col-sm-10" ng-class="{'has-error' : vm.giftCountError}">
+                <input type="number" ng-model="vm.giftCount" class="form-control" placeholder="Сколько таких призов ты будешь разыгрывать?">
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Изображение</label>
+            <div class="col-sm-10">
+                <button class="btn btn-info" ng-click="vm.uploadImage('gift')"  ng-class="{'btn-danger' : vm.giftImageError}">Добавить изображение приза</button>
+            </div>
+            <div class="ta-center" ng-if="vm.giftImage.length > 1">
+                <img ng-src="{{vm.giftImage}}"/>
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Ссылка по клику на приз</label>
+            <div class="col-sm-10" ng-class="{'has-error' : vm.linkError}">
+                <input type="text" ng-model="vm.link" class="form-control" placeholder="Ссылка на страницу описания товара">
+            </div>
+        </div>
+        <hr/>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Дата завершения розыгрыша</label>
+            <div class="col-sm-10">
+                <p class="input-group">
+                    <input type="text" class="form-control" uib-datepicker-popup="{{vm.dateFormat}}" is-open="vm.datePicker" datepicker-options="vm.dateOptions" ng-model="vm.endDate"  close-text="Close" alt-input-formats="vm.altInputFormats"/>
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-info" ng-click="vm.datePicker = !vm.datePicker"><i class="fa fa-calendar"></i></button>
+                    </span>
+                </p>
+            </div>
+        </div>
+        <div class="row title">
+            <h1>Целевые действия</h1>
+            <h5>Ты можешь добавить в свой розыгрыш несколько квестов, которые пользователи будут выполнять.
+
+                <br/><i><b>Важно</b></i>: Подписки на каналы и группы из личного кабинета добавятся автоматически!</h5>
+        </div>
+        <div class="cd-area">
+            <div class="ta-center">
+                <div class="form-inline">
+                    <div class="form-group">
+                        <select class="form-control" ng-model="vm.selectTargetAction">
+                            <option value="FOLLOW_TWITCH">Подписка на канал Twitch</option>
+                            <option value="SUBSCRIBE_TWITCH">Платная подписка на Twitch</option>
+                            <option value="DIRECT_LINK">Подписка на Youtube канал</option>
+                            <option value="SUBSCRIBE_VK">Вступление в группу Вконтакте</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-success" ng-disabled="!vm.selectTargetAction" ng-click="vm.addToActionsList()">Добавить целевое действие</button>
+                    </div>
+                </div>
+            </div>
+            <div ng-if="vm.targetList.length > 0">
+                <hr/>
+                <table class="table">
+                    <thead>
+                    <tr class="ta-center">
+                        <td>#</td>
+                        <td>Тип целевого действия</td>
+                        <td>Ссылка на канал / группу</td>
+                        <td>Luck за выполнение</td>
+                        <td>Удаление</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="ta-center" ng-repeat="(key,row) in vm.targetList">
+                        <td ng-bind="key+1"></td>
+                        <td>{{row.taskType}}</td>
+                        <td>
+                            <input type="text" ng-model="row.id" class="form-control ta-center" placeholder="http://streampub.net"/>
+                        </td>
+                        <td>
+                            <input type="number" ng-model="row.luck" min="0" max="100" class="form-control ta-center" placeholder="0-100"/>
+                        </td>
+                        <td>
+                            <button class="btn btn-danger" ng-click="vm.deleteFromTargetList(key)">Удалить</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <hr/>
+        <div class="ta-center">
+            <button class="btn btn-lg btn-success" ng-disabled="blockBtn" ng-click="blockBtn = true; vm.createGiftAndRaffle()">Создать приз</button>
+        </div>
+
+    </div>
+
+
+</div>

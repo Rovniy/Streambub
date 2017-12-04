@@ -1,0 +1,11 @@
+<div id="obs-show-info">
+    <!-- Youtube player -->
+    <div ng-if="vm.showVideo">
+        <div class="youtubeVideoFrame">
+            <div id="player" frameborder="0" allowfullscreen></div>
+        </div>
+    </div>
+    <div class="timer" ng-show="vm.videoDuration">
+        {{vm.secToTime(vm.videoDuration)}} <small>сек.</small>
+    </div>
+</div>

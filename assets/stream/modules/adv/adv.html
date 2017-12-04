@@ -1,0 +1,305 @@
+<div class="container-fluid" id="adv">
+    <div class="container">
+        <div class="row title">
+            <h1 class="ta-center">Automated Platform for Twitch.tv Marketing Campaigns</h1>
+            <h4  class="ta-center">Launch your campaign right now</h4>
+        </div>
+        <uib-tabset active="vm.tabs" class="tabsets">
+            <uib-tab index="0" heading="Reach and Actions">
+                <h2 class="ta-center">Reach and actions</h2>
+                <h3>How many giveaway participants would you like to attract?</h3>
+                <div class="row viewers-title">
+                    <div class="col-lg-3">
+                        <span>Viewers: </span><span ng-hide="vm.slider.value==18"><b>{{vm.users}}</b></span><span ng-show="vm.slider.value==18"><b>30000+</b></span>
+                    </div>
+                    <div class="col-lg-9">
+                        <span ng-show="vm.slider.value == 18">To order a campaign with more than 30 000 participants please ask your personal manager for a discount<br/>(send an email to ok@streampub.net).</span>
+                    </div>
+                </div>
+                <div class="row scroller">
+                    <rzslider rz-slider-model="vm.slider.value" rz-slider-options="vm.slider.options"></rzslider>
+                </div>
+                <hr/>
+                <h2>Target Actions</h2>
+                <h3>Which actions would you like to be performed by the participants?<br/><small>Minimum 3</small></h3>
+                <div class="checkbox row" ng-repeat="(key,row) in vm.cd">
+                    <div class="col-lg-3">
+                        <label>
+                            <input type="checkbox" value="" ng-model="row.status" ng-click="vm.cdCounter(row.tag)">
+                            {{row.name}}
+                        </label>
+                    </div>
+                    <div class="col-lg-2">
+                        ${{row.val / 100}}
+                    </div>
+                    <div class="col-lg-7">
+                        <input ng-show="row.status" type="text" class="form-control" ng-model="row.link" placeholder="{{row.placeholder}}">
+                    </div>
+                </div>
+            </uib-tab>
+            <uib-tab index="1" heading="Targeting">
+                <h2 class="ta-center">Targeting</h2>
+                <uib-accordion close-others="true" class="accordeoner">
+                    <div uib-accordion-group class="panel-default" heading="Language">
+                        <div ng-click="vm.langCounter()">
+                            <span>When you uncheck any language the price per participant increases by $0,005</span>
+                            <div class="checkbox" ng-repeat="(key,row) in vm.lang">
+                                <label>
+                                    <input type="checkbox" value="" ng-model="vm.lang[key].status">
+                                    {{row.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Game">
+                        <div ng-click="vm.gamesCounter()">
+                            <span>When you uncheck any specific game the price per participant increases by $0,005</span>
+                            <div class="checkbox" ng-repeat="(key,row) in vm.games">
+                                <label>
+                                    <input type="checkbox" value="" ng-model="vm.games[key].status">
+                                    {{row.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Platforms">
+                        <div ng-click="vm.platformCounter()">
+                            <span>When you uncheck any specific content delivery platform the price per participant increases by $0,005</span>
+                            <div class="checkbox" ng-repeat="(key,row) in vm.platforms">
+                                <label>
+                                    <input type="checkbox" value="" ng-model="vm.platforms[key].status">
+                                    {{row.name}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Banned streamers">
+                        <textarea class="form-control" ng-model="vm.bannedStreamers" placeholder="List of banned streamers. New link on a new line"></textarea>
+                    </div>
+                </uib-accordion>
+            </uib-tab>
+            <uib-tab index="2" heading="Branding">
+                <h2 class="ta-center">Branding</h2>
+                <uib-accordion close-others="false" class="accordeoner">
+                    <div uib-accordion-group class="panel-default" heading="The website you want to promote." is-open="true">
+                        <div class="form-group">
+                            <input class="form-control" type="text" ng-model="vm.website" placeholder="http://mysite.com"/>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Giveaway prizes" is-open="true">
+                        <h3>Total market price for the prizes of your campaign should be more than <b>${{vm.users*0.03}}</b></h3>
+                        <div ng-click="vm.checkAllMoney()">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios1" value="1" ng-model="vm.prizes" checked>
+                                    Use any prizes as you see fit
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" name="optionsRadios" id="optionsRadios2" value="2" ng-model="vm.prizes">
+                                    I want to provide and deliver to the winners my own prizes
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="row" ng-show="vm.prizes == 2">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Name</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" ng-model="vm.newPrizeName" placeholder="Name"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Price per item ($)</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="text" ng-model="vm.newPrizePrise" placeholder="0"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Quantity</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control" type="number" ng-model="vm.newPrizeQuantity" placeholder="0"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">Download cover</label>
+                                    <div class="col-sm-10">
+                                        <input class="div-margin-auto" type="file" nv-file-select="" uploader="vm.uploader">
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="form-group" ng-show="vm.uploader.queue.length > 0">
+                                <div class="row">
+                                    <table class="table">
+                                        <thead>
+                                        <tr class="ta-center">
+                                            <td>Name</td>
+                                            <td>Size</td>
+                                            <td>Download</td>
+                                            <td>Status</td>
+                                            <td>Delete</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr class="ta-center" ng-repeat="item in vm.uploader.queue">
+                                            <td>
+                                                <strong>{{item.file.name}}</strong>
+                                            </td>
+                                            <td><span ng-class="{'color-red' : item.file.size/1024/1024 > 5 }">{{ item.file.size/1024/1024|number:2 }} MB</span></td>
+                                            <td>
+                                                <div class="progress">
+                                                    <uib-progressbar max="100" value="item.progress"><span>{{item.progress}} / {{100}}</span></uib-progressbar>
+                                                </div>
+                                            </td>
+                                            <td class="text-center">
+                                                <span ng-show="item.isSuccess"><i class="fa fa-check color-green"></i></span>
+                                                <span ng-show="item.isCancel"><i class="fa fa-ban color-orange"></i></span>
+                                                <span ng-show="item.isError"><i class="fa fa-exclamation-circle color-red"></i></span>
+                                            </td>
+                                            <td class="ta-center">
+                                                <button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">
+                                                    <span class="fa fa-trash"></span> Удалить
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="ta-center">
+                                <h3 ng-class="{'color-green' : vm.newPrizePrise*vm.newPrizeQuantity >= vm.users*0.03, 'color-red' : vm.newPrizePrise*vm.newPrizeQuantity < vm.users*0.03}">Total price: ${{vm.newPrizePrise*vm.newPrizeQuantity}}</h3>
+                                <div class="checkbox row">
+                                    <label>
+                                        <input type="checkbox" value="true" ng-model="vm.checkboxAgree">
+                                        I guarantee that the prizes would be sent to winners in 5 working days after I receive their contact details from StreamPub
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Background image" is-open="false">
+                        <h3>This is the branded background that would be seen to all giveaway participants and all stream viewers.</h3>
+                        <ul>
+                            <li>Length: 900px</li>
+                            <li>Width: 2000 px</li>
+                            <li>Format: JPG</li>
+                            <li>SIze: 300 kb.</li>
+                        </ul>
+                        <h4>Requirements and example</h4>
+                        <img src="/src/img/adv/1.jpg" class="img-thumbnail"/>
+                        <img src="/src/img/adv/2.jpg" class="img-thumbnail"/>
+                    </div>
+                    <div uib-accordion-group class="panel-default" heading="Welcome banner" is-open="false">
+                        <h3>This banner is seen by all giveaway participants who use StreamPub on monitors with more than 1200px resolution once they enter the competition.</h3>
+                        <ul>
+                            <li>Length: 600px</li>
+                            <li>Width: 1000 px</li>
+                            <li>Format: JPG, PNG</li>
+                            <li>Size: 50 kb</li>
+                        </ul>
+                        <h4>Requirements and example</h4>
+                        <img src="/src/img/adv/3.jpg" class="img-thumbnail"/>
+                    </div>
+                </uib-accordion>
+            </uib-tab>
+        </uib-tabset>
+        <hr/>
+        <div class="row itog">
+            <table class="table table-striped">
+                <tr>
+                    <td><h3>Required deposit BEFORE the campaign</h3></td>
+                    <td><h3>${{((vm.users * 0.03) + (vm.users * 0.3 * vm.cdPrice) + vm.addCost + vm.users*vm.targetPrice) | number:2}}</h3></td>
+                </tr>
+                <tr>
+                    <td><small>What is included:</small></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>{{vm.users}} guaranteed participants</b></td>
+                    <td><b>${{vm.users * 0.03 | number:0}}</b></td>
+                </tr>
+                <tr>
+                    <td><small>Price per participant $0.03</small></td>
+                    <td></td>
+                </tr>
+                <tr ng-show="vm.tabs != 0 && (vm.countLang > 0 || vm.countGames > 0 || vm.countPlatform > 0)">
+                    <td><b>Targeting by
+                        <span ng-show="vm.countLang > 0">language</span>
+                        <span ng-show="vm.countGames > 0 && vm.countLang > 0">,</span>
+                        <span ng-show="vm.countGames > 0">game</span>
+                        <span ng-show="vm.countPlatform > 0">,</span>
+                        <span ng-show="vm.countPlatform > 0">platform</span>
+                        </b>
+                    </td>
+                    <td><b>${{vm.users * vm.targetPrice | number:0}}</b></td>
+                </tr>
+                <tr ng-show="vm.tabs != 0 && (vm.countLang > 0 || vm.countGames > 0 || vm.countPlatform > 0)">
+                    <td><small>Additional targeting payment ${{vm.targetPrice}} per participant</small></td>
+                    <td></td>
+                </tr>
+                <tr ng-show="vm.tabs == 2 && vm.prizes == 1">
+                    <td><b>Prizes for the campaign</b></td>
+                    <td><b>${{vm.users*0.03}}</b></td>
+                </tr>
+                <tr ng-show="vm.tabs == 2  && vm.prizes == 1">
+                    <td><small>Prizes are delivered to giveaway winners by StreamPub team after the campaign</small></td>
+                    <td></td>
+                </tr>
+                <tr ng-show="vm.tabs == 2  && vm.prizes == 2">
+                    <td><b>I send prizes to the winners at my own expense</b></td>
+                    <td><b>$0</b></td>
+                </tr>
+                <tr>
+                    <td><h3>Forecasted payment AFTER the campaign</h3></td>
+                    <td><h3>${{(vm.users * 0.3 * vm.cdPrice) | number:0}}</h3></td>
+                </tr>
+                <tr>
+                    <td><small>Details:</small></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><b>{{vm.users * 0.3 * vm.cdCount}} performed actions</b></td>
+                    <td><b>${{(vm.users * 0.3 * vm.cdPrice) | number:0}}</b></td>
+                </tr>
+                <tr>
+                    <td><small>On average 30% of participants perform target actions</small></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><h3>Maximum campaign budget</h3></td>
+                    <td><h3>${{vm.users * 0.6 * vm.cdPrice + vm.users*vm.targetPrice + vm.addCost | number:0}}</h3></td>
+                </tr>
+                <tr>
+                    <td><small>This is the max amount that you’ll pay us no matter how viral the campaign grows</small></td>
+                    <td></td>
+                </tr>
+
+            </table>
+        </div>
+        <!--<div class="row ta-center">
+            <h3>Required deposit to start the campaign: ${{((vm.users * 0.03) + (vm.users * 0.3 * vm.cdPrice) + vm.addCost) | number:2}}</h3>
+        </div>
+        <div class="row itog">
+            <div class="col-lg-6">
+                <h4><b>Guaranteed</b></h4>
+                <h4><b>{{vm.users}}</b> participants for <b>${{vm.users * 0.03 | number:0}}</b></h4>
+                <h4>Price per participant: <b>${{vm.finalCost | number:2}}</b></h4>
+            </div>
+            <div class="col-lg-6">
+                <h4><b>Forecasted</b></h4>
+                <h4><b>{{vm.users * 0.3 * vm.cdCount}}</b> performed actions for <b>${{(vm.users * 0.3 * vm.cdPrice) | number:0}}</b></h4>
+                <span style="font-size: 18px" uib-tooltip="This is the maximum amount which would be deducted from your account no matter how many target actions you get performed." tooltip-placement="top">Maximum budget: <b>${{vm.users * 0.6 * vm.cdPrice | number:0}}</b></span>
+            </div>
+        </div>-->
+        <hr/>
+        <div class="row ta-center">
+            <button class="btn btn-lg btn-danger" ng-click="vm.tabs = vm.tabs - 1" ng-hide="vm.tabs == 0">Back</button>
+            <button class="btn btn-lg btn-success" ng-click="vm.tabs = vm.tabs + 1" ng-hide="vm.tabs == 2">Next</button>
+            <button ng-show="vm.prizes == 1" class="btn btn-lg btn-info" ng-disabled="!vm.website" ng-show="vm.tabs == 2" ng-click="vm.sendReport()">LAUNCH CAMPAIGN</button>
+            <button ng-show="vm.prizes == 2" class="btn btn-lg btn-info" ng-disabled="vm.newPrizePrise*vm.newPrizeQuantity < vm.users*0.03 || !vm.checkboxAgree || !vm.website" ng-show="vm.tabs == 2" ng-click="vm.uploader.uploadAll()">LAUNCH CAMPAIGN</button>
+        </div>
+    </div>
+</div>

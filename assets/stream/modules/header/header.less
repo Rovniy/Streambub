@@ -1,0 +1,292 @@
+@header-height: 60px; // высота header'а
+@lk-height: 60px; //высота блока лк
+@lk-height-username: (@lk-height - 8px) / 2; // @lk-height/2
+
+#header {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  .form-control {
+    min-width:20px;
+    width:auto;
+  }
+  .logo-header {
+    height: @header-height;
+    padding:0;
+    background:url('/src/img/base/logo.png') 50% 45% no-repeat;
+    transition: .2s;
+    a {
+      display:block;
+      width:100%;
+      height:100%;
+    }
+    &:hover {
+      transition: .2s;
+      filter: saturate(150%) blur(0);
+    }
+  }
+  .main-menu {
+    padding:0;
+    ul {
+      padding:0;
+      margin:0;
+      li {
+        list-style: none;
+        display: inline-block;
+        margin:0 10px;
+        a {
+          font:italic 1.4rem/60px @f-head;
+          color: @color-semi;
+          text-decoration: none;
+          transition: 1s;
+          display: block;
+          height: @header-height;
+          text-shadow: none;
+        }
+        .dropdown {
+          .dropdown-menu {
+            border-radius: 0;
+            margin: 0;
+            padding:5px;
+            background: #000;
+            left: -24px;
+            li {
+              display: list-item;
+              background: none;
+              border: none;
+              margin:0;
+              a {
+                font:1rem/1.5rem @f-main;
+                color: #fff;
+                text-transform: none;
+                padding: 3px 5px;
+                height: auto;
+                line-height: 30px;
+                vertical-align: middle;
+                i {
+                  width:20px;
+                  text-align: center;
+                  margin: 0 5px 0 0;
+                  color: #fff;
+                }
+                &:hover {
+                  text-shadow: none;
+                  i {
+                    text-shadow: none;
+                    color: @orange-color-hover;
+                  }
+                }
+              }
+              &:hover {
+                a {
+                  border: none;
+                  outline: none;
+                  color: #000;
+
+                }
+              }
+            }
+          }
+
+        }
+        &:hover, &:focus {
+          a {
+            transition: .2s;
+            outline: none;
+            text-shadow: 0px 0px 16px rgba(255, 161, 0, 1);
+            color: @orange-color-hover;
+            i {
+              transition: .2s;
+              color: @orange-color-hover;
+            }
+            .badge {
+              transition: .2s;
+              background: @orange-color-hover;
+            }
+          }
+        }
+      }
+      .rupor {
+        position: relative;
+        a {
+          i {
+            transition: 1s;
+          }
+          .badge {
+            transition: 1s;
+            font: 1rem/1rem @f-main;
+            color: #fff;
+            margin-left:5px;
+            background: @orange-color;
+          }
+        }
+        .active {
+          i {
+            color: @color-main;
+          }
+        }
+        .inactive {
+          cursor: default;
+          i {
+            color: #999;
+          }
+        }
+        &:hover, &:focus {
+          .active {
+            i {
+              color: @orange-color-hover;
+            }
+          }
+          .inactive {
+            text-shadow: none;
+            i {
+              color: #999;
+            }
+          }
+        }
+        .actions-list {
+          position: absolute;
+          top:100%;
+          left:-390px;
+          width:450px;
+          height: auto;
+          background: #fff;
+          border:1px solid @orange-color;
+        }
+
+      }
+      .separator {
+        width:10px;
+        height: 60px;
+        margin:0 5px;
+        display: inline-block;
+        vertical-align: top;
+        background: url('/src/img/modules/header/separator.png') center no-repeat;
+      }
+    }
+  }
+  .lk-header {
+    height: @header-height;
+    padding: 0;
+    .user-info {
+      padding:0;
+      margin:0;
+      li {
+        margin: 0 5px;
+        display: inline-block;
+        .my-balance {
+          padding: 0;
+          margin:0;
+          font:italic 1.3rem/@header-height @f-head;
+          color: #fff;
+          text-transform: uppercase;
+          display: inline-block;
+          vertical-align: middle;
+          b {
+            color: @orange-color
+          }
+        }
+        .my-menu {
+          a {
+            vertical-align: middle;
+            font: 1rem/@header-height @f-main;
+            color: #fff;
+            text-transform: uppercase;
+            display: block;
+            &:hover, &:active, &:focus {
+              text-decoration: none;
+              border-bottom: none;
+              color: @orange-color-hover;
+            }
+          }
+          .dropdown-menu {
+            border-radius: 0;
+            margin: 0;
+            right: -5px;
+            left: inherit;
+            background: #000;
+            li {
+              display: list-item;
+              background: none;
+              border: none;
+              a {
+                font:1rem/1.5rem @f-main;
+                color: #fff;
+                text-transform: none;
+                padding: 3px 5px;
+                i {
+                  width:20px;
+                  text-align: center;
+                  margin: 0 5px 0 0;
+                }
+              }
+              &:hover {
+                a {
+                  border: none;
+                  outline: none;
+                  color: #000;
+
+                }
+              }
+            }
+          }
+        }
+      }
+      .separator {
+        color: #fff;
+      }
+    }
+    }
+  .header-enter-sait {
+      height:@lk-height;
+      margin:0 auto;
+      color: @color-main;
+      .enter-form {
+        margin: 0 10px;
+        a {
+          height:@lk-height;
+          display: block;
+          font:italic 1.4rem/60px @f-head;
+          color: @color-main;
+          transition: 1s;
+          i {
+            vertical-align: middle;
+            font-size: 18px;
+          }
+          &:hover {
+            transition: .2s;
+            outline: none;
+            text-shadow: 0px 0px 16px rgba(255, 161, 0, 1);
+            text-decoration: none;
+            color: @orange-color-hover;
+          }
+          &:focus {
+            color: inherit;
+            text-shadow:none;
+            outline: none;
+            text-decoration: none;
+          }
+        }
+        .color-orange {
+          color: @orange-color;
+          &:hover {
+            color: @orange-color-hover;
+          }
+        }
+      }
+    }
+  .offcanvas {
+    position: fixed;
+    top:0;
+    left:0;
+    bottom:0;
+    background: #ccccff;
+    width:300px;
+  }
+}
+.iAmAdmin {
+  margin-top: 30px;
+}

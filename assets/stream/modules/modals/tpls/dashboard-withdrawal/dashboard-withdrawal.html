@@ -1,0 +1,21 @@
+<div ng-controller="dashboardWithdrawalController as vm" id="dashboardWithdrawal">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="$dismiss()"><i class="fa fa-close"></i></button>
+        <h3 class="modal-title ta-center">Вывод средств</h3>
+    </div>
+    <div class="modal-body">
+        <div ng-if="vm.step1">
+            <h4 class="ta-center">Укажи сумму, которую ты хочешь вывести!</h4>
+            <h4 class="ta-center">Доступная сумма для вывода - <b>{{currentRate(vm.withdrawal)}}</b></h4>
+            <h4 class="ta-center">Минимальная сумма для вывода - 100 руб.</h4>
+            <input class="form-control" type="text" ng-model="vm.withdrawalValue" placeholder="Сумма для вывода"/>
+        </div>
+        <div class="ta-center" ng-if="!vm.step1">
+            <h4>Наш менеджер свяжется с тобой в ближайшее время для уточнения деталей вывода средств</h4>
+        </div>
+    </div>
+    <div class="modal-footer ta-center" ng-if="vm.step1">
+        <button class="btn btn-success" ng-disabled="vm.withdrawalValue == 0" type="submit" ng-click="vm.goWithdrawal(vm.withdrawalValue)">Отправить заявку</button>
+    </div>
+
+</div>

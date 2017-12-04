@@ -1,0 +1,248 @@
+<div ng-controller="adminController as vm" class="admin-panel" ng-if="user.userData.role == 'ADMIN' && !widgetOpen" id="adminPanel">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="btn-group">
+                    <!-------- РОЗЫГРЫШИ ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-warning btn-sm" uib-dropdown-toggle>
+                            Розыгрыши & Призы <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href="/admin/raffles/raffleslist">Список розыгрышей</a></li>
+                            <li role="menuitem"><a href="/admin/raffles/createraffle">Создать розыгрыш</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a href="/admin/gifts/list">Список призов</a></li>
+                            <li role="menuitem"><a href="/admin/gifts/add">Добавить приз</a></li>
+                        </ul>
+                    </div>
+
+
+                    <!-------- КАМПАНИИ ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-info btn-sm" uib-dropdown-toggle>
+                            Кампании & Спонсоры <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href="/admin/ads/companylist">Список кампаний</a></li>
+                            <li role="menuitem"><a href="/admin/ads/createcompany">Создать кампанию</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a href="/admin/sponsors/list">Список спонсоров</a></li>
+                            <li role="menuitem"><a href="/admin/sponsors/add">Добавить спонсора</a></li>
+                        </ul>
+                    </div>
+
+
+                    <!-------- СТРИМЕРЫ ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-danger btn-sm" uib-dropdown-toggle>
+                            Стримеры & Игры<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href="/admin/users/list">Список пользователей</a></li>
+                            <li role="menuitem"><a href="/admin/streamers/list">Список стримеров</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a href="/admin/creators/list">Аккаунты стримеров</a></li>
+                            <li role="menuitem"><a href="/admin/streamers/add">Добавить стримера</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a href="/admin/games">Игры на платформе</a></li>
+                            <li class="divider"></li>
+                            <li role="menuitem"><a href="/admin/tracking/list">Список каналов для отслеживания</a></li>
+                            <li role="menuitem"><a href="/admin/tracking/add">Добавить канал</a></li>
+                        </ul>
+                    </div>
+
+                    <!-------- НОВОСТИ ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-success btn-sm" uib-dropdown-toggle>
+                            Новости <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href="/admin/news/list">Список новостей</a></li>
+                            <li role="menuitem"><a href="/admin/news/create">Создать запись</a></li>
+                        </ul>
+                    </div>
+
+                    <!-------- МОДАЛКИ ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-info btn-sm" uib-dropdown-toggle>
+                            Модалки <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href ng-click="vm.raffleOpenHelloModal()">Hello-banner (inRaffle)</a></li>
+                            <li role="menuitem"><a href ng-click="vm.raffleShowYoutube()">Youtube видео (inRaffle)</a></li>
+                            <li role="menuitem"><a href ng-click="vm.openLoginModal()">Окно входа</a></li>
+                            <li role="menuitem"><a href ng-click="vm.openRegistrationModal()">Окно регистрации</a></li>
+                            <li role="menuitem"><a href ng-click="vm.openRestoreModal()">Окно восстановления пароля</a></li>
+                            <li role="menuitem"><a href ng-click="vm.emulateRaffleProcess('simple')">Простой розыгрыш</a></li>
+                            <li role="menuitem"><a href ng-click="vm.emulateRaffleProcess('full')">Полный розыгрыша</a></li>
+                            <li role="menuitem"><a href ng-click="vm.faqRaffleInfo()">FAQ по розыгрышу</a></li>
+                            <li role="menuitem"><a href ng-click="vm.advRegistration()">Регистрация рекламодателя</a></li>
+                            <li role="menuitem"><a href ng-click="vm.firstsession()">Пояснялка в розыгрыше</a></li>
+                            <li role="menuitem"><a href ng-click="vm.modalCpaLongResponse()">Долгий ответ</a></li>
+                            <li role="menuitem"><a href ng-click="vm.modalUploadImage()">Загрузкик файлов</a></li>
+                        </ul>
+                    </div>
+
+                    <!-------- Разное ----------->
+                    <div class="btn-group" uib-dropdown>
+                        <button type="button" class="btn btn-warning btn-sm" uib-dropdown-toggle>
+                            Разное <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                            <li role="menuitem"><a href="/widget/obsoverlay/ceh9">Виджет OBS</a></li>
+                            <li role="menuitem"><a href="/video/kGy823kgmeD/123/fhwtUW9dXrA">Демонстрация видео</a></li>
+                            <li role="menuitem"><a href="/wizard">Wizard</a></li>
+                            <li role="menuitem"><a href="/streamer">Для стримеров</a></li>
+                            <li role="menuitem"><a href="/admin/tags">SPLAT</a></li>
+                            <li role="menuitem"><a href="/admin/projects/vikings">Викинги</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <p class="pull-right version">version {{vm.config.version}}</p>
+            </div>
+        </div>
+<script>
+
+
+</script>
+
+    </div>
+
+</div>
+
+<script>
+    function checkFollow(){
+//        VK.Auth.login(function(response) {
+//            if (response.session) {
+//                /* Пользователь успешно авторизовался */
+//                console.log(response);
+//                console.log(response.session.user.id);
+//                if (response.settings) {
+//                    /* Выбранные настройки доступа пользователя, если они были запрошены */
+//                }
+//                VK.Api.call('users.getSubscriptions', {}, function (resp) {
+//                    console.log(resp);
+////            if (resp && resp.response) {
+////                response.response.uid = resp.response[0].uid;
+////            }
+//                });
+//            } else {
+//                /* Пользователь нажал кнопку Отмена в окне авторизации */
+//            }
+//        });
+        VK.Auth.login(function (resp) {
+            if (resp.session) {
+                /* Пользователь успешно авторизовался */
+//                console.log(response);
+                console.log(resp.session.user.id);
+                user_id = resp.session.user.id;
+
+                VK.Api.call('groups.join', {group_id:1}, function (resp) {
+                    console.log(resp);
+//            if (resp && resp.response) {
+//                response.response.uid = resp.response[0].uid;
+//            }
+                });
+            } else {
+                console.log("Not autorize", response);
+                /* Пользователь нажал кнопку Отмена в окне авторизации */
+            }
+        }, 1);
+
+
+    }
+
+    function subscribeVK(social,group_id) {
+        VK.Auth.getLoginStatus(function (response) {
+            if (response.session) {
+//                sentRespFromVk(social,{uid:response.session.mid,groupId:group_id});
+                console.log({uid:response.session.mid,groupId:group_id});
+            } else {
+                VK.Auth.login(function (resp) {
+                    if (resp.session) {
+                        console.log({uid:resp.session.user.id,groupId:group_id});
+//                        sentRespFromVk(social,{uid:resp.session.user.id,groupId:group_id});
+                    } else {
+                        console.log("Not autorize", response);
+                    }
+                }, 1); //270336
+            }
+        });
+    }
+
+
+    function shareFB() {
+        FB.init({
+//            appId      : '1770916429852830',
+            appId      : '291413754554799',
+            status     : true,
+            xfbml      : false,
+            version    : 'v2.7'
+        });
+//        FB.getLoginStatus(function(response) {
+//            console.log(response);
+//            FB.logout(function(response) {
+//                console.log('Logged out.');
+//            });
+//        });
+//        FB.api('/me/likes/291413754554799', function(response) {
+//            console.log(response);
+//        });
+        FB.getLoginStatus(function(response) {
+            console.log(response);
+            if (response.status === 'connected') {
+                console.log('Logged in.');
+                console.log(response);
+//                                var uid = response.authResponse.userID;
+//                var accessToken = response.authResponse.accessToken;
+                FB.api('/me/likes/135468783150454', function(response) {
+                    console.log(response);
+                });
+            }
+            else {
+                FB.login(function(response){
+                    console.log(response);
+                    FB.api('/me/likes/135468783150454', function(response) {
+                        console.log(response);
+                    });
+//                }, {scope: 'public_profile'});
+               }, {scope: 'user_likes, email, public_profile'});
+            }
+        });
+
+//        FB.login(function(response) {
+//            console.log(response);
+//            if (response.authResponse) {
+//                console.log('Welcome!  Fetching your information.... ');
+//                FB.api('/me', function(response) {
+//                    console.log('Good to see you, ' + response.name + '.');
+//                });
+//            } else {
+//                console.log('User cancelled login or did not fully authorize.');
+//            }
+//        });
+
+//        FB.getLoginStatus(function(response) {
+//            if (response.status === 'connected') {
+//                // the user is logged in and has authenticated your
+//                // app, and response.authResponse supplies
+//                // the user's ID, a valid access token, a signed
+//                // request, and the time the access token
+//                // and signed request each expire
+//                var uid = response.authResponse.userID;
+//                var accessToken = response.authResponse.accessToken;
+//                console.log(uid +'////' +accessToken);
+//            } else if (response.status === 'not_authorized') {
+//                console.log(response);
+//                // the user is logged in to Facebook,
+//                // but has not authenticated your app
+//            } else {
+//                console.log(response);
+//                // the user isn't logged in to Facebook.
+//            }
+//        });
+    }
+
+
+</script>
