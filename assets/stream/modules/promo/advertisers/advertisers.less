@@ -54,6 +54,29 @@
         }
       }
     }
+    #our-clients {
+      border-top: 1px dashed darkgrey;
+      padding:40px 0 0 0;
+      h2 {
+        font: italic 2.5rem/2.5rem @f-head;
+        color: #000;
+        text-align: left;
+        margin: 0 0 40px 0;
+      }
+      .clients-logo {
+        margin: 0 0 20px 0;
+        .col-lg-3 {
+          text-align: center;
+          display: table-cell;
+          height: 100px;
+          img {
+            max-height: 100px;
+            max-width: 100%;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
     #adv-use {
       border-top: 1px dashed darkgrey;
       padding:40px 0 0 0;
@@ -109,7 +132,7 @@
         margin: 0 0 40px 0;
       }
       .row {
-        .col-lg-4 {
+        .col-lg-3 {
           a {
             text-decoration: none;
             outline:none;
@@ -118,6 +141,7 @@
             display: block;
             img {
               width: 100%;
+              max-width: 100%;
               opacity: .8;
             }
             h4 {
